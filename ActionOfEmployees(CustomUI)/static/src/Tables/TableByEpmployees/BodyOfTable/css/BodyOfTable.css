@@ -1,0 +1,28 @@
+
+.body{
+  background-color: rgb(245, 245, 245);
+}
+.body:hover{
+  transform: scale(1.0030);
+}
+
+td{
+  transition:all 10s ease-in-out;
+}
+.image{
+  width:32px;
+  height: 32px;
+  margin-left: 4px;
+}
+
+.numOfComments {
+  text-align: center;
+}
+
+.numOfCommits{
+  text-align: center;
+}
+
+.numOfpullRequests{
+  text-align: center;
+}

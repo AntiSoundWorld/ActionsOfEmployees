@@ -1,0 +1,27 @@
+#rangeForm{
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+#start{
+    padding: 5px 10px;
+    margin: 2px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+#end{
+    padding: 5px 10px;
+    margin: 2px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+#range-button{
+    margin-top: 1;
+}

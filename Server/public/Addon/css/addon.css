@@ -1,0 +1,46 @@
+.forms{
+    position:static;
+    text-align: center;
+}
+
+.error{
+    position: relative;
+    left: 20px;
+    color: red;
+}
+
+#email{
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+#password{
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+#comfirm-password{
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+#reg-button{
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    background-color:  greenyellow;
+    border-radius: 4px;
+    box-sizing: border-box;
+}

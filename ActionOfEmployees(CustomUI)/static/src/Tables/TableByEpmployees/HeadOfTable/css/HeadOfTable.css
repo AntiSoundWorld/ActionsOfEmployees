@@ -1,0 +1,21 @@
+th {
+    padding:5px;
+    background-color:green;
+    Color:white;
+}
+
+th text{
+    position: relative;
+    left: 30px;
+}
+.jira_comments {
+    text-align: center;
+}
+
+.bitBucket_Commits{
+    text-align: center;
+}
+
+.bitBucket_PullRequests{
+    text-align: center;
+}

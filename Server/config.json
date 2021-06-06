@@ -1,0 +1,13 @@
+{
+    "development": {
+        "port": 3003,
+        "errorTemplate": true,
+        "store": {
+            "adapter": "sequelize",
+            "dialect": "sqlite3",
+            "logging": false,
+            "type": "memory"
+        },
+        "localBaseUrl": "https://8e73a657e429.ngrok.io"
+    }
+}
