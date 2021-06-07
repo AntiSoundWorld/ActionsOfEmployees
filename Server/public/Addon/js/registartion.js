@@ -1,10 +1,11 @@
-    document.getElementById('reg-button').onclick = async () => {
+    document.querySelector('.reg-button').onclick = async () => {
 
         let form = document.getElementById('registartionForm');
         
         let email = document.getElementById('email').value;
 
         let password = document.getElementById('password').value;
+
         let comfirmPassword = document.getElementById('comfirm-password').value;
 
 

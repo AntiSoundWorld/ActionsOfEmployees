@@ -9,7 +9,6 @@ export default function routes(app){
     });
 
     app.get("/access_bitbucket", function(request, response){
-        // response.redirect("https://bitbucket.org/site/oauth2/authorize?client_id=gDd2kRzMDDKFM7Pdwg&response_type=token");
         response.redirect("https://bitbucket.org/site/oauth2/authorize?client_id=gDd2kRzMDDKFM7Pdwg&response_type=code");
     });
 
@@ -22,10 +21,9 @@ export default function routes(app){
 
         response.sendStatus(200);
         
-        
         app.get('/callback', ({query: {code}}, res) => {
             
-            registerUser(response, email, authorization, code);
+            registerUser(email, authorization, code);
             
             if (code === undefined) {
                 
@@ -34,6 +32,7 @@ export default function routes(app){
             }
     
         })
+
     });
 }
 

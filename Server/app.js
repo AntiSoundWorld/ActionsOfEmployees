@@ -8,7 +8,7 @@ import bodyParser from "body-parser";
 const app = express();
 const host = os.hostname();
 
-const port = 3003;
+const port = 8080;
 
 const __dirname = path.resolve(path.dirname(''));
 const viewsDir = path.join(__dirname, 'views');

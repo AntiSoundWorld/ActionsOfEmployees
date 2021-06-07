@@ -1,5 +1,6 @@
 import mysql from 'mysql';
 import request from 'request';
+import express from 'express';
 
 const connect = mysql.createConnection({
     host: "localhost",
@@ -81,7 +82,7 @@ export async function login(response, basicToken){
     });
 }
 
-export async function registerUser(response, email, authorization, code){
+export async function registerUser(email, authorization, code){
 
     console.log(email);
     console.log(authorization);
@@ -94,7 +95,7 @@ export async function registerUser(response, email, authorization, code){
         if(res.length !== 0){
             return;
         }
-          
+        
         request.post('https://bitbucket.org/site/oauth2/access_token', {
             form:{
                 client_id: "gDd2kRzMDDKFM7Pdwg",
