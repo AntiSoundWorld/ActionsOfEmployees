@@ -3,6 +3,7 @@ import './../css/BodyOfTable.css'
 
 export function BodyOfTable(props){
     
+ 
     return (
         <tr className='body'>
              <td>

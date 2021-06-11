@@ -14,6 +14,8 @@ function InfoPage(props){
     const[search, setSearch] = useState(null);
     const[dates, setDates] = useState(getDates());
     const[table, setTable] = useState(<LoadingScreen />);
+    const[body, setBody] = useState(<LoadingScreen />);
+    
 
     useEffect(() => {
         
@@ -36,11 +38,13 @@ function InfoPage(props){
        
     }, [usersInfo]);
     
+    
+
     return (
-        <div>
+        <div className="infoPage">
             <RangeDates dates={dates} setDates={setDates} search={search} accessToken={props.accessToken} setUsersInfo={setUsersInfo}/>
             <Search usersInfo={usersInfo} setSearch={setSearch} listOfUsers={listOfUsers} setListOfUsers={setListOfUsers}/>
-            <InitializedMyTable macket={listOfUsers}/>
+            <InitializedMyTable macket={listOfUsers} body={body}/>
         </div>
     )
 }

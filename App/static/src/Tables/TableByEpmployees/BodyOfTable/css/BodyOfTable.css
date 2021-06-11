@@ -1,13 +1,44 @@
 
 .body{
   background-color: rgb(245, 245, 245);
+  transition: 0.25;
+  animation: move 1s;
 }
+
+@keyframes move{
+
+  0%{
+      transform: translate(100%);
+  }
+  80%{
+      transform: translate(1%);
+  }
+  100%{
+      transform: translate(0%);
+  }
+}
+
 .body:hover{
   background-color: #3498db;
 }
 
 td{
   transition: all 10s ease-in-out;
+}
+.name{
+  width: 23.5%;
+}
+
+.jira_comments{
+  width: 23.5%;
+}
+
+.bitBucket_Commits{
+  width: 23.5%;
+}
+
+.bitBucket_PullRequests{
+  width: 23.5%;
 }
 
 .image{
@@ -27,4 +58,22 @@ td{
 
 .numOfpullRequests{
   text-align: center;
+}
+
+.hide{
+  animation: remove 5s;
+}
+
+@keyframes remove{
+
+  0%{
+      transform: translate(0%);
+  }
+  10%{
+    transform: translate(100%);
+  }
+  100%{
+      transform: translate(500%);
+  }
+
 }
