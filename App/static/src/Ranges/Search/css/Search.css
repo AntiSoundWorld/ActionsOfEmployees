@@ -9,6 +9,18 @@
   background-color: rgb(255, 255, 255);
   color: rgb(107, 119, 140);
   outline: none;
+  animation: load 5s;
+}
+
+@keyframes load{
+
+  0%{
+    width: 10px;
+    
+  }
+  100%{
+      width: 250px;
+  }
 }
 
 #search-button{

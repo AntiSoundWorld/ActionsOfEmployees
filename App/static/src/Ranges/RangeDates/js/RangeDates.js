@@ -55,7 +55,7 @@ function RangeDates(props){
             <p></p>
             <input id="end" type='date' name="end" label="End Date" defaultValue={props.dates.end} onChange={event => props.setDates(event.target.value)}/>
             <p></p>
-            <button id='range-button' onClick={onSubmitRange} >submit</button>
+            <button id='range-button' onClick={onSubmitRange} >range</button>
         </ form>
     );
 }

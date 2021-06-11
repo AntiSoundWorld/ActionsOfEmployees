@@ -61,7 +61,7 @@ td{
 }
 
 .hide{
-  animation: remove 5s;
+  animation: remove 30s;
 }
 
 @keyframes remove{
@@ -69,11 +69,11 @@ td{
   0%{
       transform: translate(0%);
   }
-  10%{
+  2%{
     transform: translate(100%);
   }
   100%{
-      transform: translate(500%);
+      transform: translate(1000%);
   }
 
 }

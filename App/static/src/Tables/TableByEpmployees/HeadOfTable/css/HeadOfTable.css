@@ -1,7 +1,22 @@
 th {
     padding:5px;
-    background-color: #3498db;
     Color:white;
+}
+
+#head{
+    background-color: #3498db;
+    animation: laod 5s;
+}
+
+@keyframes laod{
+
+    0%{
+        background-color: #ffffff;
+
+    }
+    100%{
+        background-color: #3498db;
+    }
 }
 
 th text{

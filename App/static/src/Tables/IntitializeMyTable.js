@@ -17,10 +17,10 @@ export function InitializedMyTable(props){
     return (
         <table className="table">
             <HeadOfTable />
-                {loading}
                 {props.macket.map((macket, index) => (
                     <BodyOfTable macket={macket} index={index}/>  
-            ))}
+                    ))}
+            {loading}
         </table>
     )
 }
