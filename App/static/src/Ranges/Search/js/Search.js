@@ -1,32 +1,26 @@
-import { invoke } from '@forge/bridge';
 import React, { useState } from 'react';
+import { correctFilter } from '../correctFilter';
 import './../css/Search.css'
 
 function Search(props){
     
     async function search(){
 
+       
         let search = document.getElementById('searchEmployee').value;
         
         if(search.length === 0){
             props.setListOfUsers(props.usersInfo);
             return;
         }
-        window.open('./Authorize.js', '_blank')
-        props.setListOfUsers(props.usersInfo.filter(userInfo => userInfo.accountName === search));
-    }
 
-    function onSubmit(event){
-        event.preventDefault();
+        props.setListOfUsers(correctFilter(props.usersInfo, search));
     }
 
     return(
-        <form id='searchForm' onSubmit={onSubmit} >
-            <input id="searchEmployee" label="Search Employee" name="name" placeholder='Search' onChange={event => event.target.value}/>
-            <p></p>
-            <button id='search-button' onClick={search} >Search</button>
-        </form>
+        <input id="searchEmployee" label="Search Employee" name="name" placeholder='Search' onInput={search}/>
     )
 }
+
 
 export default Search;

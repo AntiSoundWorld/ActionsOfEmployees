@@ -7,11 +7,11 @@ function LogInForm(props){
     
     return (
         <form id='mainLabel'>
-            <img 
+            {/* <img 
                 id='labelBitBucket'
                 src='https://upload.wikimedia.org/wikipedia/commons/f/fc/Bitbucket_Logo.png'
                 >
-            </img>
+            </img> */}
 
             <OAuth setUserBasicToken={props.setUserBasicToken}/>
             

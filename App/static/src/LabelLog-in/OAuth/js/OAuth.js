@@ -17,14 +17,29 @@ function OAuth(props){
     };
 
     return(
-        <div id='oauthForm'>
-            <input id='email' type="email" name="email" label="Email" defaultValue='antisoundworld@gmail.com'/>
-            <p></p>
-            <input id='password' type='password' name="password" label="password" defaultValue='qweasdzxc117'/>
-            <p></p>
-            <button id='auth-button' onClick ={onSubmitAuthorize}>Отправить</button>
+        <div class="main-form">
 
-            </ div>
+        <div class="label">
+            <h1>Actions Of Emplyees</h1>
+                <text>Login</text>
+            </div>
+            
+            <form class="box">
+
+                <div class="inputs">
+                    <i class="fas fa-user"></i>
+                    <input id="email" type="email" name="" placeholder="email"></input>
+                </div>
+
+                <div class="inputs">
+                    <i class="fas fa-lock"></i>
+                    <input id="password" type="password" name="" placeholder="Password"></input>
+                </div>
+
+                <button class="reg-button" onClick={onSubmitAuthorize}>submit</button>
+
+            </form>
+      </div>
     )
 }
 

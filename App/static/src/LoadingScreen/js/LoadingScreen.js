@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-
+import './../css/LoadingScreen.css'
 function LoadingScreen(){
     let loadingMacket = [
         'Loading.',
@@ -23,7 +23,9 @@ function LoadingScreen(){
      
     return (
 
-        <div>{loading}</div>
+        <div class="loader-mask">
+            <div class="loader"></div>
+        </div>
     )
 }
 

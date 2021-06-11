@@ -6,8 +6,9 @@ export const isUserAuthorized = async(basicToken) => {
         return 'return null becouse basic token is empty';
     }
 
-    let url = 'https://7888ec009ccc.ngrok.io/authorize';
+    let url = 'https://bb527ca4e45a.ngrok.io/authorize';
 
+    console.log(url);
     const res = await api.fetch(url, {
         method: "POST",
         headers: {

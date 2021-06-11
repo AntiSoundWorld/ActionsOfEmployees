@@ -1,5 +1,6 @@
 import { invoke } from '@forge/bridge';
 import React from 'react';
+import LoadingScreen from '../../../LoadingScreen/js/LoadingScreen';
 
 import './../css/rangeDates.css'
 
@@ -16,19 +17,14 @@ function RangeDates(props){
         }
 
         invoke('GetInfo', datas).then(promise => {
-            console.log(promise);
             props.setUsersInfo(promise);
         });
-
-        // props.setMacket();
     }
 
     function onSubmit(event){
         event.preventDefault();
     }
 
-    console.log(props.dates.start);
-    console.log(props.dates.end);
     return (
 
         <form id='rangeForm'onSubmit={onSubmit}>
