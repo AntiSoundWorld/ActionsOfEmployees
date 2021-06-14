@@ -6,9 +6,8 @@ export const isUserAuthorized = async(basicToken) => {
         return 'return null becouse basic token is empty';
     }
 
-    let url = 'https://65804b484b15.ngrok.io/authorize';
+    let url = 'https://afternoon-plains-94807.herokuapp.com/authorize';
 
-    console.log(url);
     const res = await api.fetch(url, {
         method: "POST",
         headers: {

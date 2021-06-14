@@ -2,30 +2,31 @@ import mysql from 'mysql';
 import request from 'request';
 import express from 'express';
 
-const connect = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    database: "users",
-    password: "Qweasdzxc117!"
+const connect = mysql.createPool({
+    connectionLimit: 1000,
+    host: "us-cdbr-east-04.cleardb.com",
+    user: "b016795b00dacd",
+    database: "heroku_8466a9507463900",
+    password: "e8d1b35a"
 });
 
-connect.connect(err => {
+
+// connect.connect(err => {
     
-    if(err){
-        console.log(err);
+//     if(err){
+//         console.log(err);
 
-        return err;
-    }
-    else{
-        console.log('Database login successfull!');
-    }
-});
+//         return err;
+//     }
+//     else{
+//         console.log('Database login successfull!');
+//     }
+// });
 
-const selectDatabase = `USE users`;
+const selectDatabase = `USE heroku_8466a9507463900`;
 
 connect.query(selectDatabase, (err, res) => {
 
-    console.log(err);
     if(err){
         console.log('err mysql select database');
     }
@@ -41,6 +42,10 @@ export async function login(response, basicToken){
     
     connect.query(queryString, (err, res) => {
         
+        if(err){
+            console.log(err);
+        }
+
         if(res.length === 0){
             response.sendStatus(401);
             return;

@@ -19,7 +19,7 @@ body{
     position: absolute;
     top: 18%;
     left: 50%;
-    width: 315px;
+    width: 350px;
     height: 100px;
     transform: translate(-50%, -50%);
     display: block;
@@ -29,14 +29,14 @@ body{
 }
 
 .label h1{
-    position: relative;
+    width: 100%;
     margin: 5px;
     color: #025388;
 }
 
 .label text {
     position: absolute;
-    right: 0%;
+    right: 3%;
     color: #025388;
 }
 .inputs{

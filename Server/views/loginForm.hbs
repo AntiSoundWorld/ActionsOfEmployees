@@ -1,12 +1,34 @@
+<!DOCTYPE html>
 <html lang="">
   <head>
-    <title>LogIn</title>
-    <!-- CSS only -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <title>Login</title>
     <link rel="stylesheet" type="text/css" href="/Addon/css/addon.css">
+    <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
   </head>
-  <body>
-    <h1>Authorize success!</h1>
+  <body id="root">
+    <div class="main-form">
+
+          <div class="label">
+            <h1>Action Of Emplyees</h1>
+              <text>Login</text>
+          </div>
+          
+          <form class="box">
+
+              <div class="inputs">
+                <i class="fas fa-user"></i>
+                <input id="email" type="email" name="" placeholder="email">
+              </div>
+
+              <div class="inputs">
+                <i class="fas fa-lock"></i>
+                <input id="password" type="password" name="" placeholder="Password">
+              </div>
+
+              <button class="reg-button" type="submit">submit</button>
+
+          </form>
+        </div>
     <script src="/Addon/js/login.js" type="module"></script>
   </body>
 </html>

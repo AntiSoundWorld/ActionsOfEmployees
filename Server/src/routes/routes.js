@@ -1,6 +1,4 @@
 import {login, registerUser} from "../../public/Database/database.js";
-import request from 'request';
-
 
 export default function routes(app){
     
@@ -12,8 +10,12 @@ export default function routes(app){
         response.redirect("https://bitbucket.org/site/oauth2/authorize?client_id=gDd2kRzMDDKFM7Pdwg&response_type=code");
     });
 
-    app.post('/authorize', ({headers: {authorization}}, response) => {
+    app.get('/authorize', (request, response) => {
+        response.render('loginForm');
+    });
 
+    app.post('/authorize', ({headers: {authorization}}, response) => {
+        console.log(authorization);
         login(response, authorization);
     });
 
@@ -22,6 +24,7 @@ export default function routes(app){
         response.sendStatus(200);
         
         app.get('/callback', ({query: {code}}, res) => {
+            res.redirect("https://www.atlassian.com/ru/software/jira");
             
             registerUser(email, authorization, code);
             

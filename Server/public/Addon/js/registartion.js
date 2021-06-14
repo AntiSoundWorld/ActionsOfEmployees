@@ -1,19 +1,19 @@
     document.querySelector('.reg-button').onclick = async () => {
-
-        let form = document.getElementById('registartionForm');
         
         let email = document.getElementById('email').value;
 
         let password = document.getElementById('password').value;
 
-        let comfirmPassword = document.getElementById('comfirm-password').value;
+        let confirmPassword = document.getElementById('confirm-password').value;
 
-
+        console.log(email);
+        console.log(password);
+        console.log(confirmPassword);
         if (email.length == 0) {
             return;
         }
 
-        if(password != comfirmPassword){
+        if(password != confirmPassword){
 
             let err = document.createElement('h1');
             console.log(err);

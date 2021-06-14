@@ -1,14 +1,13 @@
 import express from "express";
-import http from "http";
-import os from 'os';
 import routes from "./src/routes/routes.js";
 import path from 'path'
-import bodyParser from "body-parser";
+import http from "http";
+import os from 'os';
 
 const app = express();
-const host = os.hostname();
 
-const port = 8080;
+const port = process.env.PORT || 9900;
+const host = os.hostname();
 
 const __dirname = path.resolve(path.dirname(''));
 const viewsDir = path.join(__dirname, 'views');
@@ -21,6 +20,11 @@ app.set("view engine", 'hbs');
 
 routes(app);
 
-const server = http.createServer(app).listen(port, () => {
-    console.log('server running at http://' + host + ':' + port);
-}) ;
+
+// const server = http.createServer(app).listen(port, () => {
+//     console.log('server running at http://' + host + ':' + port);
+// }) ;
+
+app.listen(port, () => {
+    console.log(`Server has been runing on ${port} port`);
+})
