@@ -5,6 +5,9 @@
   "private": true,
   "dependencies": {
     "axios": "^0.21.1",
+    "btoa": "^1.2.1",
+    "cors": "^2.8.5",
+    "dotenv": "^4.0.0",
     "esm-node": "^1.0.7",
     "express": "^4.17.1",
     "express-session": "^1.17.2",

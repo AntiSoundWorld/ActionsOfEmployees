@@ -17,7 +17,7 @@
         });
         
         if(response.status == 200){
-            window.open('/access_bitbucket', "_self");
+            window.open('/access', "_self");
         }
     };
 

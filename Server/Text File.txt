@@ -1,7 +1,7 @@
 mysql://
-b016795b00dacd
+b48ef97c1668cb
 :
-e8d1b35a
+53d6be7d
 @
 us-cdbr-east-04.cleardb.com
-/heroku_8466a9507463900?reconnect=true
+/heroku_0be61b588f3c3a2?reconnect=true

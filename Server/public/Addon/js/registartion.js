@@ -1,39 +1,59 @@
-    document.querySelector('.reg-button').onclick = async () => {
+    document.querySelector('.reg-button').onclick = async (event) => {
+        event.preventDefault();
         
         let email = document.getElementById('email').value;
-
+        
         let password = document.getElementById('password').value;
-
+        
         let confirmPassword = document.getElementById('confirm-password').value;
-
-        console.log(email);
-        console.log(password);
-        console.log(confirmPassword);
+        
         if (email.length == 0) {
             return;
         }
-
+        
         if(password != confirmPassword){
-
+            let form = document.querySelector('.box');
             let err = document.createElement('h1');
-            console.log(err);
             err.setAttribute('value', 'error');
             err.setAttribute('class', 'error');
-
+            
             form.appendChild(err);
             return;
         }
 
-        let basicToken = "Basic " + btoa(email + ":" + password);
+        let state = '';
+        
+        if (localStorage.getItem('state') === null) {
 
-        let response = await fetch(window.location.href + `registration?email=${email}`, {
-            method: 'POST',
-            headers: {
-                'Authorization': basicToken
-            }
-        });
+            var possible = email + password;
 
-        if(response.status == 200){
-            window.open('/access_bitbucket', "_self");
+            for (var i = 0; i < 3; i++){
+
+                state += possible.charAt(Math.floor(Math.random() * possible.length));
+                state = btoa(state);
+            } 
+
+            localStorage.setItem('state', state);
         }
+        else{
+            state = localStorage.getItem('state')
+        }
+
+        if (localStorage.getItem('basicToken') === null) {
+            
+            localStorage.setItem('basicToken', "Basic " + btoa(email + ":" + password))
+        }
+        
+        window.open(`/access?state=${state}&email=${email}&password=${password}`, "_self");
+        
+        // let response = await fetch(window.location.href + `registration?email=${email}`, {
+        //     method: 'POST',
+        //     headers: {
+        //         'Authorization': basicToken
+        //     }
+        // });
+
+        // if(response.status == 200){
+        //     window.open('/access', "_self");
+        // }
     };

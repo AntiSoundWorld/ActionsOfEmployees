@@ -149,6 +149,7 @@ function isUserAndProjectExist(fullInformation, info) {
 function countComments(dates, fullInformation, listOfUsers) {
     
     fullInformation.map(currentElement => {
+
         currentElement.commentInfo.map(commentInfo => {
                 
             listOfUsers.map(userElement => {

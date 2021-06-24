@@ -6,7 +6,7 @@ export const isUserAuthorized = async(basicToken) => {
         return 'return null becouse basic token is empty';
     }
 
-    let url = 'https://afternoon-plains-94807.herokuapp.com/authorize';
+    let url = 'https://actionsofemployees.herokuapp.com/authorize';
 
     const res = await api.fetch(url, {
         method: "POST",

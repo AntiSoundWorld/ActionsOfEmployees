@@ -21,10 +21,6 @@ resolver.define("GetInfo", async ({payload}) => {
    return usersInfo;
 });
 
-resolver.define('getText', (info) => {
-
-   return 'helloWorld'
-});
 
 resolver.define('GetMacketForRender', () => {
    

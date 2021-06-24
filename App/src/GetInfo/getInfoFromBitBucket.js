@@ -171,17 +171,15 @@ function countActions(dates, users, mackets, countVar) {
                                              if(userRepositoryName.repositoryName == currentRepositoryName.repositoryName && user.user.createdDate >= dates.start && user.user.createdDate <= dates.end){
                                                   userRepositoryName.actions.map(action => {
                                                        
+                                                       if(countVar == 'pullRequests'){
                                                             
-                                                            if(countVar == 'pullRequests'){
-                                                                 
-                                                                 action.numOfPullRequests ++
-                                                            }
+                                                            action.numOfPullRequests ++
+                                                       }
+                                                       
+                                                       if(countVar == 'commits'){
                                                             
-                                                            if(countVar == 'commits'){
-                                                                 
-                                                                 action.numOfCommits ++
-                                                            }
-
+                                                            action.numOfCommits ++
+                                                       }
                                                   });
                                              }
                                         });

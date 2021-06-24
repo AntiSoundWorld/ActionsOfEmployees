@@ -5,6 +5,89 @@ body{
     background: #f0f0f0;
 }
 
+.label-Bitbucket{
+    position: relative;
+    width: 35%;
+    margin: 10px;
+    height: 70vh;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    transition: 0.5s;
+}
+
+.stateBitBucket{
+    position: absolute;
+    top:50%;
+}
+
+
+.stateJira{
+    position: absolute;
+    top:50%;
+}
+
+.label-Bitbucket:hover{
+    border: 1px solid #770294;
+}
+
+#imgBitBucket{
+    position: absolute;
+    margin: 30px;
+    width: 350px; 
+    height: 50px;
+}
+
+#imgJira{
+    position: absolute;
+    margin: 10px;
+    width: 350px; 
+    height: 100px;
+}
+
+.labels{
+    display: flex;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+}
+
+#btn-bitBucket{
+    position: absolute;
+    width: 25%;
+    left: 36%;
+    bottom: 10px;
+    border-radius: 5px;
+    border: none;
+    height: 39px;
+}
+
+.label-jira{
+    position: relative;
+    width: 35%;
+    margin: 10px;
+    height: 70vh;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    transition: 0.5s;
+}
+
+#btn-jira{
+    position: absolute;
+    width: 25%;
+    left: 36%;
+    bottom: 10px;
+    border-radius: 5px;
+    border: none;
+    height: 39px;
+}
+.done{
+    background-color: greenyellow;
+}
+.label-jira:hover{
+    border: 1px solid #770294;
+}
 .box{
     position: absolute;
     width: 300px;
