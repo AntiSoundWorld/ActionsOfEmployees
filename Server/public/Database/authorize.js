@@ -1,6 +1,7 @@
 import connectDatebase from "./connectToDatebase.js";
 import request from 'request';
 import dotenv from 'dotenv';
+import btoa from 'btoa'
 dotenv.config();
 
 export default async function authorize(response, basicToken){
@@ -9,6 +10,7 @@ export default async function authorize(response, basicToken){
 
     const queryString = `SELECT basicToken FROM users WHERE basicToken='${basicToken}'`;
     
+
     connect.query(queryString, (err, res) => {
         
         if(err){
@@ -21,6 +23,7 @@ export default async function authorize(response, basicToken){
         }
         
         let getRefreshToken = `SELECT refresh_access_token_Bitbucket FROM users WHERE basicToken='${basicToken}'`;
+
         connect.query(getRefreshToken, (err, res) => {
             
             request.post('https://bitbucket.org/site/oauth2/access_token', {
@@ -35,8 +38,7 @@ export default async function authorize(response, basicToken){
                 
                 let data = JSON.parse(body);
                 
-                console.log(data['access_token']);
-                response.send(data['access_token']);
+                // response.send(data['access_token']);
                 
                 let query = `UPDATE users SET 
                 accessToken_BitBucket='${data['access_token']}', 
@@ -44,6 +46,19 @@ export default async function authorize(response, basicToken){
                 WHERE basicToken='${basicToken}'`
                 
                 connect.query(query, (err, res) => {
+                    
+                    if(err){
+                       console.log(err);
+                    }
+                    else{
+                        // response.sendStatus(204);
+                    }
+                })
+
+
+                let getAccessesTokens = `SELECT accessToken_BitBucket accessToken_Jira FROM users WHERE basicToken='${basicToken}'`
+
+                connect.query(getAccessesTokens, (err, res) => {
                     
                     if(err){
                         console.log(err);

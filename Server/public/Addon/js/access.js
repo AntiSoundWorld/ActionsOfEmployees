@@ -1,35 +1,40 @@
 let state = localStorage.getItem('state');
 
-setTimeout(async () => {
+let bitbucketAccess = document.querySelector('.access-successful-bitbucket');
+let jiraAccess = document.querySelector('.access-successful-bitbucket');
 
-    let bitucketDone = document.querySelector('.label-Bitbucket.done');
-    let JiraDone = document.querySelector('.label-jira.done');
-
-    if(bitucketDone === null){
-        let resB = await fetch(`/get_bitbucket_access_token`,{
-            headers:{
-                "Authorization": localStorage.getItem('basicToken')
-            }
-        });
-        if(resB.status === 200){
-            let bitbucket = document.querySelector('.label-Bitbucket');
-            bitbucket.classList.add('done');
+if(bitbucketAccess === null){
+    let resB = await fetch(`/is_bitbucket_accessToken_exist`,{
+        headers:{
+            "Authorization": localStorage.getItem('basicToken')
         }
+    });
+
+    if(resB.status === 200){
+
+        let bitbucket = document.querySelector('.no-access-bitbucket');
+        bitbucket.classList.remove('no-access-bitbucket');
+        bitbucket.classList.add('access-successful-bitbucket');
+        bitbucket.innerText = 'access-successful';
     }
+}
 
-    if(JiraDone === null){
-        let resJ = await fetch(`/get_jira_access_token`,{
-            headers:{
-                "Authorization": localStorage.getItem('basicToken')
-            }
-        });
+if(jiraAccess === null){
 
-        if(resJ.status === 200){
-            let jira = document.querySelector('.label-jira');
-            jira.classList.add('done');
+    let resJ = await fetch(`/is_jira_accessToken_exist`,{
+        headers:{
+            "Authorization": localStorage.getItem('basicToken')
         }
+    });
+
+    console.log('jira', resJ.status);
+    if(resJ.status === 200){
+        let jira = document.querySelector('.no-access-jira');
+        jira.classList.remove('no-access-jira');
+        jira.classList.add('access-successful-jira');
+        jira.innerText = 'access-successful';
     }
-}, 1000);
+}
 
 document.getElementById('btn-bitBucket').onclick = async () =>{
     window.open(`/access_bitbucket?state=${state}`);

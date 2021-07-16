@@ -1,0 +1,16 @@
+modules:
+  jira:adminPage:
+    - key: actionsofemployees-customui-hello-world-admin-page
+      resource: main
+      resolver:
+        function: resolver
+      title: ActionsofEmployees(CustomUI)
+  function:
+    - key: resolver
+      handler: index.handler
+resources:
+  - key: main
+    path: static/build
+app:
+  id: ari:cloud:ecosystem::app/158b6bc5-6774-4eb8-8062-af8c5eefe5ca
+  name: ActionOfEmployees(CustomUI)2

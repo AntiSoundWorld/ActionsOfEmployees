@@ -5,6 +5,10 @@ import path from 'path'
 import http from "http";
 import os from 'os';
 import cors from 'cors'
+import bodyParser from "body-parser";
+
+import dotenv from 'dotenv';
+dotenv.config();
 
 const app = express();
 
@@ -17,6 +21,10 @@ const staticDir = path.join(__dirname, 'public');
 
 app.use(cors());
 app.use(express.static(staticDir));
+app.use(bodyParser.json());
+// app.use(express.json({
+//     type: ['application/json', 'text/plain']
+// }))
 
 app.set('views', viewsDir);
 app.set("view engine", 'hbs');

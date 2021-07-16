@@ -44,16 +44,19 @@
             localStorage.setItem('basicToken', "Basic " + btoa(email + ":" + password))
         }
         
-        window.open(`/access?state=${state}&email=${email}&password=${password}`, "_self");
-        
-        // let response = await fetch(window.location.href + `registration?email=${email}`, {
-        //     method: 'POST',
-        //     headers: {
-        //         'Authorization': basicToken
-        //     }
-        // });
+        let response = await fetch(`https://actionsofemployees.herokuapp.com/registration`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body:JSON.stringify({
+                state: state,
+                email: email,
+                password: password
+            })
+        });
 
-        // if(response.status == 200){
-        //     window.open('/access', "_self");
-        // }
+        if(response.status == 201){
+            window.open('https://actionsofemployees.herokuapp.com/access', "_self");
+        }
     };

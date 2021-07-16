@@ -1,40 +1,30 @@
 import dotenv from 'dotenv';
+import refreshBitBucketAcesssToken from '../../../src/authorizationsAtlassian/refreshBitBucketAcesssToken.js';
 import connectDatebase from '../connectToDatebase.js';
+import isBasicTokenExist from '../isExist/isAccountExist.js';
+import updateBitBucketAccessToken from '../set/updateBitBucketAccessToken.js';
+import getBitBucketRefreshToken from './getBitbucketRefreshToken.js';
+import getState from './getState.js';
 dotenv.config();
 
-export default async function getBitBucketAccessToken(response, basicToken){
+export default async function getBitBucketAccessToken(basicToken){
+
+    const state = await getState(basicToken);
+    
+    const refreshToken = await getBitBucketRefreshToken(basicToken);
+
+    await refreshBitBucketAcesssToken(refreshToken, state);
 
     const connect = connectDatebase();
 
-    const queryString = `SELECT basicToken FROM users WHERE basicToken='${basicToken}'`;
-    
-    connect.query(queryString, (err, res) => {
-        
-        if(err){
-            console.log(err);
-        }
+    let status = isBasicTokenExist(basicToken);
+    if (status === 404) {
+        return
+    }
 
-        if(res.length === 0){
-            response.sendStatus(401);
-            return;
-        }
-        
-        let getRefreshToken = `SELECT accessToken_BitBucket FROM users WHERE basicToken='${basicToken}'`;
+    let getRefreshToken = `SELECT accessToken_BitBucket FROM users WHERE basicToken='${basicToken}'`;
 
-
-        connect.query(getRefreshToken, (err, res) => {
+    let [rows] = await connect.query(getRefreshToken);
+    return JSON.parse(JSON.stringify(rows[0].accessToken_BitBucket));
             
-            if(err){
-                console.log(err);
-            }
-
-            if(res[0].accessToken_BitBucket === null){
-                response.sendStatus(404);
-                return;
-            }
-            else{
-                response.sendStatus(200);
-            }
-        });
-    });
 }

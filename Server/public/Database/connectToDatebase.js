@@ -1,4 +1,4 @@
-import mysql from 'mysql';
+import mysql from 'mysql2';
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -9,6 +9,8 @@ const connect = mysql.createPool({
     database: process.env.DATEBASE,
     password: process.env.PASSWORD
 });
+
+const promisePool = connect.promise();
 
 const selectDatabase = `USE ${process.env.DATEBASE}`;
 
@@ -25,5 +27,5 @@ connect.query(selectDatabase, (err, res) => {
 
 export default function connectDatebase(){
     
-    return connect;
+    return promisePool;
 }

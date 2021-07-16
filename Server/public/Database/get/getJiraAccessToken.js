@@ -1,40 +1,26 @@
 import dotenv from 'dotenv';
+import refreshJiraAcesssToken from '../../../src/authorizationsAtlassian/refreshJiraAccessToken.js';
+import refreshJiraAcessToken from '../../../src/authorizationsAtlassian/refreshJiraAccessToken.js';
 import connectDatebase from '../connectToDatebase.js';
+import getJiraRefreshToken from './getJiraRefreshAccessToken.js';
+import getState from './getState.js';
 dotenv.config();
 
-export default async function getJiraAccessToken(response, basicToken){
+export default async function getJiraAccessToken(basicToken){
 
     const connect = connectDatebase();
 
-    const queryString = `SELECT basicToken FROM users WHERE basicToken='${basicToken}'`;
+    const state = await getState(basicToken);
+
+    const refreshToken = await getJiraRefreshToken(basicToken);
     
-    connect.query(queryString, (err, res) => {
-        
-        if(err){
-            console.log(err);
-        }
+    await refreshJiraAcesssToken(refreshToken, state);
 
-        if(res.length === 0){
-            // response.sendStatus(401);
-            return;
-        }
-        
-        let getRefreshToken = `SELECT accessToken_Jira FROM users WHERE basicToken='${basicToken}'`;
+    let accessToken = `SELECT accessToken_Jira FROM users WHERE basicToken='${basicToken}'`;
+    
+    const[rows, fields] = await connect.query(accessToken);
+    
+    const res = JSON.parse(JSON.stringify(rows));
 
-
-        connect.query(getRefreshToken, (err, res) => {
-            
-            if(err){
-                console.log(err);
-            }
-
-            if(res[0].accessToken_Jira === null || res[0].accessToken_Jira === undefined){
-                response.sendStatus(404);
-                return;
-            }
-            else{
-                response.sendStatus(200);
-            }
-        });
-    });
+    return res[0].accessToken_Jira;
 }
