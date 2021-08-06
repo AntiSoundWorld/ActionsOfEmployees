@@ -157,6 +157,9 @@ function getRepositoriesOfUser(user){
 
 function countActions(dates, users, mackets, countVar) {
 
+     // console.log('users', users);
+     // console.log('mackets', mackets);
+
      users.map(user => {
           mackets.map(currentUser => {
                if(user.user.accountId == currentUser.user.accountId ){
@@ -167,8 +170,8 @@ function countActions(dates, users, mackets, countVar) {
                                  
                                    userWorkspace.repositoriesName.map(userRepositoryName => {
                                         currentWorkspace.repositoriesName.map(currentRepositoryName => {
-                                           
-                                             if(userRepositoryName.repositoryName == currentRepositoryName.repositoryName && user.user.createdDate >= dates.start && user.user.createdDate <= dates.end){
+                                             
+                                             if(userRepositoryName.repositoryName == currentRepositoryName.repositoryName && currentUser.user.createdDate >= dates.start && currentUser.user.createdDate <= dates.end){
                                                   userRepositoryName.actions.map(action => {
                                                        
                                                        if(countVar == 'pullRequests'){
@@ -186,6 +189,7 @@ function countActions(dates, users, mackets, countVar) {
                                    });
                               }
                          });
+
                     })
                }
           })

@@ -57,6 +57,6 @@
         });
 
         if(response.status == 201){
-            window.open('https://actionsofemployees.herokuapp.com/access', "_self");
+            window.open(`https://actionsofemployees.herokuapp.com/access?state=${state}`, "_self");
         }
     };

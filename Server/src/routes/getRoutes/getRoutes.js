@@ -15,6 +15,7 @@ import collectInformation from "../../collector/GetInfo/collectInformation.js";
 import dotenv from 'dotenv';
 import updateActionsOfEmployees from '../../../public/Database/set/updateActionsOfEmployees.js'
 import getActionsOfEmplyees from "../../../public/Database/get/getActionsOfEmplyees.js";
+import getDomen from "../../../public/Database/get/getDomen.js";
 dotenv.config();
 
 export default function getRoutes(app){
@@ -31,11 +32,15 @@ export default function getRoutes(app){
         response.redirect(`https://bitbucket.org/site/oauth2/authorize?client_id=${process.env.BITBUCKET_CLIENT_ID}&state=${state}&response_type=code`);
     });
 
-    app.get('/access_jira', function({query: {state}}, response){
-        console.log(state);
 
-        response.redirect(`https://auth.atlassian.com/authorize?audience=api.atlassian.com&client_id=YJcRuME54tdrp5mrWHl2uhF48YeuyntE&scope=read%3Ajira-work%20read%3Ajira-user%20offline_access&redirect_uri=https%3A%2F%2F${process.env.DOMEN}%2Fcallback_jira&state=${state}&response_type=code&prompt=consent`)
-        // response.redirect(`https://auth.atlassian.com/authorize?audience=api.atlassian.com&client_id=YJcRuME54tdrp5mrWHl2uhF48YeuyntE&scope=read%3Ajira-work%20read%3Ajira-user%20offline_access&redirect_uri=https%3A%2F%2F${process.env.DOMEN}%2Fcallback_jira&state=${state}&response_type=code&prompt=consent`)
+    app.get("/access_confluence", function({query: {state}}, response){
+        response.redirect(`https://auth.atlassian.com/authorize?audience=api.atlassian.com&client_id=${process.env.JIRA_CLIENT_ID}&scope=read%3Aconfluence-content.summary%20read%3Aconfluence-space.summary%20read%3Aconfluence-props%20read%3Aconfluence-content.all%20read%3Aconfluence-user%20read%3Aconfluence-groups&redirect_uri=https%3A%2F%2F${process.env.DOMEN}%2Fcallback_jira&state=${state}&response_type=code&prompt=consent`);
+    });
+
+    app.get('/access_jira', function({query: {state}}, response){
+
+        response.redirect(`https://auth.atlassian.com/authorize?audience=api.atlassian.com&client_id=${process.env.JIRA_CLIENT_ID}&scope=read%3Ajira-work%20read%3Ajira-user%20offline_access&redirect_uri=https%3A%2F%2F${process.env.DOMEN}%2Fcallback_jira&state=${state}&response_type=code&prompt=consent`)
+        // response.redirect(`https://auth.atlassian.com/authorize?audience=api.atlassian.com&client_id=${process.env.JIRA_CLIENT_ID}&scope=read%3Ame%20read%3Aaccount&redirect_uri=https%3A%2F%2F${process.env.DOMEN}%2Fcallback_jira&state=${state}&response_type=code&prompt=consent`)
     });
     
     app.get('/authorize', (request, response) => {
@@ -44,12 +49,12 @@ export default function getRoutes(app){
 
     app.get('/callback_bitbucket', async ({query: {code, state}}, res) => {
 
-        // res.redirect("https://www.atlassian.com/ru/software/jira");
+        res.send("<script>window.close();</script>");
         
         if (code === undefined) {
             return;
         }
-        console.log(code, state);
+
         res.status(200).send();
 
         authorizationOnBitbucket(code, state);
@@ -57,7 +62,8 @@ export default function getRoutes(app){
     })
 
     app.get('/callback_jira', ({query: {code, state}}, res) => {
-        res.redirect("https://www.atlassian.com/ru/software/jira");
+        
+        res.send("<script>window.close();</script>");
         
         if (code === undefined) {
             return;
@@ -96,6 +102,7 @@ export default function getRoutes(app){
     });
 
     app.get('/is_account_exist', async ({headers: {authorization}}, response) => {
+        console.log(authorization);
         let status = await isBasicTokenExist(authorization);
         response.status(status).send();
     });
@@ -119,4 +126,19 @@ export default function getRoutes(app){
 
         response.json(data.actions);
     })
+    
+    app.get('/domen', async ({headers: {authorization}}, response) => {
+
+        console.log('domen = exist');
+        let status = await isBasicTokenExist(authorization);
+
+        if (status === 404) {
+            response.status(status).send();
+            return;
+        }
+
+        let domen = await getDomen(authorization)
+        console.log(domen);
+        response.json(domen);
+    });
 }

@@ -28,5 +28,5 @@ export default async function updateJiraAccessToken(datas, state){
         WHERE state='${state}'`
     }
     
-    connect.query(update);
+    await connect.query(update);
 }

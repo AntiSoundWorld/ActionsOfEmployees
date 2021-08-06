@@ -3,16 +3,16 @@ import { userLabel } from '../Makcets/getMacketInfo.js'
 import requestsToJira from '../Requests/requestsToJira.js'
 import { isAccountIdExistInList } from './Tools/tools.js';
 
-async function getInfoFromJira(dates, jiraAccess, jiraUrl) {
+async function getInfoFromJira(dates, jiraAccess, jiraUrl, accessId) {
     
-    const jiraResponses = await requestsToJira(jiraAccess, jiraUrl);
+    const jiraResponses = await requestsToJira(jiraAccess, jiraUrl, accessId);
 
 
     let usersInfo = {
         users: getIdentityUsers(jiraResponses.users),
         comments: getInfoFromComments(dates, jiraResponses.comments)
     }
-    
+  
     return usersInfo;
 }
 
@@ -148,15 +148,15 @@ function isUserAndProjectExist(fullInformation, info) {
 }
 
 function countComments(dates, fullInformation, listOfUsers) {
-    
-    fullInformation.map(currentElement => {
 
+    fullInformation.map(currentElement => {
         currentElement.commentInfo.map(commentInfo => {
                 
             listOfUsers.map(userElement => {
                 userElement.commentInfo.map(comment => {
+                   
 
-                    if(userElement.user.accountId == currentElement.user.accountId && commentInfo.projectKey == comment.projectKey && currentElement.createdDate >= dates.start && currentElement.createdDate <= dates.end){
+                    if(userElement.user.accountId == currentElement.user.accountId && commentInfo.projectKey == comment.projectKey && userElement.createdDate >= dates.start && userElement.createdDate <= dates.end){
                         commentInfo.numOfComments++;
                     }
                 })
@@ -164,4 +164,4 @@ function countComments(dates, fullInformation, listOfUsers) {
         });
     });
 }
-export default getInfoFromJira
+export default getInfoFromJira;

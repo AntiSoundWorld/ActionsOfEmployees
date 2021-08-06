@@ -20,6 +20,17 @@ export default {
         padding:5px;
         Color:white;
     }
+    
+    th:first-child{
+        border-top-left-radius : 5px;
+        border-bottom-left-radius: 5px;
+        width: 5%;
+    }
+
+    th:last-child{
+        border-top-right-radius : 5px;
+        border-bottom-right-radius: 5px;
+    }
 
     #head{
         background-color: #3498db;

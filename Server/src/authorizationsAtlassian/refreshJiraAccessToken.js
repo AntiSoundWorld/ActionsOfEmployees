@@ -1,24 +1,28 @@
-import request from 'request';
+import fetch from 'node-fetch';
 import dotenv from 'dotenv';
 import updateJiraAccessToken from '../../public/Database/set/updateJiraAccessToken.js';
+import updateJiraAccessId from '../../public/Database/set/updateJiraAccessId.js';
 
-export default async function refreshJiraAcesssToken(refreshAccessToken, state){
+export default async function refreshJiraAccessToken(refreshAccessToken, state){
 
-    request.post('https://auth.atlassian.com/oauth/token', {
+
+    const promise = await fetch('https://auth.atlassian.com/oauth/token', {
+
+        method: "POST",
+
         headers:{
             'Content-Type': 'application/json'
         },
-        form:{
+
+        body: JSON.stringify({
             client_id: process.env.JIRA_CLIENT_ID,
             client_secret: process.env.JIRA_SECRET,
             "grant_type": "refresh_token",
             "refresh_token": refreshAccessToken,
-        }
-    },
-    function(error, meta, body){
-        
-        let datas = JSON.parse(body);
+        })
+    });
 
-        updateJiraAccessToken(datas, state);
-    })
+    const datas = await promise.json();
+
+    await updateJiraAccessToken(datas, state);
 }

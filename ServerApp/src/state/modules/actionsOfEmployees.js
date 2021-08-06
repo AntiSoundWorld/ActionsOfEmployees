@@ -19,18 +19,24 @@ export default {
 
             commit('updateList', [])
 
-            dispatch('collectInformation')
-            setTimeout(() =>{dispatch('getActionsOfEmployees')}, 5000)
+            dispatch('collectInformation');
+
+            setTimeout(() => {dispatch('getActionsOfEmployees')}, 5000)
         },
-        async collectInformation({getters}){
+        async collectInformation({dispatch, getters}){
+
             fetch(`https://actionsofemployees.herokuapp.com/collect_information`, {
+
                 method: "POST",
                 headers:{
                     'Authorization': `Basic ${localStorage.getItem('basicToken')}`,
                     'Content-Type': 'application/json'
                 },
+
                 body: JSON.stringify(getters.getDates)
             })
+
+            dispatch('setDomen',localStorage.getItem('basicToken'));
         },
         async getActionsOfEmployees({dispatch, commit}){
            

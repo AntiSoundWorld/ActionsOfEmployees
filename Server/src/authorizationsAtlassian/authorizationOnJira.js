@@ -19,11 +19,8 @@ export default async function authorizationOnJira(code, state){
         
         let datas = JSON.parse(body);
 
-        console.log(datas);
         updateJiraAccessToken(datas, state);
 
-        const urlDatas = await accessResourse(datas['access_token']);
-
-        updateUrlJira(urlDatas, datas['access_token']);
+        await accessResourse(datas['access_token']);
     })
 }

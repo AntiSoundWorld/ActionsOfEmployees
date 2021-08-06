@@ -11,7 +11,7 @@ export default async function isStateExist(state){
     const [rows] = await connect.query(queryString)
     
     if (rows.length === 0) {
-        return 404;
+        return 401;
     }
 
     return 200;

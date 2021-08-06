@@ -15,13 +15,20 @@ export default async function isJiraAccessTokenExist(basicToken){
 
     let getAccessTokenJira = `SELECT accessToken_Jira FROM users WHERE basicToken='${basicToken}'`;
     
-    let[accessTokenRows] = await connect.query(getAccessTokenJira);
+    
+    try{
+        let[accessTokenRows] = await connect.query(getAccessTokenJira);
+        
+            const accessToken = JSON.parse(JSON.stringify(accessTokenRows));
+            
+            if(accessToken[0].accessToken_Jira === null || accessToken[0].accessToken_Jira === 'undefined'){
+            
+                return 204;
+            }
 
-    const accessToken = JSON.parse(JSON.stringify(accessTokenRows));
-    
-    if(accessToken[0].accessToken_Jira === null || accessToken[0].accessToken_Jira === 'undefined'){
-    
-        return 204;
+    }
+    catch(err){
+        console.log(err);
     }
 
     return 200;

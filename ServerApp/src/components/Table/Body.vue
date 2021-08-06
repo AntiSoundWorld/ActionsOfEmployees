@@ -30,6 +30,16 @@ export default {
   animation: move 1s;
 }
 
+  td:first-child{
+    border-top-left-radius : 5px;
+    border-bottom-left-radius: 5px;
+  }
+
+  td:last-child{
+    border-top-right-radius : 5px;
+    border-bottom-right-radius: 5px;
+  }
+
 @keyframes move{
 
   0%{

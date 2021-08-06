@@ -1,16 +1,15 @@
 import fetch from 'node-fetch'
 
-export async function requestsToJira(accessToken, jiraUrl) {
+export async function requestsToJira(accessToken, jiraUrl, accessId) {
 
-    console.log('===================================', accessToken, jiraUrl);
-    let createmeta = await getCreatemeta(accessToken, jiraUrl); // createmeta.projects
+    let createmeta = await getCreatemeta(accessToken, jiraUrl, accessId); // createmeta.projects
 
     const jiraResponses = {
 
-        users: await getAllUsers(accessToken, jiraUrl, createmeta),
+        users: await getAllUsers(accessToken, jiraUrl, createmeta, accessId),
 
         comments: await Promise.all(createmeta.projects.map(project => {
-            return getDatasComments(accessToken, jiraUrl, project.key);
+            return getDatasComments(accessToken, jiraUrl, project.key, accessId);
         }))
     }
 
@@ -19,19 +18,19 @@ export async function requestsToJira(accessToken, jiraUrl) {
     return jiraResponses
 }
 
-export async function getAllUsers(accessToken, jiraUrl, createmeta){
+export async function getAllUsers(accessToken, jiraUrl, createmeta, accessId){
 
     return await Promise.all(createmeta.projects.map(project => {
 
-        return getUsers(accessToken, jiraUrl, project.key);
+        return getUsers(accessToken, jiraUrl, project.key, accessId);
 
     }))
 }
 
-export async function getCreatemeta(accessToken, jiraUrl){
+export async function getCreatemeta(accessToken, jiraUrl, accessId){
     
 
-    const res = await fetch(`${jiraUrl}/rest/api/2/issue/createmeta`, {
+    const res = await fetch(`https://api.atlassian.com/ex/jira/${accessId}/rest/api/2/issue/createmeta`, {
 
         headers:{
             'Authorization': `Bearer ${accessToken}`
@@ -45,7 +44,7 @@ export async function getCreatemeta(accessToken, jiraUrl){
 }
 
 
-const getUsers = async (accessToken, jiraUrl, key) => {
+const getUsers = async (accessToken, jiraUrl, key, accessId) => {
 
     let usersInfo = {
         projectName: key,
@@ -54,7 +53,7 @@ const getUsers = async (accessToken, jiraUrl, key) => {
 
     let url = '/rest/api/2/user/assignable/search?project=' + key;
 
-    const res = await fetch(`${jiraUrl}${url}`, {
+    const res = await fetch(`https://api.atlassian.com/ex/jira/${accessId}${url}`, {
         headers:{
             'Authorization': `Bearer ${accessToken}`
         }
@@ -80,7 +79,7 @@ const getSprint = async () => {
 
 }
 
-const getDatasComments = async (accessToken, jiraUrl, key) => {
+const getDatasComments = async (accessToken, jiraUrl, key, accessId) => {
 
     let status = 404;
 
@@ -95,7 +94,7 @@ const getDatasComments = async (accessToken, jiraUrl, key) => {
         
         let url = '/rest/api/3/issue/' + key + '-' + i + '/comment';
         
-        const res = await fetch(`${jiraUrl}${url}`, {
+        const res = await fetch(`https://api.atlassian.com/ex/jira/${accessId}${url}`, {
             headers:{
                 'Authorization': `Bearer ${accessToken}`
             }

@@ -2,6 +2,7 @@ import getBitBucketAccessToken from '../../../public/Database/get/getBitbucketAc
 import getJiraAccessToken from '../../../public/Database/get/getJiraAccessToken.js';
 import getJiraUrl from '../../../public/Database/get/getJiraUrl.js';
 import updateActionsOfEmployees from '../../../public/Database/set/updateActionsOfEmployees.js';
+import accessResourse from '../../authorizationsAtlassian/accessResourese.js';
 import GetMacketForRender, { info } from '../Makcets/getMacketForRender.js';
 import getInfoFromBitBucket from './getInfoFromBitBucket.js';
 import getInfoFromJira from './getInfoFromJira.js';
@@ -16,10 +17,12 @@ async function collectInformation(dates, basicToken){
         const jiraAccess = await getJiraAccessToken(basicToken);
     
         const jiraUrl = await getJiraUrl(basicToken);
-        
+
+        const accessId = await accessResourse(jiraAccess);
+
         const infoBitBucket = await getInfoFromBitBucket(dates, bitbcuketAccess);
     
-        const infoUsersJira = await getInfoFromJira(dates, jiraAccess, jiraUrl);
+        const infoUsersJira = await getInfoFromJira(dates, jiraAccess, jiraUrl, accessId);
     
         const actionsOfEmployees = initializeMacketForRender(infoUsersJira, infoBitBucket);
         

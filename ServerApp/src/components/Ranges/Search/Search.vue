@@ -1,5 +1,5 @@
 <template>
-        <input id="searchEmployee" label="Search Employee" name="name" placeholder='Search' @input="search" />
+        <input id="searchEmployee" label="Search Employee" name="name" placeholder='Search' autocomplete="off" @input="search" />
 </template>
 
 
