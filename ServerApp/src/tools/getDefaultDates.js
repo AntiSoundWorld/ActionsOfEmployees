@@ -1,3 +1,5 @@
+export default function getDefaultDates(){
+
     let date = new Date();
     
     let year = date.getFullYear()
@@ -23,3 +25,7 @@
         start: year + '-' + month + '-' + '01',
         end: year + '-' + month + '-' + endDay
     }
+
+    return dates;
+}
+   

@@ -1,5 +1,4 @@
 
-    
     document.getElementById('auth-button').onclick = async() => {
         
         let email = document.getElementById('email').value;
@@ -17,7 +16,7 @@
         });
         
         if(response.status == 200){
-            window.open('/access', "_self");
+            window.open('/access', "_blank");
         }
     };
 

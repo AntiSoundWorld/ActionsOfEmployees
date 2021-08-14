@@ -1,9 +1,9 @@
 <template>
     <div>
-        <Domen />
         <Search />
         <Dates />
         <Table />
+        <UpdateDatas />
     </div>
 </template>
 
@@ -12,15 +12,14 @@
 import Table from './Table/Table.vue'
 import Dates from './Ranges/Dates/Dates.vue'
 import Search from './Ranges/Search/Search.vue'
-import Domen from './Domen.vue'
+import UpdateDatas from './updateDatas/UpdateDatas.vue'
 
 export default {
-    
     components:{
-        // Domen,
         Table,
         Dates,
         Search,
+        UpdateDatas
     }
 }
 </script>

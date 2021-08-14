@@ -1,4 +1,3 @@
-import router from "../../router/router";
 
 export default {
     state:{
@@ -49,7 +48,7 @@ export default {
             })
 
             if(isJiraAcessExist.status === 204 || isBitbucketAccessExist.status === 204){
-                window.open('https://actionsofemployees.herokuapp.com/access');
+                window.open('https://actionsofemployees.herokuapp.com/access', '_self');
             }
 
             if(isJiraAcessExist.status === 200 && isBitbucketAccessExist.status === 200){

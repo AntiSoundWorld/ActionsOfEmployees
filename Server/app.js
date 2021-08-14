@@ -8,8 +8,6 @@ import cors from 'cors'
 import bodyParser from "body-parser";
 
 import dotenv from 'dotenv';
-import collectInformation from "./src/collector/GetInfo/collectInformation.js";
-import { getDates } from "./src/collector/GetInfo/Tools/tools.js";
 import startRequests from "./startRequests.js";
 dotenv.config();
 
@@ -32,7 +30,7 @@ app.set("view engine", 'hbs');
 getRoutes(app);
 postRoutes(app);
 
-startRequests();
+// startRequests();
 
 // const server = http.createServer(app).listen(port, () => {
 //     console.log('server running at http://' + host + ':' + port);

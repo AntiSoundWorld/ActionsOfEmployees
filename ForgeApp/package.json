@@ -11,6 +11,7 @@
     "@forge/api": "^1.0.1",
     "@forge/bridge": "^1.5.0",
     "@forge/resolver": "^1.1.0",
+    "axios": "^0.21.1",
     "oauth2orize": "^1.11.0",
     "substr-word": "^1.0.1"
   }

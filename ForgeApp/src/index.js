@@ -1,20 +1,17 @@
 import Resolver from '@forge/resolver';
-import getInfo from './GetInfo/getInfo';
-import { getDates } from './GetInfo/Tools/tools';
-import GetMacketForRender from './Makcets/getMacketForRender';
-import { send } from './Requests/getAcessToken';
-import { isUserAuthorized } from './Requests/requestsToServer';
+import IsAccessesExist from './requests/isAccessesExist/isAccessesExist.js';
+import isAccountExist from './requests/isAccountExist.js';
 
 const resolver = new Resolver();
 
-resolver.define("checkIsAuthorized", async ({payload}) => {
- 
+resolver.define("isAccountExist", async({payload}) => {
+    
+    return await isAccountExist(payload.basicToken);
 });
 
-resolver.define("GetInfo", async ({payload}) => {
-   
-  
-});
+resolver.define("isAccessesExist", async({payload}) => {
 
+    return IsAccessesExist(payload.basicToken);
+})
 
 export const handler = resolver.getDefinitions();

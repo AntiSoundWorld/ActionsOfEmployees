@@ -1,49 +1,3 @@
-<template>
-    <div class="main-form">
-
-          <div class="label">
-            <h1>Action Of Emplyees</h1>
-              <text>Login</text>
-          </div>
-          
-          <form class="box" v-on:submit="onSubmit">
-
-            <div class="inputs">
-                <i class="fas fa-user"></i>
-                <input id="email" type="email" name="" placeholder="email">
-            </div>
-
-            <div class="inputs">
-                <i class="fas fa-lock"></i>
-                <input id="password" type="password" name="" placeholder="Password">
-            </div>
-
-            <a class="registration" href="https://actionsofemployees.herokuapp.com/">registration</a>
-
-            <input class="reg-button" type="submit">
-
-          </form>
-        </div>
-</template>
-
-<script>
-import {mapActions} from 'vuex';
-
-export default {
-    methods:{
-        ...mapActions(['isAccountExist']),
-        async onSubmit(event){
-            event.preventDefault();
-            
-            const basicToken = btoa(`${event.target.email.value}:${event.target.password.value}`);
-
-            this.isAccountExist(basicToken);
-        },
-    },
-}
-</script>
-
-<style scoped>
 .box{
     position: absolute;
     width: 300px;
@@ -143,4 +97,3 @@ input[type = 'email'], input[type = 'password']{
 input:-webkit-autofill { 
     -webkit-background-clip: text;
 }
-</style>>
