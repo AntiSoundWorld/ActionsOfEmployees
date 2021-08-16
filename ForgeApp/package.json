@@ -1,18 +1,15 @@
 {
   "name": "forge-ui-starter",
-  "version": "1.1.0",
+  "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
   "private": true,
   "devDependencies": {
+    "eslint": "^6.5.1",
     "eslint-plugin-react-hooks": "^2.1.2"
   },
   "dependencies": {
-    "@forge/api": "^1.0.1",
-    "@forge/bridge": "^1.5.0",
-    "@forge/resolver": "^1.1.0",
-    "axios": "^0.21.1",
-    "oauth2orize": "^1.11.0",
-    "substr-word": "^1.0.1"
+    "@forge/api": "^2.2.0",
+    "@forge/resolver": "^1.2.0"
   }
 }

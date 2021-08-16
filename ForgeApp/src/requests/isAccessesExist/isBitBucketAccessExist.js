@@ -1,4 +1,4 @@
-import fetch from "node-fetch";
+import {fetch} from "@forge/api";
 
 export default async function IsBitBucketAccessExist(basicToken){
 
@@ -11,9 +11,7 @@ export default async function IsBitBucketAccessExist(basicToken){
         }
     });
 
-    const status = await res.status();
-
-    if(status === 200){
+    if(res.status === 200){
 
         isBitBucketAccessExist = true;
     }

@@ -10,7 +10,7 @@ modules:
       handler: index.handler
 resources:
   - key: main
-    path: static/build
+    path: static/actionsOfEmployees/build
 permissions:
   external:
     fetch:

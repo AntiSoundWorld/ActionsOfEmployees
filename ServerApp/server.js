@@ -10,12 +10,7 @@ const host = os.hostname();
 
 const __dirname = path.resolve(path.dirname(''));
 
-const corsOptions = {
-    origin: "https://antisoundworld.atlassian.net"
-}
-  
 const app = express();
-app.use(cors());
 
 app.use(express.static(__dirname + "/dist/"));
 

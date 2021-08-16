@@ -10,7 +10,7 @@ import {mapActions, mapGetters} from 'vuex';
 export default {
     methods:{
         ...mapActions(['getInformation']),
-        ...mapGetters(['getDates', 'getActualDates']),
+        ...mapGetters(['getDates', 'getCurrentDates']),
         onSubmit(){
             this.getInformation();
         },
@@ -22,7 +22,7 @@ export default {
 
             let userDateEnd = this.getDates().dates.end;
 
-            let actualDateEnd = this.getActualDates().dates.end;
+            let actualDateEnd = this.getCurrentDates().dates.end;
 
             if(userDateEnd === actualDateEnd){
                 isDateActual = false;

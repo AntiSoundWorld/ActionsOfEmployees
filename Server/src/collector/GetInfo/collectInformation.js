@@ -27,6 +27,7 @@ async function collectInformation(dates, basicToken){
         const actionsOfEmployees = initializeMacketForRender(infoUsersJira, infoBitBucket);
         
         updateActionsOfEmployees(actionsOfEmployees, basicToken);
+
     }
     catch(err){
         console.log(err);

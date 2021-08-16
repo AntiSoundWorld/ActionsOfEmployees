@@ -16,7 +16,9 @@ export default {
 }
 
 </script>
+
 <style scoped>
+
 #searchEmployee{
   width: 250px;
   height: 30px;

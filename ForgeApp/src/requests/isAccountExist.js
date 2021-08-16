@@ -1,4 +1,4 @@
-import fetch from "node-fetch";
+import {fetch} from "@forge/api";
 
 export default async function isAccountExist(basicToken){
 

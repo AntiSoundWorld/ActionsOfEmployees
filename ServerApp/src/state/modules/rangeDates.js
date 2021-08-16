@@ -1,10 +1,10 @@
 
 export default{
-    state:{
+    state: {
         dates: defaultDates(),
         currentDates: defaultDates()
     },
-    getters:{
+    getters: {
         getDates(state){
             return state.dates;
         },
@@ -12,12 +12,12 @@ export default{
             return state.currentDates;
         }
     },
-    actions:{
+    actions: {
         showDates(){
             console.log(getDefaultDates);
         }
     },
-    mutations:{
+    mutations: {
         updateDates(state, newDates){
             state.dates = newDates;
         }

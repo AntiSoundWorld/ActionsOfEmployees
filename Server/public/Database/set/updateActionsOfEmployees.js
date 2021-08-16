@@ -4,7 +4,6 @@ dotenv.config();
 
 export default async function updateActionsOfEmployees(actionsOfEmployess, basicToken){
 
-    console.log('actionsOfEmployess-------------------------', actionsOfEmployess);
     const connect = connectDatebase();
 
     let update = `UPDATE users SET 

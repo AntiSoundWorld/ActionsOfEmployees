@@ -16,6 +16,7 @@ import dotenv from 'dotenv';
 import updateActionsOfEmployees from '../../../public/Database/set/updateActionsOfEmployees.js'
 import getActionsOfEmplyees from "../../../public/Database/get/getActionsOfEmplyees.js";
 import getDomen from "../../../public/Database/get/getDomen.js";
+import isContentExist from "../../../public/Database/isExist/isActionsOfEmployeesExist.js";
 dotenv.config();
 
 export default function getRoutes(app){
@@ -86,8 +87,9 @@ export default function getRoutes(app){
         getAccesses(response, authorization);
     });
 
-    app.get('/get_state', ({headers: {authorization}}, response) => {
-        getState(response, authorization);
+    app.get('/get_state', async ({headers: {authorization}}, response) => {
+
+        response.json(await getState(authorization));
     });
 
     app.get('/is_bitbucket_accessToken_exist', async ({headers: {authorization}}, response) => {
@@ -127,9 +129,22 @@ export default function getRoutes(app){
         response.json(data.actions);
     })
     
+    app.get('/is_content_exist', async ({headers: {authorization}}, response) => {
+
+        let status = await isBasicTokenExist(authorization);
+
+        if (status === 404) {
+            response.status(status).send();
+            return;
+        }
+
+        let statusContent = await isContentExist(authorization);
+
+        response.status(statusContent).send();
+    });
+
     app.get('/domen', async ({headers: {authorization}}, response) => {
 
-        console.log('domen = exist');
         let status = await isBasicTokenExist(authorization);
 
         if (status === 404) {

@@ -1,4 +1,4 @@
-import fetch from "node-fetch";
+import {fetch} from "@forge/api";
 
 export default async function IsJiraAccessExist(basicToken){
 
@@ -11,9 +11,8 @@ export default async function IsJiraAccessExist(basicToken){
         }
     });
 
-    const status = await res.status();
 
-    if(status === 200){
+    if(res.status === 200){
 
         isJiraAccessExist = true;
     }

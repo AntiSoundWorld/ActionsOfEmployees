@@ -3,16 +3,12 @@ import IsJiraAccessExist from './isJiraAccessExist';
 
 export default async function IsAccessesExist(basicToken){
 
-    let isAccessesExist = false;
+    const accesses = {
 
-    const isBitBucketAccessExist = await IsBitBucketAccessExist(basicToken);
-
-    const isJiraAccessExist = await IsJiraAccessExist(basicToken); 
-
-    if(isBitBucketAccessExist && isJiraAccessExist){
+        isBitBucketAccessExist: await IsBitBucketAccessExist(basicToken),
         
-        isAccessesExist = true;
+        isJiraAccessExist:await IsJiraAccessExist(basicToken)
     }
 
-    return isAccessesExist;
+    return accesses;
 }

@@ -1,7 +1,7 @@
 let state = localStorage.getItem('state');
 
 let bitbucketAccess = document.querySelector('.access-successful-bitbucket');
-let jiraAccess = document.querySelector('.access-successful-bitbucket');
+let jiraAccess = document.querySelector('.access-successful-jira');
 
 if(bitbucketAccess === null){
 

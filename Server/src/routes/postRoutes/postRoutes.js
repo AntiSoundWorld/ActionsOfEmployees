@@ -27,8 +27,9 @@ export default function postRoutes(app){
 
     app.post('/collect_information', async ({body:{dates}, headers:{authorization}}, response) => {
 
-        console.log('collect_information', authorization);
-
+        console.log("authorization", authorization);
+        console.log("dates", dates);
+        
         const status = await isBasicTokenExist(authorization);
         
         if(status === 404){
