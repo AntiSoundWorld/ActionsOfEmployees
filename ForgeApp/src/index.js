@@ -5,11 +5,11 @@ import IsAccessesExist from './requests/isAccessesExist/isAccessesExist.js';
 import IsContentExist from './requests/isAccessesExist/isContentExist.js';
 import isAccountExist from './requests/isAccountExist.js';
 import CollectInformations from './requests/posts/collectInformations.js';
+import Registration from './requests/posts/registartion.js';
 
 const resolver = new Resolver();
 
 resolver.define("isAccountExist", async({payload}) => {
-    
     return await isAccountExist(payload.basicToken);
 });
 
@@ -37,5 +37,10 @@ resolver.define("getActionsOfEmployees", async({payload}) => {
 
     return await GetActionsOfEmployees(payload.basicToken);
 });
+
+resolver.define("registration", async({payload}) => {
+
+    return await Registration(payload.state, payload.email, payload.password );
+})
 
 export const handler = resolver.getDefinitions();

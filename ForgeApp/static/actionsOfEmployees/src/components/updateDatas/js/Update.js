@@ -10,7 +10,6 @@ export default function UpdateDatas(props){
         let button = document.getElementById("updateDatas");
 
         if (props.dates.end !== defaultDates().dates.end) {
-           
         
             button.disabled = true;
 
@@ -22,6 +21,7 @@ export default function UpdateDatas(props){
     }, [props.dates]);
 
     function Update(){
+        console.log('tap');
         props.setIsTrigerExist(false);
     }
     

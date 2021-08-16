@@ -104,7 +104,7 @@ export default function getRoutes(app){
     });
 
     app.get('/is_account_exist', async ({headers: {authorization}}, response) => {
-        console.log(authorization);
+        
         let status = await isBasicTokenExist(authorization);
         response.status(status).send();
     });

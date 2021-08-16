@@ -1,3 +1,7 @@
+body{
+    overflow: hidden;
+}
+
 .box{
     position: absolute;
     width: 300px;
@@ -65,22 +69,6 @@ input[type = 'email'], input[type = 'password']{
     border-color: #770294;
 }
 
-.registration{
-    position: relative;
-    top: -25px;
-    right: -80px;
-
-    background: none!important;
-    border: none;
-    padding: 0!important;
-    /*optional*/
-    font-family: arial, sans-serif;
-    /*input has OS specific font-family*/
-    color: #069;
-    text-decoration: underline;
-    cursor: pointer;
-}
-
 .reg-button{
     display: block;
     margin: 2px auto;
@@ -96,6 +84,21 @@ input[type = 'email'], input[type = 'password']{
     transition: 0.15s;
     color: white;
     font-weight: 600;
+}
+.login-btn{
+    position: relative;
+    top: -25px;
+    right: -80px;
+    
+    background: none!important;
+    border: none;
+    padding: 0!important;
+    /*optional*/
+    font-family: arial, sans-serif;
+    /*input has OS specific font-family*/
+    color: #069;
+    text-decoration: underline;
+    cursor: pointer;
 }
 .reg-button:hover{
     width: 135px;

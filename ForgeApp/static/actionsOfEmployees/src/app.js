@@ -4,7 +4,8 @@ import Accesses from './components/accesses/js/Accesses';
 import InfoPage from './components/infoPage/js/InfoPage';
 import LoginForm from './components/login/js/login';
 import defaultDates from './tools/tools';
-
+import Registration from "./components/registration/js/Registration";
+import Loading from "./components/loading/js/Loading";
 export default function App(){
 
     const[basicToken, setBasicToken] = useState(localStorage.getItem("basicToken"));
@@ -25,15 +26,23 @@ export default function App(){
 
     const[newList, setNewList] = useState([]);
 
+    const[isLoginTap, setIsLogInTap] = useState(null);
+
+    const[isRegistartionTap, setIsRegistartionTap] = useState(null);
+
     useEffect(() => {
         
+        console.log("basicToken", basicToken);
         if(basicToken === null){
-
-            setMainPage(<LoginForm setBasicToken={setBasicToken}/>);
+            
+            setMainPage(<LoginForm setBasicToken={setBasicToken} setIsRegistartionTap={setIsRegistartionTap}/>);
             return;
         }
+        
+        setMainPage(<Loading />);
 
         invoke('isAccountExist', {basicToken: basicToken}).then(isAccountExist => {
+            console.log("isAccountExist", isAccountExist);
             setIsAccountExist(isAccountExist);
         });
 
@@ -42,10 +51,14 @@ export default function App(){
 
     useEffect(() => {
 
-        if(isAccountExist === true){
+        if(isAccountExist){
+            
 
             localStorage.setItem("basicToken", basicToken);
 
+            invoke('getState', {basicToken: basicToken}).then(state => {
+                setState(state);
+            });
 
             setInterval(() => {
                 invoke('isAccessesExist', {basicToken: basicToken}).then(isAccessesExist => {
@@ -53,18 +66,11 @@ export default function App(){
                 });
             }, 5000);
         }
-    }, [isAccountExist]);
-
-    useEffect(() => {
-
-        if(state === null && basicToken != null){
-
-            invoke('getState', {basicToken: basicToken}).then(state => {
-                setState(state);
-            });
+       
+        if(isAccountExist === false){
+            setMainPage(<Registration setBasicToken={setBasicToken} setIsLogInTap={setIsLogInTap}/>); 
         }
-    },[state]);
-
+    }, [isAccountExist]);
 
     useEffect(() => {
 
@@ -87,15 +93,37 @@ export default function App(){
             setIsTrigerExist(true);
         }
         
-        if(accesses.isBitBucketAccessExist === false && accesses.isJiraAccessExist === false){
+        if(accesses.isBitBucketAccessExist === false || accesses.isJiraAccessExist === false){
+
             setMainPage(<Accesses accesses={accesses} state={state}/>);
         }
+
+        if(accesses.isBitBucketAccessExist && accesses.isJiraAccessExist){
+
+            setMainPage(<InfoPage setIsTrigerExist={setIsTrigerExist}newList={newList} setNewList={setNewList} actionsOfEmployees={actionsOfEmployees} dates={dates.dates} setDates={setDates}/>);
+        }
         
-    }, [accesses]);
+    }, [accesses, actionsOfEmployees, state, newList]);
+
+    useEffect(() => {
+
+        if(isRegistartionTap){
+            setMainPage(<Registration setIsLogInTap={setIsLogInTap} setBasicToken={setBasicToken}/>); 
+        }
+    },[isRegistartionTap]);
+
+
+    useEffect(() => {
+
+        if(isLoginTap){
+            setMainPage(<LoginForm setBasicToken={setBasicToken} setIsRegistartionTap={setIsRegistartionTap}/>); 
+        }
+    },[isLoginTap]);
+
     
     useEffect(() => {
 
-        setMainPage(<InfoPage setIsTrigerExist={setIsTrigerExist}newList={newList} setNewList={setNewList} actionsOfEmployees={actionsOfEmployees} dates={dates.dates} setDates={setDates}/>);
+       
     },[actionsOfEmployees, newList]);
 
     useEffect(() => {
@@ -106,6 +134,7 @@ export default function App(){
 
 
     return(
+        // <Loading />
         mainPage
     )
 }

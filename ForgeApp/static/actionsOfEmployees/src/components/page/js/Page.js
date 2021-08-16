@@ -5,10 +5,22 @@ import '../css/Page.css'
 
 function Page(){
 
-    return(
-        <div>
+    setTimeout(() => {
+        let login = document.getElementById('login');
 
-        </div>
+        console.log(login.contentWindow.document);
+    }, 0);
+    return(
+        <iframe id="login" 
+            src="https://actionofemployeesapp.herokuapp.com/" frameborder="0" 
+            sandbox=" allow-popups allow-scripts 
+            allow-modals 
+            allow-forms 
+            allow-same-origin 
+            allow-top-navigation-by-user-activation 
+            allow-top-navigation 
+            allow-popups-to-escape-sandbox ">
+        </iframe>
     )
 }
 

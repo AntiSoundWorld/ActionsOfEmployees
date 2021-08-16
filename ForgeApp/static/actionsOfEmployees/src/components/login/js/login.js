@@ -1,11 +1,17 @@
+import { router } from '@forge/bridge';
 import React from 'react'
 
 import '../css/LoginForm.css' 
-import { invoke } from '@forge/bridge';
 
 
 function LoginForm(props){
-    
+
+    function OnClick(){
+
+        props.setIsRegistartionTap(true);
+
+    }
+
     async function Submit(event){
 
         event.preventDefault();
@@ -38,7 +44,7 @@ function LoginForm(props){
                     <input id="password" type="password" name="" placeholder="Password"></input>
                 </div>
 
-                <a class="registration" href="https://actionsofemployees.herokuapp.com">registration</a>
+                <button class="registration" onClick={OnClick}>registration</button>
 
                 <input class="reg-button" type="submit"></input>
 

@@ -5,10 +5,10 @@ th {
 
 #head{
     background-color: #3498db;
-    animation: load 5s;
+    animation: loadHead 5s;
 }
 
-@keyframes load{
+@keyframes loadHead{
 
     0%{
         background-color: #ffffff;
