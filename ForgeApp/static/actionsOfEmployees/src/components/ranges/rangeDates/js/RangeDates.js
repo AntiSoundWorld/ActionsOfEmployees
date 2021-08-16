@@ -9,7 +9,6 @@ export default function RangeDates(props){
         
         event.preventDefault();
 
-        props.setNewList([]);
         
         let dates = {
             dates: {
@@ -19,6 +18,7 @@ export default function RangeDates(props){
         }
         
         props.setDates(dates);
+        props.setIsTrigerExist(false);
     }
 
     return (

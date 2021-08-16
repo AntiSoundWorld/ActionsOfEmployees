@@ -1,29 +1,32 @@
 import defaultDates from '../../../tools/tools';
-import React from 'react'
+import React, { useEffect } from 'react'
 import ReactDOM from 'react-dom'
 import '../css/Update.css'
 
 export default function UpdateDatas(props){
+    
+    useEffect(() => {
+
+        let button = document.getElementById("updateDatas");
+
+        if (props.dates.end !== defaultDates().dates.end) {
+           
+        
+            button.disabled = true;
+
+            return;
+        }
+
+        button.disabled = false;
+
+    }, [props.dates]);
 
     function Update(){
         props.setIsTrigerExist(false);
     }
     
     return (
-        <button id='updateDatas' onclick={Update}>Update</button>
+        <button id='updateDatas' onClick={Update}>Update</button>
     )
 }
 
-
-// setTimeout(() => {
-
-//     let button = document.getElementById("updateDatas");
-    
-//     let userDateEnd = document.getElementById("end").value;
-    
-//     let actualDateEnd = defaultDates().dates.end;
-    
-//     if(userDateEnd !== actualDateEnd){
-//         button.disabled = true;
-//     }
-// }, 0);

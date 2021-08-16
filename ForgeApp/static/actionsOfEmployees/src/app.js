@@ -94,14 +94,16 @@ export default function App(){
     }, [accesses]);
     
     useEffect(() => {
-        setIsTrigerExist(false);
-
-    }, [dates]);
-
-    useEffect(() => {
 
         setMainPage(<InfoPage setIsTrigerExist={setIsTrigerExist}newList={newList} setNewList={setNewList} actionsOfEmployees={actionsOfEmployees} dates={dates.dates} setDates={setDates}/>);
     },[actionsOfEmployees, newList]);
+
+    useEffect(() => {
+
+        setNewList([]);
+        
+    }, [isTrigerExist]);
+
 
     return(
         mainPage

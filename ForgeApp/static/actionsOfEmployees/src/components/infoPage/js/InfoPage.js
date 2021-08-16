@@ -10,9 +10,9 @@ export default function InfoPage(props){
     return (
         <div>
             <Search actionsOfEmployees={props.actionsOfEmployees} setNewList={props.setNewList} />
-            <RangeDates dates={props.dates} setDates={props.setDates} setNewList={props.setNewList} />
+            <RangeDates dates={props.dates} setDates={props.setDates} setIsTrigerExist={props.setIsTrigerExist} />
             <Table actionsOfEmployees={props.newList}/>
-            <UpdateDatas setIsTrigerExist={props.setIsTrigerExist}/>
+            <UpdateDatas setIsTrigerExist={props.setIsTrigerExist} dates={props.dates}/>
         </div>
     )
 } 
