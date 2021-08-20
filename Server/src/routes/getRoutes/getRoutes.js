@@ -17,6 +17,7 @@ import updateActionsOfEmployees from '../../../public/Database/set/updateActions
 import getActionsOfEmplyees from "../../../public/Database/get/getActionsOfEmplyees.js";
 import getDomen from "../../../public/Database/get/getDomen.js";
 import isContentExist from "../../../public/Database/isExist/isActionsOfEmployeesExist.js";
+import GetDomen from "../../../public/Database/get/getDomen.js";
 dotenv.config();
 
 export default function getRoutes(app){
@@ -151,7 +152,7 @@ export default function getRoutes(app){
             return;
         }
 
-        let domen = await getDomen(authorization)
+        let domen = await GetDomen(authorization)
         response.json(domen);
     });
 }

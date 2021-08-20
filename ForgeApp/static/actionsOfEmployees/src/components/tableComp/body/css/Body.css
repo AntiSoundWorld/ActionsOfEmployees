@@ -35,38 +35,38 @@ td{
 transition: all 10s ease-in-out;
 }
 .name{
-width: 23.5%;
+    width: 23.5%;
 }
 
 .jira_comments{
-width: 23.5%;
+  width: 23.5%;
 }
 
 .bitBucket_Commits{
-width: 23.5%;
+  width: 23.5%;
 }
 
 .bitBucket_PullRequests{
-width: 23.5%;
+  width: 23.5%;
 }
 
 .image{
-display: flex;
-width:32px;
-height: 32px;
-margin-left: 4px;
+  display: flex;
+  width:32px;
+  height: 32px;
+  margin-left: 4px;
 }
 
 .numOfComments {
-text-align: center;
+  text-align: center;
 }
 
 .numOfCommits{
-text-align: center;
+  text-align: center;
 }
 
 .numOfpullRequests{
-text-align: center;
+  text-align: center;
 }
 
 .hide{

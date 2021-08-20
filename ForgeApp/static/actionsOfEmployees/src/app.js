@@ -10,7 +10,6 @@ import ResetIntervalInCondition from './tools/resetInterval';
 
 export default function App(){
 
-    
     const[basicToken, setBasicToken] = useState(localStorage.getItem("basicToken"));
 
     const[mainPage, setMainPage] = useState(null);
@@ -29,12 +28,14 @@ export default function App(){
 
     const[isRegistartionTap, setIsRegistartionTap] = useState(null);
 
+    const[isLogout, setIsLogout] = useState(false);
 
     useEffect(() => {
         
         if(basicToken === null){
-
+            
             setMainPage(<LoginForm setBasicToken={setBasicToken} setIsRegistartionTap={setIsRegistartionTap}/>);
+            console.log(mainPage);
             return;
         }
 
@@ -103,7 +104,7 @@ export default function App(){
 
         if(accountVerification.accesses.isBitBucketAccessExist && accountVerification.accesses.isJiraAccessExist){
 
-            setMainPage(<InfoPage setIsTrigerExist={setIsTrigerExist}newList={newList} setNewList={setNewList} actionsOfEmployees={actionsOfEmployees} dates={dates.dates} setDates={setDates}/>);
+            setMainPage(<InfoPage domen={accountVerification.domen} setIsLogout={setIsLogout} setIsTrigerExist={setIsTrigerExist} newList={newList} setNewList={setNewList} actionsOfEmployees={actionsOfEmployees} dates={dates.dates} setDates={setDates}/>);
         }
 
     }, [accountVerification, basicToken, newList]);
@@ -122,6 +123,7 @@ export default function App(){
     useEffect(() => {
 
         if(isLoginTap){
+
             setMainPage(<LoginForm setBasicToken={setBasicToken} setIsRegistartionTap={setIsRegistartionTap}/>); 
         }
     },[isLoginTap]);
@@ -134,6 +136,25 @@ export default function App(){
         
     }, [isTrigerExist]);
 
+    useEffect(() => {
+
+        if(isLogout === false){
+            return;
+        }
+
+        localStorage.removeItem("basicToken");
+
+        localStorage.removeItem("state");
+
+        setBasicToken(null);
+
+        setAccountVerification(null);
+
+        setIsTrigerExist(false);
+
+        setIsLogout(false);
+
+    }, [isLogout]);
 
     return(
         mainPage

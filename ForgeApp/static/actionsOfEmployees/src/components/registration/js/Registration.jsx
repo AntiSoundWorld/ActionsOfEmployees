@@ -25,10 +25,13 @@ export default function Registration(props){
         }
         
         if(password != confirmPassword){
+
             let form = document.querySelector('.box');
-            let err = document.createElement('h1');
-            err.setAttribute('value', 'error');
-            err.setAttribute('class', 'error');
+
+            let err = document.createElement('span');
+
+            err.classList.add('error');
+            err.setAttribute('value', 'password missmatch');
             
             form.appendChild(err);
             return;
@@ -88,7 +91,7 @@ export default function Registration(props){
                     <i class="fas fa-lock"></i>
                     <input id="confirmPassword" type="password" name="" placeholder="confirm-Password" />
                 </div>
-
+                
                 <button class="login-btn" onClick={OnClick}>Login</button>
                 <button class="reg-button" type="submit">submit</button>
 

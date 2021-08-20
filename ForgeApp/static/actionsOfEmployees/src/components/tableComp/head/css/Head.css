@@ -24,9 +24,14 @@ th text{
     left: 30px;
 }
 
+.ico{
+    text-align: center;
+}
+
 .name {
     text-align: center;
 }
+
 .jira_comments {
     text-align: center;
 }

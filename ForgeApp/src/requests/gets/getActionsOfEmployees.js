@@ -9,5 +9,9 @@ export default async function GetActionsOfEmployees(basicToken){
         }
     });
     
-    return JSON.parse(await res.json());
+    if(res.status === 200){
+        return JSON.parse(await res.json());
+    }
+
+    return [];
 }

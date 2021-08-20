@@ -9,18 +9,6 @@ import "../css/Table.css"
 
 export default function Table(props){
 
-    const[body, setBody] = useState(props.actionsOfEmployees);
-
-    useEffect(() => {
-        
-        if(body.length === 0){
-            setBody(<Loading />);
-        }
-
-        if(props.actionsOfEmployees.length !== 0){
-            setBody(<div></div>);
-        }
-    }, [props.actionsOfEmployees]);
 
     return (
         <table className="table">
@@ -29,7 +17,6 @@ export default function Table(props){
                 
             <Body user={user}/>
             ))}
-            {body}
         </table>
     )
 }

@@ -9,7 +9,7 @@ export default function Body(props){
         <tbody>
         <tr class='body'>
             <td>
-                <img class='image' src={props.user.accountAvatar}></img>
+                <img class='image' src={props.user.accountAvatar} />
             </td>
             <td class='accountName'>{props.user.accountName}</td>
             <td class='numOfComments'>{props.user.numOfComments}</td>

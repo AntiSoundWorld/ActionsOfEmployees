@@ -10,5 +10,5 @@ export default async function updateActionsOfEmployees(actionsOfEmployess, basic
     actionsOfEmployees='${JSON.stringify(actionsOfEmployess)}'
     WHERE basicToken='${basicToken}'`
     
-    console.log("-==============================",await connect.query(update));
+    await connect.query(update);
 }

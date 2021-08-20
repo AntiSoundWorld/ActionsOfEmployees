@@ -1,0 +1,14 @@
+.domen-container{
+    position: relative;
+    margin-right: 10px;
+
+}
+
+#domen{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    vertical-align: middle;
+    font-weight: 500;
+    font-style: italic;
+}

@@ -8,7 +8,7 @@ export default function Head(){
     return (
         <thead>
             <tr id='head'>
-                <th class='ico'></th>
+                <th class='ico'>ico</th>
                 <th class='name'><span>Name</span></th>
                 <th class='jira_comments'>Jira comments</th>
                 <th class='bitBucket_Commits'>BitBucket Commits</th>

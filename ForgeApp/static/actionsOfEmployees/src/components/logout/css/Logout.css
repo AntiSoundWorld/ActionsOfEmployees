@@ -1,0 +1,15 @@
+.logout{
+    position: relative;
+    height: 25px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 3px;
+    border: none;
+    cursor: pointer;
+    border: solid 1px gainsboro;
+    border-color: #770294;
+    color: #770294;
+}
+.logout:hover{
+    background-color: rgb(255, 255, 255);
+
+}

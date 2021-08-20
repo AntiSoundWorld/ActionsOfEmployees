@@ -22,7 +22,7 @@ export default function RangeDates(props){
     }
 
     return (
-        <form id='rangeForm' onSubmit={OnSubmitRange}>
+        <form id='RangeDates' onSubmit={OnSubmitRange}>
             <input id="start" type='date' name="start" label="Start Date" defaultValue={props.dates.start}/>
             <p></p>
             <input id="end" type='date' name="end" label="End Date" defaultValue={props.dates.end} />

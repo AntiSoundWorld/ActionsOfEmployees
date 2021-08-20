@@ -100,6 +100,10 @@ input[type = 'email'], input[type = 'password']{
     text-decoration: underline;
     cursor: pointer;
 }
+
+.error{
+    background-color: red;
+}
 .reg-button:hover{
     width: 135px;
     background-color: #3498db;
