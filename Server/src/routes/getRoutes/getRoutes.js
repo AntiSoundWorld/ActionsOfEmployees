@@ -94,7 +94,6 @@ export default function getRoutes(app){
 
     app.get('/is_bitbucket_accessToken_exist', async ({headers: {authorization}}, response) => {
         const status = await isBitBucketAccessTokenExist(authorization);
-        console.log(status);
         response.status(status).send();
     });
 
@@ -153,7 +152,6 @@ export default function getRoutes(app){
         }
 
         let domen = await getDomen(authorization)
-        console.log(domen);
         response.json(domen);
     });
 }

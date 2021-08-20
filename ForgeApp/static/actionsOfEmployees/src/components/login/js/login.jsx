@@ -1,5 +1,6 @@
 import { router } from '@forge/bridge';
 import React from 'react'
+import btoa from 'btoa'
 
 import '../css/LoginForm.css' 
 

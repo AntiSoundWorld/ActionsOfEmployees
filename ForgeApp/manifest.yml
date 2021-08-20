@@ -17,6 +17,9 @@ permissions:
       backend:
         - actionsofemployees.herokuapp.com
   scopes: []
+  
 app:
   id: ari:cloud:ecosystem::app/158b6bc5-6774-4eb8-8062-af8c5eefe5ca
-  name: ActionOfEmployees(CustomUI)2
+  name: ActionOfEmployees
+  licensing:
+    enabled: true

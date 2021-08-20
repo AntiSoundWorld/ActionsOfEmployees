@@ -8,6 +8,6 @@ export default async function GetActionsOfEmployees(basicToken){
             "Authorization": `Basic ${basicToken}`
         }
     });
-
+    
     return JSON.parse(await res.json());
 }

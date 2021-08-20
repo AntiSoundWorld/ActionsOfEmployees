@@ -1,7 +1,7 @@
 import React from 'react'
 
 import RangeDates from "../../ranges/rangeDates/js/RangeDates";
-import Search from "../../ranges/search/Search";
+import Search from "../../ranges/search/js/Search";
 import Table from "../../tableComp/table/js/Table";
 import UpdateDatas from "../../updateDatas/js/Update";
 

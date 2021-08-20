@@ -11,7 +11,6 @@ export default async function IsJiraAccessExist(basicToken){
         }
     });
 
-
     if(res.status === 200){
 
         isJiraAccessExist = true;

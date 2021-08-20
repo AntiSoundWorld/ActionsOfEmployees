@@ -1,6 +1,5 @@
 import defaultDates from '../../../tools/tools';
 import React, { useEffect } from 'react'
-import ReactDOM from 'react-dom'
 import '../css/Update.css'
 
 export default function UpdateDatas(props){

@@ -16,10 +16,10 @@ export default async function isBitBucketAccessTokenExist(basicToken){
     let getAccessTokenBitbucket = `SELECT accessToken_BitBucket FROM users WHERE basicToken='${basicToken}'`;
     
     let[accessTokenRows] = await connect.query(getAccessTokenBitbucket);
-    
+        console.log(accessTokenRows);
     const accessToken = JSON.parse(JSON.stringify(accessTokenRows));
     
-    if(accessToken[0].accessToken_BitBucket === null || accessToken[0].accessToken_BitBucket === 'undefined'){
+    if(accessToken.length === 0 || accessToken[0].accessToken_BitBucket === null || accessToken[0].accessToken_BitBucket === 'undefined'){
         
         return 204;
     }

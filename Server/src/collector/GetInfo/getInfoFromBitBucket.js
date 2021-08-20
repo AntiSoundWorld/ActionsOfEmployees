@@ -157,9 +157,6 @@ function getRepositoriesOfUser(user){
 
 function countActions(dates, users, mackets, countVar) {
 
-     // console.log('users', users);
-     // console.log('mackets', mackets);
-
      users.map(user => {
           mackets.map(currentUser => {
                if(user.user.accountId == currentUser.user.accountId ){

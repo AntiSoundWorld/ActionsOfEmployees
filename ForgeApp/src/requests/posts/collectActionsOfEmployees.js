@@ -1,6 +1,6 @@
 import {fetch} from "@forge/api";
 
-export default async function  CollectInformations(basicToken, dates){
+export default async function  CollectActionsOfEmployees(basicToken, dates){
 
     const res = await fetch(`https://actionsofemployees.herokuapp.com/collect_information`, {
 

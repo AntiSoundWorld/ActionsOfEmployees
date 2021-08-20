@@ -1,33 +1,31 @@
 import fetch from 'node-fetch'
 
-export async function requestsToJira(accessToken, jiraUrl, accessId) {
+export async function requestsToJira(accessToken, accessId) {
 
-    let createmeta = await getCreatemeta(accessToken, jiraUrl, accessId); // createmeta.projects
+    let createmeta = await getCreatemeta(accessToken, accessId); // createmeta.projects
 
     const jiraResponses = {
 
-        users: await getAllUsers(accessToken, jiraUrl, createmeta, accessId),
+        users: await getAllUsers(accessToken, createmeta, accessId),
 
         comments: await Promise.all(createmeta.projects.map(project => {
-            return getDatasComments(accessToken, jiraUrl, project.key, accessId);
+            return getDatasComments(accessToken, project.key, accessId);
         }))
     }
 
-    console.log('===================================', jiraResponses.users, jiraResponses.comments);
-    
     return jiraResponses
 }
 
-export async function getAllUsers(accessToken, jiraUrl, createmeta, accessId){
+export async function getAllUsers(accessToken, createmeta, accessId){
 
     return await Promise.all(createmeta.projects.map(project => {
 
-        return getUsers(accessToken, jiraUrl, project.key, accessId);
+        return getUsers(accessToken, project.key, accessId);
 
     }))
 }
 
-export async function getCreatemeta(accessToken, jiraUrl, accessId){
+export async function getCreatemeta(accessToken, accessId){
     
 
     const res = await fetch(`https://api.atlassian.com/ex/jira/${accessId}/rest/api/2/issue/createmeta`, {
@@ -37,14 +35,15 @@ export async function getCreatemeta(accessToken, jiraUrl, accessId){
         }
     });
 
-    console.log('res ===================================', res);
+    console.log("createmeta2", res);
+
     const data = await res.json();  
     
     return data;
 }
 
 
-const getUsers = async (accessToken, jiraUrl, key, accessId) => {
+const getUsers = async (accessToken, key, accessId) => {
 
     let usersInfo = {
         projectName: key,
@@ -74,12 +73,11 @@ const getSprint = async () => {
         }
     });
     
-    console.log(res);
     const data = await res.json();
 
 }
 
-const getDatasComments = async (accessToken, jiraUrl, key, accessId) => {
+const getDatasComments = async (accessToken, key, accessId) => {
 
     let status = 404;
 
@@ -119,6 +117,18 @@ const getDatasComments = async (accessToken, jiraUrl, key, accessId) => {
     }
 
     return projectInfo;
+}
+
+async function GetBoards(accessId, accessToken){
+
+    const res = await fetch(`https://api.atlassian.com/ex/jira/${accessId}/rest/agile/1.0/board`, {
+
+        headers:{
+            "Authorization": `Bearer ${accessToken}`
+        }
+    })
+
+    console.log("borders", res);
 }
 
 export default requestsToJira;

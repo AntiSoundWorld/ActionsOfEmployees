@@ -1,8 +1,8 @@
 
-import ReactDOM from 'react-dom'
 import React, { useState, useEffect } from 'react';
-import { correctFilter } from '../../../tools/tools.js'
-import './css/Search.css'
+import { correctFilter } from '../../../../tools/tools.js'
+import './../css/Search.css'
+
 export default function Search(props){
 
     function onChange(event){

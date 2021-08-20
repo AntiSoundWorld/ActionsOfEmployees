@@ -16,13 +16,11 @@ async function collectInformation(dates, basicToken){
     
         const jiraAccess = await getJiraAccessToken(basicToken);
     
-        const jiraUrl = await getJiraUrl(basicToken);
-
         const accessId = await accessResourse(jiraAccess);
 
         const infoBitBucket = await getInfoFromBitBucket(dates, bitbcuketAccess);
     
-        const infoUsersJira = await getInfoFromJira(dates, jiraAccess, jiraUrl, accessId);
+        const infoUsersJira = await getInfoFromJira(dates, jiraAccess, accessId);
     
         const actionsOfEmployees = initializeMacketForRender(infoUsersJira, infoBitBucket);
         

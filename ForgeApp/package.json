@@ -10,8 +10,10 @@
   },
   "dependencies": {
     "@forge/api": "^2.2.0",
+    "@forge/cli": "^1.6.1",
     "@forge/resolver": "^1.2.0",
     "btoa": "^1.2.1",
+    "dotenv": "^10.0.0",
     "node-fetch": "^2.6.1"
   }
 }
