@@ -3,9 +3,9 @@ import { userLabel } from '../Makcets/getMacketInfo.js'
 import requestsToJira from '../Requests/requestsToJira.js'
 import { isAccountIdExistInList } from './Tools/tools.js';
 
-async function getInfoFromJira(dates, jiraAccess, accessId) {
+async function getInfoFromJira(dates, jiraAccess, jiraUrl, accessId) {
     
-    const jiraResponses = await requestsToJira(jiraAccess, accessId);
+    const jiraResponses = await requestsToJira(jiraAccess, jiraUrl, accessId);
 
     let usersInfo = {
         users: getIdentityUsers(jiraResponses.users),

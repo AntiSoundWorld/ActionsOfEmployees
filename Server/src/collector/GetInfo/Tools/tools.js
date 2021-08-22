@@ -86,7 +86,7 @@ export function countActionsbyUser(user, determinate){
 
     let num = 0;
 
-    if (determinate == 'commits' || determinate == 'pullRequests') {
+    if (determinate == 'commits' || determinate == 'pullRequests' || determinate == 'commentsOfCommits') {
         num = countActionsCommitsOrPullRequests(user, determinate);
     }
 
@@ -129,6 +129,11 @@ export function countActionsCommitsOrPullRequests(user, determinate){
 
                 if(determinate == 'commits'){
                     typeOfAction = action.numOfCommits;
+                }
+
+                if(determinate == 'commentsOfCommits'){
+                    typeOfAction = action.numCommentsOfCommits;
+
                 }
 
                 num = num + typeOfAction;

@@ -13,11 +13,13 @@ export default function postRoutes(app){
         catch(err){
             response.status(500).send();
             console.log(err);
+
         }
 
     });
 
     app.post('/is_account_exist', async ({headers: {authorization}}, response) => {
+        console.log('is_exist', authorization);
 
         const status = await isBasicTokenExist(authorization);
         response.status(status).send();
@@ -25,6 +27,9 @@ export default function postRoutes(app){
 
     app.post('/collect_information', async ({body:{dates}, headers:{authorization}}, response) => {
 
+        console.log("authorization", authorization);
+        console.log("dates", dates);
+        
         const status = await isBasicTokenExist(authorization);
         
         if(status === 404){

@@ -17,7 +17,6 @@ import updateActionsOfEmployees from '../../../public/Database/set/updateActions
 import getActionsOfEmplyees from "../../../public/Database/get/getActionsOfEmplyees.js";
 import getDomen from "../../../public/Database/get/getDomen.js";
 import isContentExist from "../../../public/Database/isExist/isActionsOfEmployeesExist.js";
-import GetDomen from "../../../public/Database/get/getDomen.js";
 dotenv.config();
 
 export default function getRoutes(app){
@@ -95,6 +94,7 @@ export default function getRoutes(app){
 
     app.get('/is_bitbucket_accessToken_exist', async ({headers: {authorization}}, response) => {
         const status = await isBitBucketAccessTokenExist(authorization);
+        console.log(status);
         response.status(status).send();
     });
 
@@ -152,7 +152,8 @@ export default function getRoutes(app){
             return;
         }
 
-        let domen = await GetDomen(authorization)
+        let domen = await getDomen(authorization)
+        console.log(domen);
         response.json(domen);
     });
 }

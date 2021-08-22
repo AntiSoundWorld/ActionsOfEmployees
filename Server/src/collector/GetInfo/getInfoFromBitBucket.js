@@ -1,15 +1,17 @@
 import { userLabel } from "../Makcets/getMacketInfo.js";
 import RequestsToBitBucket from "../Requests/requestsToBitBucket.js";
-import { getIsExistInfo, isAccountIdExistInList } from "./Tools/tools.js";
+import { getIsExistInfo, isAccountIdExistInList, showUserInfo, showUsersInfo } from "./Tools/tools.js";
 import substr from "substr-word"
 
 async function getInfoFromBitBucket(dates, accessToken){
 
      const bitbucketResponse = await RequestsToBitBucket(accessToken);
 
+
      const infoBitBucket = {
           
           infoCommits : await getInfoFromResponses(dates, bitbucketResponse.repositoryCommits, 'commits'),
+          infoCommentsOfcommits: await getInfoFromResponses(dates, bitbucketResponse.commentsFromCommits, 'commentsOfCommits'),
           infoPullRequests: await getInfoFromResponses(dates, bitbucketResponse.repositoryPullRequests, 'pullRequests')
      }
      
@@ -26,17 +28,33 @@ async function getInfoFromResponses(dates, responses, determinant) {
 function getMacketsOfUsers(responses, determinant){
 
      let macketsOfUsers = []
-
+     
      responses.map(response => {
           
-          response.data.values.map(value => {
+          if(determinant === 'commits' || determinant ==='pullRequests'){
+               
+               response.data.values.map(value => {
+                    
+                    let initializedMacketOfUser = getInitializedMacketOfUser(response, value, determinant);
+                    
+                    macketsOfUsers.push(initializedMacketOfUser);
+               })
+          }
+          
+          if(determinant === 'commentsOfCommits'){
+               response.datas.map(data => {
+                    
+                    data.values.map(value => {
+                         
+                              let initializedMacketOfUser = getInitializedMacketOfUser(response, value, determinant);
+                         
+                              macketsOfUsers.push(initializedMacketOfUser);
+                         });
+                    })
+               }
+          });
 
-               let initializedMacketOfUser = getInitializedMacketOfUser(response, value, determinant);
-                
-               macketsOfUsers.push(initializedMacketOfUser);
-          })
-     });
-
+          // console.log(macketsOfUsers);
      return macketsOfUsers;
 }
 
@@ -96,7 +114,8 @@ function getInitializedMacketOfUser(response, value, determinant){
      let pathToCreatedDate = null
      let num = null;
 
-     if(determinant == 'commits'){
+
+     if(determinant === 'commits'){
           pathToUserInfo = value.author.user;
           pathToRpositoryInfo = value;
           pathToCreatedDate = value.date;
@@ -107,10 +126,23 @@ function getInitializedMacketOfUser(response, value, determinant){
 
      }
 
-     if(determinant == 'pullRequests'){
+     if(determinant === 'commentsOfCommits'){
+          pathToUserInfo = value.user;
+          pathToRpositoryInfo = response;
+          pathToCreatedDate = value.created_on;
+          
+          // console.log(response)
+          num = {
+               numCommentsOfCommits: 0
+          }
+     }
+     
+     if(determinant === 'pullRequests'){
           pathToUserInfo = value.author;
           pathToRpositoryInfo = value.source;
           pathToCreatedDate = value.created_on
+
+          console.log(value.source)
           num = {
                numOfPullRequests: 0
           }
@@ -132,12 +164,13 @@ function getInitializedMacketOfUser(response, value, determinant){
           repositoryName: pathToRpositoryInfo.repository.name,
           actions: []
      }
-
+     
      repositoryInfo.actions.push(num);
      workSpaceInfo.repositoriesName.push(repositoryInfo);
 
+     
      userLabelMacket.workspaces.push(workSpaceInfo);
-
+     
      return userLabelMacket;
 }
 
@@ -157,28 +190,36 @@ function getRepositoriesOfUser(user){
 
 function countActions(dates, users, mackets, countVar) {
 
+     // console.log('users', users);
+     // console.log('mackets', mackets);
+
      users.map(user => {
           mackets.map(currentUser => {
                if(user.user.accountId == currentUser.user.accountId ){
                     user.workspaces.map(userWorkspace => {
                          currentUser.workspaces.map(currentWorkspace => {
-
+                              
                               if (userWorkspace.workspaceName == currentWorkspace.workspaceName) {
-                                 
+                                   
                                    userWorkspace.repositoriesName.map(userRepositoryName => {
                                         currentWorkspace.repositoriesName.map(currentRepositoryName => {
-                                             
+
                                              if(userRepositoryName.repositoryName == currentRepositoryName.repositoryName && currentUser.user.createdDate >= dates.start && currentUser.user.createdDate <= dates.end){
+
                                                   userRepositoryName.actions.map(action => {
                                                        
                                                        if(countVar == 'pullRequests'){
                                                             
-                                                            action.numOfPullRequests ++
+                                                            action.numOfPullRequests ++;
                                                        }
                                                        
                                                        if(countVar == 'commits'){
                                                             
-                                                            action.numOfCommits ++
+                                                            action.numOfCommits ++;
+                                                       }
+                                                       
+                                                       if (countVar == 'commentsOfCommits') {
+                                                            action.numCommentsOfCommits ++; 
                                                        }
                                                   });
                                              }

@@ -11,10 +11,15 @@ export default async function updateBitBucketAccessToken(datas, state){
 
     const status = await isStateExist(state);
     
+    console.log('status', status);
+
     if(status === 401){
         return status;
     }
     
+    console.log('datas', datas);
+    console.log('state', state);
+
     let update = `UPDATE users SET 
     accessToken_BitBucket='${datas['access_token']}', 
     refresh_access_token_Bitbucket='${datas['refresh_token']}'

@@ -3,7 +3,7 @@ import connectDatebase from '../connectToDatebase.js';
 import isBasicTokenExist from '../isExist/isAccountExist.js';
 dotenv.config();
 
-export default async function GetDomen(basicToken){
+export default async function getDomen(basicToken){
 
     const connect = connectDatebase();
 

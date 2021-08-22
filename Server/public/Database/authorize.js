@@ -64,6 +64,7 @@ export default async function authorize(response, basicToken){
                         console.log(err);
                     }
                     else{
+                        console.log(res);
                     }
                 })
             });

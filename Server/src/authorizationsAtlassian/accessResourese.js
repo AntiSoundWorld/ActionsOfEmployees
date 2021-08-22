@@ -12,6 +12,7 @@ export default async function accessResourse(accessToken){
             }
     })
 
+    console.log('=====================================  ', res);
     let datas = await res.json();
 
     await updateJiraAccessId(datas, accessToken);

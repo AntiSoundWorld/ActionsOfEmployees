@@ -7,9 +7,14 @@ export async function requestsToBitBucket(accessToken) {
     
     const listOfRepositoriesName = await getListOfRepositories(listOfWorkspacesName, accessToken);
     
+    const listOfCommits = await getRepositoryCommits(listOfRepositoriesName, accessToken);
+
     const infoBitBucket = {
         
-        repositoryCommits: await getRepositoryCommits(listOfRepositoriesName, accessToken),
+        repositoryCommits: listOfCommits,
+
+        commentsFromCommits: await getListOfCommentsFromCommits(listOfCommits, accessToken),
+
         repositoryPullRequests: await getRepositoryPullRequests(listOfRepositoriesName, accessToken)
     }
 
@@ -117,6 +122,7 @@ async function getRepositoryCommits(listOfRepositoriesName, accessToken) {
         });
 
         const data = await res.json();
+
         let length = data.values.length;
         if (data.values[length - 1].rendered.message.raw == 'Initial commit') { // remove first commit of git ignore
             data.values.pop(0);
@@ -160,5 +166,41 @@ async function getRepositoryPullRequests(listOfRepositoriesName, accessToken) {
 
     return asyncRes2;
 }
+
+async function getListOfCommentsFromCommits(listOfCommits, accessToken){
+
+    let promise = await Promise.all(listOfCommits.map(async commit => {
+        
+            let infos = {
+                workspace: commit.workspace,
+                repository: null,
+                datas: []
+            }
+
+            await Promise.all(commit.data.values.map(async value => {
+
+                infos.repository = {name: value.repository.name}
+
+                let url = value.links.comments.href;
+        
+                const res = await fetch(url, {
+                    headers: {
+                        'Authorization': `Bearer ${accessToken}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                
+                const datas =  await res.json();
+
+                infos.datas.push(datas);
+        }));
+
+        return infos;
+    }))
+
+    return promise;
+}
+
 
 export default requestsToBitBucket;

@@ -9,11 +9,13 @@ import bodyParser from "body-parser";
 
 import dotenv from 'dotenv';
 import startRequests from "./startRequests.js";
+import { GetCommentsOfCommits } from "./src/collector/Requests/requestsTest/requestsTest.js";
+import collectInformation from "./src/collector/GetInfo/collectInformation.js";
 dotenv.config();
 
 const app = express();
 
-const port = process.env.PORT || 9900;
+const port = process.env.PORT || 9901;
 const host = os.hostname();
 
 const __dirname = path.resolve(path.dirname(''));
@@ -30,12 +32,13 @@ app.set("view engine", 'hbs');
 getRoutes(app);
 postRoutes(app);
 
+collectInformation();
 // startRequests();
 
-// const server = http.createServer(app).listen(port, () => {
-//     console.log('server running at http://' + host + ':' + port);
-// }) ;
+const server = http.createServer(app).listen(port, () => {
+    console.log('server running at http://' + host + ':' + port);
+}) ;
 
-app.listen(port, () => {
-    console.log(`Server has been runing on ${port} port`);
-})
+// app.listen(port, () => {
+//     console.log(`Server has been runing on ${port} port`);
+// })
