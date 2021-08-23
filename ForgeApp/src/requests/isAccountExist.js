@@ -14,9 +14,9 @@ export default async function isAccountExist(basicToken){
     let status = await res.status;
 
     if(status === 200){
-
+        
         isAccountExist = true;
     }
-
+    
     return isAccountExist;
 }

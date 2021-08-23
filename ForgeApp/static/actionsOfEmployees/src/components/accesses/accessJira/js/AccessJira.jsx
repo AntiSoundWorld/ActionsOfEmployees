@@ -1,8 +1,10 @@
 import React from 'react'
 
 import { router } from '@forge/bridge';
-import JiraLogo from '../../../../tools/img/jira.png';
-import '../css/AccessJira.css'
+
+import JiraLogo from '../../../../assets/Logos/jira.png';
+
+import '../css/AccessJira.css';
 
 export default function AccessJira(props){
 
@@ -14,9 +16,6 @@ export default function AccessJira(props){
             if(props.isJiraAccessExist){
                 
                 let jira = document.getElementsByClassName('no-access-jira')[0];
-                
-                // jira.removeAttribute('no-access-jira');
-                // jira.setAttribute("access-successful-jira");
                 
                 jira.classList.remove('no-access-jira');
                 jira.classList.add('access-successful-jira');
@@ -40,7 +39,7 @@ export default function AccessJira(props){
                 src={JiraLogo}   />
 
             <div class="text">
-            <span>Click on the label to authenticate our app "Actions Of Emplyees" in Jira</span>
+              <span>Click on the label to authenticate our app "Actions Of Employees" in Jira</span>
             </div>
 
             <div class="access no-access-jira">No access</div>

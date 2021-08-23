@@ -10,9 +10,11 @@ import ResetIntervalInCondition from './tools/resetInterval';
 
 export default function App(){
 
+    const[mainPage, setMainPage] = useState(null);
+
     const[basicToken, setBasicToken] = useState(localStorage.getItem("basicToken"));
 
-    const[mainPage, setMainPage] = useState(null);
+    const[isAccountExist, setIsAccountExist] = useState(false);
 
     const[accountVerification, setAccountVerification] = useState(null);
 
@@ -31,11 +33,22 @@ export default function App(){
     const[isLogout, setIsLogout] = useState(false);
 
     useEffect(() => {
-        
+
+        console.log(basicToken);
         if(basicToken === null){
             
             setMainPage(<LoginForm setBasicToken={setBasicToken} setIsRegistartionTap={setIsRegistartionTap}/>);
-            console.log(mainPage);
+            return;
+        }
+
+        invoke("isAccountExist", {basicToken}).then(isAccountExist => {
+
+            setIsAccountExist(isAccountExist);
+        });
+
+        if(isAccountExist === false){
+            
+            setMainPage(<Registration setBasicToken={setBasicToken} setIsLogInTap={setIsLogInTap}/>);
             return;
         }
 
@@ -57,11 +70,7 @@ export default function App(){
 
             return;
         }
-
-        if(accountVerification.isAccountExist === false){
-
-            setMainPage(<Registration setBasicToken={setBasicToken} setIsLogInTap={setIsLogInTap}/>);
-        }
+        console.log(accountVerification)
 
         if(accountVerification.accesses.isBitBucketAccessExist === false || accountVerification.accesses.isJiraAccessExist === false){
 
@@ -107,7 +116,7 @@ export default function App(){
             setMainPage(<InfoPage domen={accountVerification.domen} setIsLogout={setIsLogout} setIsTrigerExist={setIsTrigerExist} newList={newList} setNewList={setNewList} actionsOfEmployees={actionsOfEmployees} dates={dates.dates} setDates={setDates}/>);
         }
 
-    }, [accountVerification, basicToken, newList]);
+    }, [accountVerification, basicToken, newList, isTrigerExist]);
 
 
     useEffect(() => {

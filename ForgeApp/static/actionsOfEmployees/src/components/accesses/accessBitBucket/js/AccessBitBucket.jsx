@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { router } from '@forge/bridge';
-import BitBucketLogo from '../../../../tools/img/Bitbucket.png'
+import BitBucketLogo from '../../../../assets/Logos/Bitbucket.png'
 import '../css/AccessBitBucket.css'
 
 export default function AccessBitBucket(props){

@@ -9,6 +9,7 @@ export default async function GetDomen(basicToken){
         }
     });
     
+    console.log(res)
     return await res.json();
 
 }

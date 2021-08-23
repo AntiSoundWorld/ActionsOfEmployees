@@ -2,6 +2,7 @@ import Resolver from '@forge/resolver';
 import GetAccountVerification from './accountVerification/accountVerification.js';
 import GetActionsOfEmployees from './requests/gets/getActionsOfEmployees.js';
 import GetAccesses from './requests/isAccessesExist/isAccessesExist.js';
+import isAccountExist from './requests/isAccountExist.js';
 import CollectActionsOfEmployees from './requests/posts/collectActionsOfEmployees.js';
 
 import Registration from './requests/posts/registartion.js';
@@ -16,9 +17,7 @@ resolver.define("getAccountVerification", async({payload}) => {
     return res 
 });
 
-
 resolver.define("collectActionsOfEmployees", async({payload}) => {
-    console.log("done collect");
 
     await CollectActionsOfEmployees(payload.basicToken, payload.dates);
 });
@@ -30,12 +29,18 @@ resolver.define("getActionsOfEmployees", async({payload}) => {
 
 resolver.define("registration", async({payload}) => {
 
-    return await Registration(payload.state, payload.email, payload.password );
+    console.log("tap;");
+    return await Registration(payload.state, payload.email, payload.password);
 })
 
 resolver.define("getAccesses", async({payload}) => {
 
     return await GetAccesses(payload.basicToken);
 });
+
+resolver.define("isAccountExist", async ({payload}) => {
+
+    return await isAccountExist(payload.basicToken)
+})
 
 export const handler = resolver.getDefinitions();

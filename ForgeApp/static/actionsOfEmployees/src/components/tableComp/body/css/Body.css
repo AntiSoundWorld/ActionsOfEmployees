@@ -34,7 +34,7 @@ background-color: #3498db;
 td{
 transition: all 10s ease-in-out;
 }
-.name{
+/* .name{
     width: 23.5%;
 }
 
@@ -43,12 +43,15 @@ transition: all 10s ease-in-out;
 }
 
 .bitBucket_Commits{
-  width: 23.5%;
+  text-align: center;
 }
 
+.numCommentsOfCommits{
+
+}
 .bitBucket_PullRequests{
   width: 23.5%;
-}
+} */
 
 .image{
   display: flex;
@@ -57,18 +60,21 @@ transition: all 10s ease-in-out;
   margin-left: 4px;
 }
 
-.numOfComments {
+.numComments {
   text-align: center;
 }
 
-.numOfCommits{
+.numCommits{
   text-align: center;
 }
 
-.numOfpullRequests{
+.numpullRequests{
   text-align: center;
 }
 
+.numCommentsOfCommits{
+  text-align: center;
+}
 .hide{
 animation: remove 30s;
 }

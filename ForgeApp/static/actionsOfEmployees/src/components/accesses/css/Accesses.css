@@ -41,11 +41,18 @@ label{
     display: none;
 }
 
+#btn-confluence{
+    display: none;
+}
+
 .label-access:hover{
     box-shadow: 0px 0px 2px 0px;
 }
 
 .text{
+    position: relative;
+    display: flex;
+    vertical-align: middle;
     margin: 25px;
     max-width: 55%;
     border-radius: 5px;

@@ -12,7 +12,6 @@ export default async function GetAccountVerification(basicToken){
 
     const accountVerification = {
 
-        isAccountExist: await isAccountExist(basicToken),
 
         accesses: await GetAccesses(basicToken),
 

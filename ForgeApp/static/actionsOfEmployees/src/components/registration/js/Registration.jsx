@@ -13,7 +13,7 @@ export default function Registration(props){
     async function OnSubmit(event){
 
         event.preventDefault();
-            
+          console.log(event)  
         let email = event.target.email.value
         
         let password = event.target.password.value

@@ -12,9 +12,10 @@ export default function Body(props){
                 <img class='image' src={props.user.accountAvatar} />
             </td>
             <td class='accountName'>{props.user.accountName}</td>
-            <td class='numOfComments'>{props.user.numOfComments}</td>
-            <td class='numOfCommits'>{props.user.numOfCommits}</td>
-            <td class='numOfpullRequests'>{props.user.numOfpullRequests}</td>
+            <td class='numComments'>{props.user.numOfComments}</td>
+            <td class='numCommits'>{props.user.numOfCommits}</td>
+            <td class='numCommentsOfCommits'>{props.user.numCommentsOfCommits}</td>
+            <td class='numpullRequests'>{props.user.numOfpullRequests}</td>
         </tr>
     </tbody>
     )
