@@ -15,6 +15,5 @@ export default async function  Registration(state, email, password){
         })
     });
 
-    console.log(response);
     return response.status;
 }

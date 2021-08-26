@@ -3,13 +3,12 @@ import dotenv from 'dotenv';
 import isStateExist from "../isExist/isStateExist.js";
 dotenv.config();
 
-export default async function updateJiraAccessToken(datas, state){
+export default async function updateConfluenceAccessToken(datas, state){
 
     const connect = connectDatebase();
 
     const status = await isStateExist(state);
     
-    console.log(state);
     if(status === 404){
         return status;
     }
@@ -18,15 +17,15 @@ export default async function updateJiraAccessToken(datas, state){
 
     if (datas['refresh_token'] === undefined) {
         update = `UPDATE users SET 
-        accessToken_Jira='${datas['access_token']}'
+        accessToken_Confluence='${datas['access_token']}'
         WHERE state='${state}'`
     }
     else{
         update = `UPDATE users SET 
-        accessToken_Jira='${datas['access_token']}',
-        refresh_access_token_Jira='${datas['refresh_token']}'
+        accessToken_Confluence='${datas['access_token']}',
+        refresh_access_token_Confluence='${datas['refresh_token']}'
         WHERE state='${state}'`
     }
     
-    console.log("refresh token",await connect.query(update));
+    await connect.query(update);
 }

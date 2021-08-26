@@ -3,13 +3,23 @@ body{
     margin: 0;
 }
 
-.labels-Access{
+.label-top{
+    position: relative;
     display: flex;
-    justify-content: center;
+    align-items: center;
+}
+
+.labels-Access{
+    position: absolute;
+    display: flex;
     align-items: center;
     width: 100%;
     height: 100vh;
     background-color: white;
+}
+
+.text-label{
+   font-size: 30px;
 }
 
 .label-access{
@@ -23,8 +33,7 @@ body{
 }
 
 .imgs{
-    width: 200px;
-    margin: 10px;
+    width: 40px;
 }
 
 label{
@@ -49,13 +58,17 @@ label{
     box-shadow: 0px 0px 2px 0px;
 }
 
-.text{
+.info-container{
+
+    background-color: aquamarine;
+}
+
+.text-body{
     position: relative;
     display: flex;
+    text-align: center;
+    padding: 30px 40px;
     vertical-align: middle;
-    margin: 25px;
-    max-width: 55%;
-    border-radius: 5px;
     text-align: center;
 }
 
@@ -66,7 +79,7 @@ a{
 }
 
 .access{
-    position: absolute;
+    position: relative;
     bottom: 0%;
     width: 65%;
     height: 15%;

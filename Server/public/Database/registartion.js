@@ -11,6 +11,7 @@ export default async function registartion(state, email, password){
     const status = await isEmailExist(email);    
 
     if(status === 200){
+        
         return status;
     }
 
@@ -18,12 +19,7 @@ export default async function registartion(state, email, password){
 
     const query = `INSERT INTO users (state, email, password, basicToken) VALUES ('${state}', '${email}', '${password}', '${basicToken}')`;
 
-    try{
-        await connect.query(query);
-        return 201;
-    }
-    catch(err){
-        console.log(err)
-    }
-        
+    await connect.query(query);
+
+    return 201;
 }

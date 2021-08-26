@@ -25,6 +25,7 @@ function LoginForm(props){
         props.setBasicToken(basicToken);
 
     }
+
     return (
         <div class="main-form">
 

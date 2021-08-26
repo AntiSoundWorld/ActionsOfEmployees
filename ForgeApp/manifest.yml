@@ -20,6 +20,6 @@ permissions:
   
 app:
   id: ari:cloud:ecosystem::app/158b6bc5-6774-4eb8-8062-af8c5eefe5ca
-  name: ActionOfEmployees
+  name: ActionsOfEmployees
   licensing:
     enabled: true

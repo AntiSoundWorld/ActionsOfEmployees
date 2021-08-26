@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { router } from '@forge/bridge';
-import ConfluenceLogo from '../../../../assets/Logos/confluence.png';
+import ConfluenceLogo from '../../../../assets/Logos/ConfluenceLabel.png';
 import '../css/AccessConfluence.css'
 
 export default function AccessConfluence(props){
@@ -34,12 +34,16 @@ export default function AccessConfluence(props){
 
     return(
         <label class="label-confluence label-access" >
-            <img 
-                class="imgs"
-                id="img-confluence"
-                src={ConfluenceLogo} />
+            <div className="label-top">
+                <img 
+                    class="imgs"
+                    id="img-confluence"
+                    src={ConfluenceLogo} />
 
-            <div class="text">
+                <span className="text-label">Confluence</span>
+            </div>
+
+            <div class="text-body">
                 <span>Click on the label to authenticate our app "Actions Of Employees" in Confluence</span>
             </div>
 

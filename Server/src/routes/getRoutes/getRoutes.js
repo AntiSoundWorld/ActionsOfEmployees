@@ -17,6 +17,10 @@ import updateActionsOfEmployees from '../../../public/Database/set/updateActions
 import getActionsOfEmplyees from "../../../public/Database/get/getActionsOfEmplyees.js";
 import getDomen from "../../../public/Database/get/getDomen.js";
 import isContentExist from "../../../public/Database/isExist/isActionsOfEmployeesExist.js";
+import authorizationOnConfluence from "../../authorizationsAtlassian/authorizationOnConfluence.js";
+import getConfluenceAccessToken from "../../../public/Database/get/getConfluenceAccessToken.js";
+import isConfluenceAccessTokenExist from "../../../public/Database/isExist/isConfluenceAccessTokenExist.js";
+import isAccessesExist from "../../../public/Database/isExist/isAccessesExist.js";
 dotenv.config();
 
 export default function getRoutes(app){
@@ -28,20 +32,19 @@ export default function getRoutes(app){
     app.get('/access', (request, response) => {
         response.render('AccessForm');
     });
-
+    
     app.get("/access_bitbucket", function({query: {state}}, response){
         response.redirect(`https://bitbucket.org/site/oauth2/authorize?client_id=${process.env.BITBUCKET_CLIENT_ID}&state=${state}&response_type=code`);
     });
 
 
     app.get("/access_confluence", function({query: {state}}, response){
-        response.redirect(`https://auth.atlassian.com/authorize?audience=api.atlassian.com&client_id=${process.env.JIRA_CLIENT_ID}&scope=read%3Aconfluence-content.summary%20read%3Aconfluence-space.summary%20read%3Aconfluence-props%20read%3Aconfluence-content.all%20read%3Aconfluence-user%20read%3Aconfluence-groups&redirect_uri=https%3A%2F%2F${process.env.DOMEN}%2Fcallback_jira&state=${state}&response_type=code&prompt=consent`);
+        response.redirect(`https://auth.atlassian.com/authorize?audience=api.atlassian.com&client_id=${process.env.JIRA_CLIENT_ID}&scope=read%3Aconfluence-content.summary%20read%3Aconfluence-space.summary%20read%3Aconfluence-props%20read%3Aconfluence-content.all%20read%3Aconfluence-user%20read%3Aconfluence-groups%20offline_access&redirect_uri=https%3A%2F%2F${process.env.DOMEN}%2Fcallback_jira&state=C-${state}&proj=confluense&response_type=code&prompt=consent`);
     });
 
     app.get('/access_jira', function({query: {state}}, response){
 
-        response.redirect(`https://auth.atlassian.com/authorize?audience=api.atlassian.com&client_id=${process.env.JIRA_CLIENT_ID}&scope=read%3Ajira-work%20read%3Ajira-user%20offline_access&redirect_uri=https%3A%2F%2F${process.env.DOMEN}%2Fcallback_jira&state=${state}&response_type=code&prompt=consent`)
-        // response.redirect(`https://auth.atlassian.com/authorize?audience=api.atlassian.com&client_id=${process.env.JIRA_CLIENT_ID}&scope=read%3Ame%20read%3Aaccount&redirect_uri=https%3A%2F%2F${process.env.DOMEN}%2Fcallback_jira&state=${state}&response_type=code&prompt=consent`)
+        response.redirect(`https://auth.atlassian.com/authorize?audience=api.atlassian.com&client_id=${process.env.JIRA_CLIENT_ID}&scope=read%3Ajira-work%20read%3Ajira-user%20offline_access&redirect_uri=https%3A%2F%2F${process.env.DOMEN}%2Fcallback_jira&state=J-${state}&response_type=code&prompt=consent`)
     });
     
     app.get('/authorize', (request, response) => {
@@ -70,7 +73,15 @@ export default function getRoutes(app){
             return;
         }
 
-        authorizationOnJira(code, state);
+        if(state[0] === 'J'){
+
+            authorizationOnJira(code,   state.slice(2));
+        }
+
+        if(state[0] === 'C'){
+
+            authorizationOnConfluence(code, state.slice(2));
+        }
     })
 
     app.get('/get_bitbucket_access_token', ({headers: {authorization}}, response) =>{
@@ -83,7 +94,14 @@ export default function getRoutes(app){
         getJiraAccessToken(response, authorization);
     });
 
+
+    app.get('/get_confluence_access_token', ({headers: {authorization}}, response) =>{
+
+        getConfluenceAccessToken(response, authorization);
+    });
+
     app.get('/getAccesses', ({headers: {authorization}}, response) => {
+
         getAccesses(response, authorization);
     });
 
@@ -93,19 +111,35 @@ export default function getRoutes(app){
     });
 
     app.get('/is_bitbucket_accessToken_exist', async ({headers: {authorization}}, response) => {
+
         const status = await isBitBucketAccessTokenExist(authorization);
-        console.log(status);
+
         response.status(status).send();
     });
 
     app.get('/is_jira_accessToken_exist', async ({headers: {authorization}}, response) => {
+
         const status = await isJiraAccessTokenExist(authorization);
+
+        response.status(status).send();
+    });
+
+    app.get("/is_accesses_exist", async ({headers: {authorization}}, response) => {
+
+        response.json(await isAccessesExist(authorization));
+    });
+
+    app.get('/is_confluence_accessToken_exist', async ({headers: {authorization}}, response) => {
+
+        const status = await isConfluenceAccessTokenExist(authorization);
+
         response.status(status).send();
     });
 
     app.get('/is_account_exist', async ({headers: {authorization}}, response) => {
         
         let status = await isBasicTokenExist(authorization);
+
         response.status(status).send();
     });
 

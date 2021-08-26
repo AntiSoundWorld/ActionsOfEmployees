@@ -8,7 +8,9 @@ export default function postRoutes(app){
         
         try{
             const status = await registartion(state, email, password);
+            console.log('===================================------------------', status);
             response.status(status).send();
+
         }
         catch(err){
             response.status(500).send();

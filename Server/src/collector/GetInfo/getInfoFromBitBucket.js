@@ -1,6 +1,6 @@
 import { userLabel } from "../Makcets/getMacketInfo.js";
 import RequestsToBitBucket from "../Requests/requestsToBitBucket.js";
-import { getIsExistInfo, isAccountIdExistInList, showUserInfo, showUsersInfo } from "./Tools/tools.js";
+import { getIsExistInfo, isAccountIdExistInList } from "./Tools/tools.js";
 import substr from "substr-word"
 
 async function getInfoFromBitBucket(dates, accessToken){

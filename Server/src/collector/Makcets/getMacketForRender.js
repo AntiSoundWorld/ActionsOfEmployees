@@ -1,32 +1,5 @@
-import { getAllUsers, getCreatemeta } from "../Requests/requestsToJira.js";
-import {getIdentityUsers} from '../GetInfo/getInfoFromJira.js'
 
-async function GetMacketForRender() {
-
-    let macketForRender = []
-    
-    let users = await getUsers();
-
-    users.map(user => {
-
-        let userInfo = info();
-        userInfo.accountId = user.user.accountId;
-        userInfo.accountName = user.user.accountName;
-
-        macketForRender.push(userInfo);
-    });
-
-    return macketForRender
-}
-
-async function getUsers(){
-    
-    let createmeta = await getCreatemeta(); // createmeta.projects
-
-    return getIdentityUsers(await getAllUsers(createmeta));
-}
-
-export function info() {
+export default function getMacketForRender() {
 
     let info = {
         accountAvatar: null,
@@ -41,5 +14,3 @@ export function info() {
 }
 
 
-
-export default GetMacketForRender

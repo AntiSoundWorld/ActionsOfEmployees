@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { router } from '@forge/bridge';
-import BitBucketLogo from '../../../../assets/Logos/Bitbucket.png'
+import BitBucketLogo from '../../../../assets/Logos/BitBucketLabel.png'
 import '../css/AccessBitBucket.css'
 
 export default function AccessBitBucket(props){
@@ -28,13 +28,17 @@ export default function AccessBitBucket(props){
     }
     
     return(
-        <label class="label-bitbucket label-access"   >
-        <img 
-            class="imgs"
-            id='img-bitBucket'
-            src={BitBucketLogo}
-        />
-        <div class="text">
+        <label class="label-bitbucket label-access">
+            <div className="label-top">
+                <img 
+                    class="imgs"
+                    id='img-bitBucket'
+                    src={BitBucketLogo}
+                />
+               <span className="text-label">BitBucket</span>
+            </div>
+
+        <div class="text-body">
             <span>Click on the label to authenticate our app "Actions Of Emplyees" in BitBucket</span>
         </div>
 

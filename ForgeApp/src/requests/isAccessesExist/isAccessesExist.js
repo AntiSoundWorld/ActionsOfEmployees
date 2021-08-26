@@ -1,16 +1,15 @@
-import IsBitBucketAccessExist from './isBitBucketAccessExist';
-import IsConfluenceAccessExist from './isConfluenceAccessExist';
-import IsJiraAccessExist from './isJiraAccessExist';
+import {fetch} from "@forge/api";
 
-export default async function GetAccesses(basicToken){
-    
-    const accesses = {
+export default async function isAccessesExist(basicToken){
 
-        isJiraAccessExist:await IsJiraAccessExist(basicToken),
-        isConfluenceAccessExist: IsConfluenceAccessExist(basicToken),
-        isBitBucketAccessExist: await IsBitBucketAccessExist(basicToken),
-        
-    }
 
-    return accesses;
+    const res = await fetch("https://actionsofemployees.herokuapp.com/is_accesses_exist", {
+
+        headers: {
+            "Authorization": `Basic ${basicToken}`,
+            'ContentType': 'application/json'
+        }
+    });
+
+    return await res.json();
 }

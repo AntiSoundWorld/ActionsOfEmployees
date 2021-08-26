@@ -10,7 +10,7 @@ export default function Accesses(props){
 
     return(
         <div class="labels-Access">
-            <AccessConfluence isConluenceAccessExist={props.accesses.isConfluenceAccessExist} state={props.state}/>
+            <AccessConfluence isConfluenceAccessExist={props.accesses.isConfluenceAccessExist} state={props.state}/>
             <AccessBitBucket isBitBucketAccessExist={props.accesses.isBitBucketAccessExist} state={props.state}/>
             <AccessJira isJiraAccessExist={props.accesses.isJiraAccessExist} state={props.state}/>
       </div>

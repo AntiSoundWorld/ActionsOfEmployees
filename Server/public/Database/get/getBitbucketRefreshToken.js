@@ -18,6 +18,6 @@ export default async function getBitBucketRefreshToken(basicToken){
 
 
     let [rows] = await connect.query(getRefreshToken);
-
+    console.log(rows);
     return JSON.parse(JSON.stringify(rows[0].refresh_access_token_Bitbucket));
 }

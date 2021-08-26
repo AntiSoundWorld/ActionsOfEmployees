@@ -1,7 +1,6 @@
 import GetState from "../requests/gets/getState";
 import GetDomen from "../requests/gets/getUrl";
-import GetAccesses from "../requests/isAccessesExist/isAccessesExist";
-import isAccountExist from "../requests/isAccountExist";
+import isAccessesExist from "../requests/isAccessesExist/isAccessesExist";
 
 export default async function GetAccountVerification(basicToken){
 
@@ -11,9 +10,6 @@ export default async function GetAccountVerification(basicToken){
     }
 
     const accountVerification = {
-
-
-        accesses: await GetAccesses(basicToken),
 
         state: await GetState(basicToken),
 

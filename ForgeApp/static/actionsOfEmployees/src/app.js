@@ -16,7 +16,7 @@ export default function App(){
 
     const[isAccountExist, setIsAccountExist] = useState(false);
 
-    const[accountVerification, setAccountVerification] = useState(null);
+    const[accountVerification, setAccountVerification] = useState({accesses: null, state: null, domen: null});
 
     const[dates, setDates] = useState(defaultDates());
 
@@ -34,19 +34,18 @@ export default function App(){
 
     useEffect(() => {
 
-        console.log(basicToken);
         if(basicToken === null){
             
             setMainPage(<LoginForm setBasicToken={setBasicToken} setIsRegistartionTap={setIsRegistartionTap}/>);
             return;
         }
-
+        
         invoke("isAccountExist", {basicToken}).then(isAccountExist => {
 
             setIsAccountExist(isAccountExist);
         });
 
-        if(isAccountExist === false){
+        if(isAccountExist === false && basicToken === null){
             
             setMainPage(<Registration setBasicToken={setBasicToken} setIsLogInTap={setIsLogInTap}/>);
             return;
@@ -55,36 +54,40 @@ export default function App(){
         setMainPage(<Loading />);
 
         invoke("getAccountVerification", {basicToken: basicToken}).then(newAcountVerification => {
-
-            setAccountVerification(newAcountVerification);
+            
+            setAccountVerification(prevState => ({
+                ...prevState,
+                state: newAcountVerification.state,
+                domen: newAcountVerification.domen
+            }));
+            
         });
-        
 
-    },[basicToken]);
+        setInterval(() => {
+                    
+            invoke('isAccessesExist', {basicToken}).then(isAccessesExist => {
+                setAccountVerification(prevState => ({
+
+                    ...prevState,   
+                    accesses:isAccessesExist
+                }));
+            });
+        }, 2000);
+
+    },[basicToken, isAccountExist]);
 
     useEffect(() => {
 
         let intervalId = 0;
 
-        if(accountVerification === null){
+        if(accountVerification.accesses === null){
 
             return;
         }
-        console.log(accountVerification)
 
-        if(accountVerification.accesses.isBitBucketAccessExist === false || accountVerification.accesses.isJiraAccessExist === false){
+        if(accountVerification.accesses.isBitBucketAccessExist === false || accountVerification.accesses.isJiraAccessExist === false || accountVerification.accesses.isConfluenceAccessExist === false){
 
             setMainPage(<Accesses accesses={accountVerification.accesses} state={accountVerification.state}/>);
-
-            intervalId = setInterval(() => {
-
-                invoke("getAccesses", {basicToken}).then(newAccesses => {
-
-                    setAccesses(newAccesses);
-
-                });
-
-            }, 2000);
 
             return;
         }
@@ -127,6 +130,11 @@ export default function App(){
         }
 
     },[isRegistartionTap]);
+
+    useEffect(() => {
+
+       
+    }, [accountVerification])
 
 
     useEffect(() => {

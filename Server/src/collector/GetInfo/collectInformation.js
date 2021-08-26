@@ -3,10 +3,10 @@ import getJiraAccessToken from '../../../public/Database/get/getJiraAccessToken.
 import getJiraUrl from '../../../public/Database/get/getJiraUrl.js';
 import updateActionsOfEmployees from '../../../public/Database/set/updateActionsOfEmployees.js';
 import accessResourse from '../../authorizationsAtlassian/accessResourese.js';
-import GetMacketForRender, { info } from '../Makcets/getMacketForRender.js';
-import { GetCommentsOfCommits } from '../Requests/requestsTest/requestsTest.js';
+import getMacketForRender from '../Makcets/getMacketForRender.js';
 import getInfoFromBitBucket from './getInfoFromBitBucket.js';
 import getInfoFromJira from './getInfoFromJira.js';
+
 import { getIdenticalAndUnIndenticalUsers, countActionsbyUser } from './Tools/tools.js'
 
 async function collectInformation(dates, basicToken){
@@ -19,15 +19,16 @@ async function collectInformation(dates, basicToken){
         
         const jiraUrl = await getJiraUrl(basicToken);
 
-        const accessId = await accessResourse(jiraAccess);
+        const jiraAccessId = await accessResourse(jiraAccess);
 
         const infoBitBucket = await getInfoFromBitBucket(dates, bitbcuketAccess);
         
-        const infoUsersJira = await getInfoFromJira(dates, jiraAccess, jiraUrl, accessId);
+        const infoUsersJira = await getInfoFromJira(dates, jiraAccess, jiraUrl, jiraAccessId);
         
         const actionsOfEmployees = initializeMacketForRender(infoUsersJira, infoBitBucket);
         
         updateActionsOfEmployees(actionsOfEmployees, basicToken);
+
     }
     catch(err){
         console.log(err);
@@ -49,7 +50,7 @@ function initializeMacketForRender(infoUsersJira, infoBitBucket){
     
     infoUsersJira.users.map(user => {
 
-        let userMacket = info();
+        let userMacket = getMacketForRender();
         
         userMacket.accountAvatar = user.user.accountAvatar;
         userMacket.accountId = user.user.accountId;

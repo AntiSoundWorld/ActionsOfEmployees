@@ -13,7 +13,8 @@ export default function Registration(props){
     async function OnSubmit(event){
 
         event.preventDefault();
-          console.log(event)  
+        console.log("tap");
+        
         let email = event.target.email.value
         
         let password = event.target.password.value
@@ -61,7 +62,8 @@ export default function Registration(props){
             
             if(status == 201){
 
-                localStorage.setItem('basicToken', basicToken)
+                localStorage.setItem('basicToken', basicToken);
+
                 props.setBasicToken(basicToken);
             }
         });

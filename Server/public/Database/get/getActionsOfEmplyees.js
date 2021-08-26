@@ -17,6 +17,7 @@ export default async function getActionsOfEmplyees(basicToken){
         status: null,
         actions: null
     }
+    
     let getUrlJira = `SELECT actionsOfEmployees FROM users WHERE basicToken='${basicToken}'`;
 
     const[rows, fields] = await connect.query(getUrlJira);
@@ -32,7 +33,7 @@ export default async function getActionsOfEmplyees(basicToken){
     datas.status == 200;
     datas.actions = res[0].actionsOfEmployees;
 
-    // updateActionsOfEmployees(null, basicToken);
+    updateActionsOfEmployees(null, basicToken);
 
     return datas;
 }
