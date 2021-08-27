@@ -14,6 +14,8 @@ export default function Head(){
                 <th class='bitBucket_Commits'>BitBucket Commits</th>
                 <th class='bitBucket_comments_of_commits'>BitBucket CommentsOfCommits</th>
                 <th class='bitBucket_PullRequests'>BitBucket PullRequests</th>
+                <th class='confluence_Comments'>Confluence commentsPages</th>
+                <th class='confluence_Comments'>Confluence commentsBlogs</th>
             </tr>
         </thead>
     )

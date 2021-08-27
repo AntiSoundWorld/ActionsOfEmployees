@@ -75,8 +75,17 @@ transition: all 10s ease-in-out;
 .numCommentsOfCommits{
   text-align: center;
 }
+
+.numCommentsOfPages{
+  text-align: center;
+}
+
+.numCommentsOfBlogs{
+  text-align: center;
+}
+
 .hide{
-animation: remove 30s;
+  animation: remove 30s;
 }
 
 @keyframes remove{

@@ -18,6 +18,21 @@ export function isAccountIdExistInList(listOfUsers, user){
     return isAccountIdExist;
 }
 
+export function getUsers(macketOfUsers){
+
+    let users = [];
+
+    macketOfUsers.map(macketOfUser => {
+         if(isAccountIdExistInList(users, macketOfUser) === false){
+
+            users.push(JSON.parse(JSON.stringify(macketOfUser)));
+
+            return;
+        }
+    });
+
+    return users;
+}
 export function showUserInfo(user){
      
     console.log(user);
@@ -86,12 +101,16 @@ export function countActionsbyUser(user, determinate){
 
     let num = 0;
 
-    if (determinate == 'commits' || determinate == 'pullRequests' || determinate == 'commentsOfCommits') {
+    if (determinate === 'commits' || determinate === 'pullRequests' || determinate === 'commentsOfCommits') {
         num = countActionsCommitsOrPullRequests(user, determinate);
     }
 
-    if (determinate == 'comments') {
-        num = countActionComments(user, determinate);
+    if (determinate === 'commentsJira') {
+        num = countActionJiraComments(user, determinate);
+    }
+
+    if (determinate === 'blogPosts' || determinate === 'pages') {
+        num = countActionConfluenceComments(user, determinate)
     }
 
     return num;
@@ -103,12 +122,38 @@ function initializeMacketForRender(){
 
 }
 
-function countActionComments(user){
+function countActionJiraComments(user){
 
     let num = 0;
 
     user.commentInfo.map(comment => {
         num = num + comment.numOfComments;
+    });
+
+    return num;
+}
+
+function countActionConfluenceComments(user, determinate){
+
+    let num = 0;
+    
+    user.spaces.map(space => {
+        console.log(space);
+            
+            let currentAction = null;
+            
+            if(determinate === "blogPosts"){
+        
+                currentAction = space.action.numOfBlogPosts
+            }
+
+            if(determinate === "pages"){
+        
+                currentAction = space.action.numOfPages
+            }
+
+            num = num + currentAction
+
     });
 
     return num;
@@ -167,6 +212,19 @@ function getAllUsersInfoFromJira(allUsers, infoUsersJira){
     return allUsers;
 }
 
+export function isSpacesExist(users, space){
+    
+    let isExist = false;
+
+    users.map(user.spaces.map(space => {
+
+        if (space === this.space) {
+            isExist = true;
+        }
+    }));
+
+    return isExist;
+}
 export function getIsExistInfo(comparedUser, soughtUser) {
 
     let isExistInfo = {
