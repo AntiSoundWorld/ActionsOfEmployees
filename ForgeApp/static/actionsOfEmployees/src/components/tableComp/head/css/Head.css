@@ -48,6 +48,16 @@ th text{
     text-align: center;
 }
 
-.confluence_comments{
+.confluence_comments_pages{
+    text-align: center;
+}
+.confluence_edits_pages{
+    text-align: center;
+}
+
+.confluence_comments_blogs{
+    text-align: center;
+}
+.confluence_edits_blogs{
     text-align: center;
 }

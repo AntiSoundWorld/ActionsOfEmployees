@@ -97,6 +97,7 @@ export function getAllUsers(infoUsersJira){
     return allUsers;
 
 }
+
 export function countActionsbyUser(user, determinate){
 
     let num = 0;
@@ -109,9 +110,14 @@ export function countActionsbyUser(user, determinate){
         num = countActionJiraComments(user, determinate);
     }
 
-    if (determinate === 'blogPosts' || determinate === 'pages') {
-        num = countActionConfluenceComments(user, determinate)
+    if (determinate === 'commentsPages' || determinate === 'commentsBlogs') {
+        num = countActionConfluence(user, determinate)
     }
+
+    if (determinate === 'editsPages' || determinate === 'editsBlogs') {
+        num = countActionConfluence(user, determinate)
+    }
+
 
     return num;
 }
@@ -133,26 +139,36 @@ function countActionJiraComments(user){
     return num;
 }
 
-function countActionConfluenceComments(user, determinate){
+function countActionConfluence(user, determinate){
 
     let num = 0;
     
     user.spaces.map(space => {
-        console.log(space);
-            
-            let currentAction = null;
-            
-            if(determinate === "blogPosts"){
         
-                currentAction = space.action.numOfBlogPosts
-            }
-
-            if(determinate === "pages"){
+        let currentAction = null;
         
-                currentAction = space.action.numOfPages
-            }
+        if(determinate === "commentsBlogs"){
+            
+            currentAction = space.action.numOfCommentsBlogPosts
+        }
+        
+        if(determinate === "commentsPages"){
+            
+            currentAction = space.action.numOfCommentsPages;
+        }
+        
+        if(determinate === "editsPages"){
+            
+            currentAction = space.action.numOfEditsPages;
+          
+        }
 
-            num = num + currentAction
+        if(determinate === "editsBlogs"){
+            
+            currentAction = space.action.numOfEditsBlogPosts;
+        }
+
+        num = num + currentAction;
 
     });
 

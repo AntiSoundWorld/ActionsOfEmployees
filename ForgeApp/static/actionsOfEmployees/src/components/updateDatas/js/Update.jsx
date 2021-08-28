@@ -21,7 +21,6 @@ export default function UpdateDatas(props){
     }, [props.dates]);
 
     function Update(){
-        console.log('tap');
         props.setIsTrigerExist(false);
     }
     

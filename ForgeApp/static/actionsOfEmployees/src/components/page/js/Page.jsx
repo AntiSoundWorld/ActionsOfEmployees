@@ -7,8 +7,6 @@ function Page(){
 
     setTimeout(() => {
         let login = document.getElementById('login');
-
-        console.log(login.contentWindow.document);
     }, 0);
     return(
         <iframe id="login" 

@@ -12,10 +12,7 @@ const resolver = new Resolver();
 
 resolver.define("getAccountVerification", async({payload}) => {
 
-    const res = await GetAccountVerification(payload.basicToken);
-
-    console.log(res);
-    return res;
+    return await GetAccountVerification(payload.basicToken);;
 });
 
 resolver.define("collectActionsOfEmployees", async({payload}) => {

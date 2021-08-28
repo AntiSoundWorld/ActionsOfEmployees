@@ -1,35 +1,55 @@
 import RequestsToConfluence from "../Requests/requestsToConfluence.js";
-import { getUsers,} from "./Tools/tools.js";
+import { getUsers, isAccountIdExistInList,} from "./Tools/tools.js";
 import substr from "substr-word"
 
-export default async function GetInfoFromConfluence(jiraAccessId, accessToken, dates){
+export default async function GetInfoFromConfluence(jiraAccessId, accessToken, rangeDates){
 
-   const confluenseResponses  = await RequestsToConfluence(jiraAccessId, accessToken);
+   const contentInfo = await RequestsToConfluence(jiraAccessId, accessToken);
 
    const infoConfluence = {
-
-        infoBlogPosts: getInfoFromResponse(confluenseResponses.infoBlogPosts, dates, "blogPosts"),
-        infoPages: getInfoFromResponse(confluenseResponses.infoPages, dates, "pages"),
+       
+        infoPages: await getInfoFromResponse(contentInfo.pages, rangeDates, "pages"),
+        infoBlogs: await getInfoFromResponse(contentInfo.blogs, rangeDates, "blogs"),
     }
 
+    // console.log(infoConfluence);
     return infoConfluence;
 }
 
-function getInfoFromResponse(response, dates, countVar){
+function getInfoFromResponse(contentInfo, rangeDates, countVar){
 
-    const users = getUsers(response);
-    const usersMacket = getUserMacket(users, response, countVar);
-    countActions(dates, response, usersMacket, countVar);
+    const users = contentInfo.map(content => {
 
-    return usersMacket;
+        const usersEdits = getUsers(content.edits);
+        const usersComments = getUsers(content.comments);
+
+
+        return {usersEdits, usersComments}
+    });
+
+    const usersEdits = getUsersDromDifferentsTypes(users, "edits");
+    const usersComments = getUsersDromDifferentsTypes(users, "comments")
+
+    const usersEditsMacket = getUserMacket(usersEdits, contentInfo, "edits", countVar);
+    const usersCommentsMacket = getUserMacket(usersComments, contentInfo, "comments", countVar);
+    
+    const edits = countActions(rangeDates, contentInfo, usersEditsMacket, 'edits' ,countVar);
+    const comments = countActions(rangeDates, contentInfo, usersCommentsMacket, 'comments' ,countVar);
+
+    return {edits, comments};
 }
 
-function getUserMacket(users, response, countVar){
+
+function getUserMacket(users, contentInfo, action ,countVar){
     
     const macketOfUsers = [];
 
-    users.map(user => {
+    let path = null;
+    
 
+    users.map(user => {
+        
+        
         const newUser = {
             user: {
                 accountId: null,
@@ -39,105 +59,203 @@ function getUserMacket(users, response, countVar){
             spaces:[]
         }
 
-        response.map(currentUser => {
-            
-            
-            if(currentUser.user.accountId !== user.user.accountId){
-                return;
+        contentInfo.map(currentContent => {
+
+
+            if(action === 'edits'){
+                path = currentContent.edits;
             }
-
             
-            newUser.user.accountId = user.user.accountId;
-            newUser.user.email = user.user.email;
-            newUser.user.userName = user.user.userName;
-
-            let action = null;
-            
-            if(countVar === 'blogPosts'){
-                action = {
-                    numOfBlogPosts: 0
-                }
-            }
-            if(countVar === 'pages'){
-
-                action = {
-                    numOfPages: 0
-                }
-            }
-
-            
-            if(newUser.spaces.length === 0){
+            if(action === 'comments'){
+                path = currentContent.comments;
                 
-                newUser.spaces.push({
-                    space: currentUser.datas.space,
-                    action: action
-                })
-                
-                return;
             }
             
-            let isSpaceExist = false;
+            if (currentContent.id === 'trashed' || path.length === 0) {
+                return;
+                
+            }
+
+            path.map(path => {
+
+                let nameActionsOfUser = null;
+
+                if(user.accountId !== path.user.accountId){
+                    return;
+                }
+    
+                newUser.user.accountId = user.accountId;
+                newUser.user.email = user.email;
+                newUser.user.userName = user.userName;
+                
+                if(countVar === 'blogs' && action === 'edits'){
+
+                    nameActionsOfUser = {
+                        numOfEditsBlogPosts: 0
+                    }
+                }
+
+                if(countVar === 'pages' && action == "edits"){
+    
+                    nameActionsOfUser = {
+                        numOfEditsPages: 0
+                    }
+                }
+
+                if(countVar === 'blogs' && action === 'comments'){
+
+                    nameActionsOfUser = {
+                        numOfCommentsBlogPosts: 0
+                    }
+                }
+
+                if(countVar === 'pages' && action === 'comments'){
+    
+                    nameActionsOfUser = {
+                        numOfCommentsPages: 0
+                    }
+                }
+
+                if(newUser.spaces.length === 0){
+                
+                    newUser.spaces.push({
+                        space: currentContent.space,
+                        action: nameActionsOfUser
+                    })
+                    
+                    return;
+                }
+
+                let isSpaceExist = false;
 
           
-            newUser.spaces.forEach((space) => {
-
-                if(currentUser.datas.space === space.space){
-                    isSpaceExist = true;
+                newUser.spaces.forEach((space) => {
+    
+                    if(currentContent.space === space.space){
+                        isSpaceExist = true;
+                    }
+                })
+    
+                if(isSpaceExist){
+                    return
                 }
+                
+                newUser.spaces.push({
+                    space: currentContent.space,
+                    action: nameActionsOfUser
+                })
             })
-
-            if(isSpaceExist){
-                return
-            }
-            
-            newUser.spaces.push({
-                space: currentUser.datas.space,
-                action: action
-            })
+  
         });
-
         macketOfUsers.push(newUser)
-    })
 
+    })
+            
     return macketOfUsers;
 }
 
-function countActions(dates, users, mackets, countVar) {
-    // console.log('=======================', countVar, '=======================');
+function getUsersDromDifferentsTypes(usersActions, countVar){
 
-    mackets.forEach(currentMacketUser => {
-        users.map(user => {
-            
-            if (user.user.accountId !== currentMacketUser.user.accountId) {
+    let actions = null;
+    
+    const users = [];
+    
+    usersActions.map(userAction => {
+        
+   
+        if(countVar === 'edits'){
+            actions = userAction.usersEdits;
+        }
+    
+        if(countVar === 'comments'){
+            actions = userAction.usersComments;
+        }
+        if(actions.length === 0){
+            return;
+        }
+     
+        actions.map(action => {
+            let isAccountExist = false;
+
+            if (users.length === 0) {
+                users.push(action.user);
                 return;
             }
             
-            currentMacketUser.spaces.forEach(currentSpaceMacket => {
+            users.map(user => {
+                if(user.accountId === action.user.accountId ){
+                    isAccountExist = true;
+                }
+            })
+            
+            if (isAccountExist) {
+                return;
+            }
+            
+            users.push(action.user);
+        })
+        
+    });
+
+    return users;
+}
+
+function countActions(dates, contents, mackets, action, countVar) {
+    // console.log('=======================',countVar, " - ",action, '=======================');
+
+    mackets.forEach(currentMacketUser => {
+
+        contents.map(content => {
+            
+            let path = null;
+
+            if(action === 'edits'){
+
+                path = content.edits;
+            }
+            
+            if(action === 'comments'){
+
+                path = content.comments;
                 
-                if (user.datas.space !== currentSpaceMacket.space) {
+            }
+
+            path.map(currentAction => {
+                
+                if (currentMacketUser.user.accountId !== currentAction.user.accountId) {
                     return;
                 }
 
-                const created_on = user.datas.created_on;
-
-                if (substr(created_on, 10) < dates.start || substr(created_on, 10) > dates.end) {
-                    return;
-                }
-                
-                if (countVar === 'blogPosts') {
-                    currentSpaceMacket.action.numOfBlogPosts ++;
-                }
-                
-                if (countVar === 'pages') {
-                    currentSpaceMacket.action.numOfPages ++;
-                }
-
-                
-                // console.log(currentSpaceMacket)
-            });
+                currentMacketUser.spaces.forEach(currentSpaceMacket => {
+                    if (content.space !== currentSpaceMacket.space) {
+                        return;
+                    }
+                    
+                    const created_on = currentAction.datas.created_on;
+                    
+                    if (substr(created_on, 10) < dates.start || substr(created_on, 10) > dates.end) {
+                        return;
+                    }
+                    
+                    if (countVar === 'blogs' && action === 'edits') {
+                        currentSpaceMacket.action.numOfEditsBlogPosts ++;
+                    }
+                    
+                    if (countVar === 'blogs' && action === 'comments') {
+                        currentSpaceMacket.action.numOfCommentsBlogPosts ++;
+                    }
+                    
+                    if (countVar === 'pages' && action === 'edits') {
+                        currentSpaceMacket.action.numOfEditsPages++;
+                    }
+               
+                    if (countVar === 'pages' && action === 'comments') {
+                        currentSpaceMacket.action.numOfCommentsPages ++;
+                    }
+                });
+            })
         });
     })
   
-
-    return users;
+    return mackets;
 }

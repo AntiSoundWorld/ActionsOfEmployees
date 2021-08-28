@@ -5,7 +5,6 @@ import "../css/Body.css";
 
 export default function Body(props){
 
-    console.log(props)
     return (
         <tbody>
         <tr class='body'>
@@ -17,8 +16,10 @@ export default function Body(props){
             <td class='numCommits'>{props.user.numOfCommits}</td>
             <td class='numCommentsOfCommits'>{props.user.numCommentsOfCommits}</td>
             <td class='numpullRequests'>{props.user.numOfpullRequests}</td>
-            <td class='numCommentsOfPages'>{props.user.numCommentsOfPages}</td>
-            <td class='numCommentsOfBlogs'>{props.user.numCommentsOfBlogs}</td>
+            <td class='numEditsOfPage'>{props.user.numOfEditsPages}</td>
+            <td class='numCommentsOfPages'>{props.user.numOfCommentsPages}</td>
+            <td class='numEditsOfBlogs'>{props.user.numOfEditsBlogPosts}</td>
+            <td class='numCommentsOfBlogs'>{props.user.numOfCommentsBlogPosts}</td>
         </tr>
     </tbody>
     )

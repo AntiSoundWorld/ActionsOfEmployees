@@ -52,9 +52,14 @@ function initializeMacketForRender(infoUsersJira, infoBitBucket, infoConfluence)
 
     let usersCommentsOfCommits = getIdenticalAndUnIndenticalUsers(infoUsersJira.users, infoBitBucket.infoCommentsOfcommits);
 
-    let usersCommentsOfBlogs = getIdenticalAndUnIndenticalUsers(infoUsersJira.users, infoConfluence.infoBlogPosts);
+    let usersEditPage =  getIdenticalAndUnIndenticalUsers(infoUsersJira.users, infoConfluence.infoPages.edits);
+    
+    let usersCommentsPage =  getIdenticalAndUnIndenticalUsers(infoUsersJira.users, infoConfluence.infoPages.comments);
+    
+    let usersEditsBlogs =  getIdenticalAndUnIndenticalUsers(infoUsersJira.users, infoConfluence.infoBlogs.edits);
+   
+    let usersCommentsBlogs = getIdenticalAndUnIndenticalUsers(infoUsersJira.users, infoConfluence.infoBlogs.comments);
 
-    let usersCommentsOfPages = getIdenticalAndUnIndenticalUsers(infoUsersJira.users, infoConfluence.infoPages);
 
     let macketForRender = [];
     
@@ -100,20 +105,37 @@ function initializeMacketForRender(infoUsersJira, infoBitBucket, infoConfluence)
 
         });
 
-        usersCommentsOfBlogs.existingUsers.map(currentUser => {
+        usersEditPage.existingUsers.map(currentUser => {
             
             if(user.user.accountId === currentUser.user.accountId){
 
-                userMacket.numCommentsOfBlogs = countActionsbyUser(currentUser, 'blogPosts');
+                userMacket.numOfEditsPages = countActionsbyUser(currentUser, 'editsPages');
             }
         });
 
-        usersCommentsOfPages.existingUsers.map(currentUser => {
+        usersCommentsPage.existingUsers.map(currentUser => {
             
             if(user.user.accountId === currentUser.user.accountId){
 
-                userMacket.numCommentsOfPages = countActionsbyUser(currentUser, 'pages');
+                userMacket.numOfCommentsPages = countActionsbyUser(currentUser, 'commentsPages');
             }
+        });
+
+        usersEditsBlogs.existingUsers.map(currentUser => {
+            
+            if(user.user.accountId === currentUser.user.accountId){
+            
+                userMacket.numOfEditsBlogPosts = countActionsbyUser(currentUser, 'editsBlogs');
+            }
+        });
+                
+        usersCommentsBlogs.existingUsers.map(currentUser => {
+
+            if(user.user.accountId === currentUser.user.accountId){
+
+                userMacket.numOfCommentsBlogPosts = countActionsbyUser(currentUser, 'commentsBlogs');
+            }
+
         });
 
         macketForRender.push(JSON.parse(JSON.stringify(userMacket)));
