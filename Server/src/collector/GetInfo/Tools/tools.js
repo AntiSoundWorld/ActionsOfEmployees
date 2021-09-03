@@ -102,7 +102,7 @@ export function countActionsbyUser(user, determinate){
 
     let num = 0;
 
-    if (determinate === 'commits' || determinate === 'pullRequests' || determinate === 'commentsOfCommits') {
+    if (determinate === 'commits' || determinate === 'pullRequests' || determinate === 'commentsOfCommits' || determinate === 'commentsOfPullRequests') {
         num = countActionsCommitsOrPullRequests(user, determinate);
     }
 
@@ -180,10 +180,11 @@ export function countActionsCommitsOrPullRequests(user, determinate){
   
     let num = 0;
 
+    
     user.workspaces.map(workspace => {
         workspace.repositoriesName.map(repository => {
             repository.actions.map(action => {
-
+                
                 if(determinate == 'pullRequests'){
                     typeOfAction = action.numOfPullRequests;
                 }
@@ -194,7 +195,12 @@ export function countActionsCommitsOrPullRequests(user, determinate){
 
                 if(determinate == 'commentsOfCommits'){
                     typeOfAction = action.numCommentsOfCommits;
+                }
 
+                console.log(determinate)
+                if (determinate == 'commentsOfPullRequests') {
+                    
+                    typeOfAction = action.numCommentsOfPullRequests;
                 }
 
                 num = num + typeOfAction;

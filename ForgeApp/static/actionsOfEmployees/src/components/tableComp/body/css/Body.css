@@ -1,17 +1,25 @@
 .body{
-    background-color: rgb(245, 245, 245);
-    transition: 0.25;
-    animation: move 1s;
+  position: relative;
+  background-color: rgb(245, 245, 245);
+  transition: 0.25;
+  animation: move 1s;
+  position: -webkit-sticky;
+  height: 40px;
+  top: 0;
+  display: grid;
+  grid-template-columns:3% 5% 15% repeat(9, 1fr) 3%;
+  text-align: center;
+  vertical-align: middle;
+  justify-content: center;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  
 }
 
-td:first-child{
-  border-top-left-radius : 5px;
-  border-bottom-left-radius: 5px;
-}
-
-td:last-child{
-  border-top-right-radius : 5px;
-  border-bottom-right-radius: 5px;
+.wrapper{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 @keyframes move{
@@ -34,30 +42,18 @@ td:last-child{
 td{
   transition: all 10s ease-in-out;
 }
-/* .name{
-    width: 23.5%;
-}
-
-.jira_comments{
-  width: 23.5%;
-}
-
-.bitBucket_Commits{
-  text-align: center;
-}
-
-.numCommentsOfCommits{
-
-}
-.bitBucket_PullRequests{
-  width: 23.5%;
-} */
 
 .image{
-  display: flex;
+  position: relative;
   width:32px;
   height: 32px;
-  margin-left: 4px;
+}
+
+.accountName{
+  position: relative;
+}
+.numCommentsOfPullRequests{
+  text-align: center;
 }
 
 .numComments {

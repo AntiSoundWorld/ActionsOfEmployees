@@ -1,4 +1,5 @@
 import getBitBukcetWorkspaces from './requestsToBitBucket/getBitBukcetWorkspaces.js';
+import getCommentsFromPullRequests from './requestsToBitBucket/getCommentsFromPullRequests.js';
 import getListOfCommentsFromCommits from './requestsToBitBucket/getListOfCommentsFromCommits.js';
 import getListOfRepositories from './requestsToBitBucket/getListOfRepositories.js';
 import getRepositoryCommits from './requestsToBitBucket/getRepositoryCommits.js';
@@ -10,15 +11,23 @@ export default async function requestsToBitBucket(accessToken) {
     
     const listOfRepositoriesName = await getListOfRepositories(listOfWorkspacesName, accessToken);
     
-    const listOfCommits = await getRepositoryCommits(listOfRepositoriesName, accessToken);
+    const repositoryCommits = await getRepositoryCommits(listOfRepositoriesName, accessToken);
+
+    const repositoryPullRequests =  await getRepositoryPullRequests(listOfRepositoriesName, accessToken)
+    
+    const commentsFromPullRequests = await getCommentsFromPullRequests(repositoryPullRequests, accessToken)
+
+    const commentsFromCommits = await getListOfCommentsFromCommits(repositoryCommits, accessToken);
 
     const infoBitBucket = {
         
-        repositoryCommits: listOfCommits,
+        repositoryCommits,
 
-        commentsFromCommits: await getListOfCommentsFromCommits(listOfCommits, accessToken),
+        commentsFromCommits,
 
-        repositoryPullRequests: await getRepositoryPullRequests(listOfRepositoriesName, accessToken)
+        repositoryPullRequests,
+
+        commentsFromPullRequests
     }
 
     return infoBitBucket;

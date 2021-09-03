@@ -187,7 +187,6 @@ export default function getRoutes(app){
         }
 
         let domen = await getDomen(authorization)
-        console.log(domen);
         response.json(domen);
     });
 }

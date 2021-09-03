@@ -7,6 +7,7 @@ export default function getMacketForRender() {
         numOfComments: 0,
         numOfCommits: 0,
         numOfpullRequests: 0,
+        numCommentsOfPullRequests: 0,
         numCommentsOfCommits: 0,
         numOfCommentsPages: 0,
         numOfCommentsBlogPosts: 0,

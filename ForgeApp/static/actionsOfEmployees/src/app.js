@@ -63,7 +63,7 @@ export default function App(){
             
         });
 
-        setInterval(() => {
+        // setInterval(() => {
                     
             invoke('isAccessesExist', {basicToken}).then(isAccessesExist => {
                 setAccountVerification(prevState => ({
@@ -72,8 +72,8 @@ export default function App(){
                     accesses:isAccessesExist
                 }));
             });
-        }, 2000);
-
+           
+        // }, 2000);
     },[basicToken, isAccountExist]);
 
     useEffect(() => {
@@ -100,6 +100,7 @@ export default function App(){
                 
                 invoke("getActionsOfEmployees", {basicToken}).then(newActionsOfEmployees => {
 
+                    console.log(newActionsOfEmployees)
                     setActionsOfEmplyees(newActionsOfEmployees);
 
                     setNewList(newActionsOfEmployees);

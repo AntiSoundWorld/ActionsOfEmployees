@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import defaultDates from '../../../tools/tools';
-
+import updateImage from '../../../assets/update.png'
 import '../css/Update.css'
 
 export default function UpdateDatas(props){
@@ -25,7 +25,9 @@ export default function UpdateDatas(props){
     }
     
     return (
-        <button id='updateDatas' onClick={Update}>Update</button>
+
+          
+        <button id='updateDatas' onClick={Update}><img id="update-image" src={updateImage}/></button>
     )
 }
 

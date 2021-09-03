@@ -22,7 +22,6 @@ export default async function getListOfCommentsFromCommits(listOfCommits, access
                         'Content-Type': 'application/json'
                     }
                 });
-
                 
                 const datas =  await res.json();
 

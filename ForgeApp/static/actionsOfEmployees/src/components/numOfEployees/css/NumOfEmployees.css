@@ -1,0 +1,12 @@
+#container-numOfEmplyees{
+    border: none;
+    background: rgb(2, 183, 255);
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    vertical-align: middle;
+    font-weight: 600;
+}

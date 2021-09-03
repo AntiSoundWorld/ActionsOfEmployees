@@ -28,7 +28,6 @@ export default async function isAccessesExist(basicToken){
     try{
         let[accessTokenRows] = await connect.query(getAccessTokenJira);
 
-        console.log('===============================',accessTokenRows);
         const accessToken = JSON.parse(JSON.stringify(accessTokenRows));
         
         if(accessToken[0].accessToken_Confluence === null || accessToken[0].accessToken_Confluence === 'undefined'){
@@ -53,6 +52,5 @@ export default async function isAccessesExist(basicToken){
         console.log(err);
     }
 
-    console.log(accesses)
     return accesses;
 }

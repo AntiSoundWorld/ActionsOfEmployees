@@ -18,6 +18,7 @@ export default async function getRepositoryPullRequests(listOfRepositoriesName, 
 
         let info = {
             workspace: currentElement.workspace,
+            repository: currentElement.repositoryNames,
             data: data
         }
         repositoryPullRequests.push(info);

@@ -14,9 +14,6 @@ export default async function authorizationOnBitbucket(code, state){
     },
     function(error, meta, body){
 
-        console.log('error', error);
-        console.log('body', body);
-        
         updateBitBucketAccessToken(JSON.parse(body), state)
         return
     })

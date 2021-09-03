@@ -1,6 +1,6 @@
 import { userLabel } from "../Makcets/getMacketInfo.js";
 import RequestsToBitBucket from "../Requests/requestsToBitBucket.js";
-import { getIsExistInfo, isAccountIdExistInList } from "./Tools/tools.js";
+import { getIsExistInfo, getUsers, isAccountIdExistInList } from "./Tools/tools.js";
 import substr from "substr-word"
 
 async function getInfoFromBitBucket(dates, accessToken){
@@ -12,7 +12,8 @@ async function getInfoFromBitBucket(dates, accessToken){
           
           infoCommits : await getInfoFromResponses(dates, bitbucketResponse.repositoryCommits, 'commits'),
           infoCommentsOfcommits: await getInfoFromResponses(dates, bitbucketResponse.commentsFromCommits, 'commentsOfCommits'),
-          infoPullRequests: await getInfoFromResponses(dates, bitbucketResponse.repositoryPullRequests, 'pullRequests')
+          infoPullRequests: await getInfoFromResponses(dates, bitbucketResponse.repositoryPullRequests, 'pullRequests'),
+          infCommentsPullRequests: await getInfoFromResponses(dates, bitbucketResponse.commentsFromPullRequests, 'commentsOfPullRequests')
      }
      
      return infoBitBucket;
@@ -22,7 +23,7 @@ async function getInfoFromResponses(dates, responses, determinant) {
      
      let macketsOfUsers = getMacketsOfUsers(responses, determinant);
      
-     return  countActions(dates, getUsersInformation(macketsOfUsers), macketsOfUsers, determinant);
+     return countActions(dates, getUsersInformation(macketsOfUsers), macketsOfUsers, determinant);
 }
 
 function getMacketsOfUsers(responses, determinant){
@@ -41,7 +42,7 @@ function getMacketsOfUsers(responses, determinant){
                })
           }
           
-          if(determinant === 'commentsOfCommits'){
+          if(determinant === 'commentsOfCommits' ||   determinant ==='commentsOfPullRequests'){
                response.datas.map(data => {
                     
                     data.values.map(value => {
@@ -90,34 +91,29 @@ function getUsersInformation(macketOfUsers){
      return users;
 }
 
-function getUsers(macketOfUsers){
 
-     let users = [];
-
-     macketOfUsers.map(macketOfUser => {
-          
-          if(isAccountIdExistInList(users, macketOfUser) == false){
-
-               users.push(JSON.parse(JSON.stringify(macketOfUser)));
-
-               return;
-          }
-     });
-
-     return users;
-}
 
 function getInitializedMacketOfUser(response, value, determinant){
 
      let pathToUserInfo = null;
-     let pathToRpositoryInfo = null;
+     let pathToRepositoryInfo = null;
      let pathToCreatedDate = null
      let num = null;
 
+     if (determinant === 'commentsOfPullRequests') {
+          pathToUserInfo = value.user;
+          pathToRepositoryInfo = response;
+          pathToCreatedDate = value.created_on;
+          
+          num = {
+               numCommentsOfPullRequests: 0
+          }
+     }
+     
 
      if(determinant === 'commits'){
           pathToUserInfo = value.author.user;
-          pathToRpositoryInfo = value;
+          pathToRepositoryInfo = value;
           pathToCreatedDate = value.date;
 
           num = {
@@ -128,7 +124,7 @@ function getInitializedMacketOfUser(response, value, determinant){
 
      if(determinant === 'commentsOfCommits'){
           pathToUserInfo = value.user;
-          pathToRpositoryInfo = response;
+          pathToRepositoryInfo = response;
           pathToCreatedDate = value.created_on;
           
           // console.log(response)
@@ -139,42 +135,39 @@ function getInitializedMacketOfUser(response, value, determinant){
      
      if(determinant === 'pullRequests'){
           pathToUserInfo = value.author;
-          pathToRpositoryInfo = value.source;
+          pathToRepositoryInfo = value.source;
           pathToCreatedDate = value.created_on
 
-          console.log(value.source)
           num = {
                numOfPullRequests: 0
           }
      }
 
      let userLabelMacket = userLabel();
-
+     
      userLabelMacket.user.accountId = pathToUserInfo.account_id;
      userLabelMacket.user.accountName = pathToUserInfo.display_name;
      userLabelMacket.user.createdDate = substr(pathToCreatedDate, 10);
      userLabelMacket.workspaces = [];
      
+     
      let workSpaceInfo = {
           workspaceName: response.workspace,
           repositoriesName:[]
      }
-     
      let repositoryInfo = {
-          repositoryName: pathToRpositoryInfo.repository.name,
+          repositoryName: pathToRepositoryInfo.repository.name,
           actions: []
      }
      
      repositoryInfo.actions.push(num);
      workSpaceInfo.repositoriesName.push(repositoryInfo);
-
+     
      
      userLabelMacket.workspaces.push(workSpaceInfo);
      
      return userLabelMacket;
 }
-
-
 
 function getRepositoriesOfUser(user){
 
@@ -205,7 +198,7 @@ function countActions(dates, users, mackets, countVar) {
                                         currentWorkspace.repositoriesName.map(currentRepositoryName => {
 
                                              if(userRepositoryName.repositoryName == currentRepositoryName.repositoryName && currentUser.user.createdDate >= dates.start && currentUser.user.createdDate <= dates.end){
-
+                                                  
                                                   userRepositoryName.actions.map(action => {
                                                        
                                                        if(countVar == 'pullRequests'){
@@ -221,13 +214,16 @@ function countActions(dates, users, mackets, countVar) {
                                                        if (countVar == 'commentsOfCommits') {
                                                             action.numCommentsOfCommits ++; 
                                                        }
+
+                                                       if (countVar == 'commentsOfPullRequests') {
+                                                            action.numCommentsOfPullRequests ++; 
+                                                       }
                                                   });
                                              }
                                         });
                                    });
                               }
                          });
-
                     })
                }
           })

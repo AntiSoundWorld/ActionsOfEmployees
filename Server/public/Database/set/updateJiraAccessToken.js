@@ -9,7 +9,6 @@ export default async function updateJiraAccessToken(datas, state){
 
     const status = await isStateExist(state);
     
-    console.log(state);
     if(status === 404){
         return status;
     }

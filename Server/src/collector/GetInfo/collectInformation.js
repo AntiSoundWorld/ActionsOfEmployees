@@ -14,7 +14,7 @@ import { getIdenticalAndUnIndenticalUsers, countActionsbyUser } from './Tools/to
 async function collectInformation(dates, basicToken){
 
     try{
-      
+             
         const bitbcuketAccess = await getBitBucketAccessToken(basicToken);
     
         const jiraAccess = await getJiraAccessToken(basicToken);
@@ -34,7 +34,6 @@ async function collectInformation(dates, basicToken){
         const actionsOfEmployees = initializeMacketForRender(infoUsersJira, infoBitBucket, infoConfluence);
         
         updateActionsOfEmployees(actionsOfEmployees, basicToken);
-
     }
     catch(err){
         console.log(err);
@@ -51,6 +50,8 @@ function initializeMacketForRender(infoUsersJira, infoBitBucket, infoConfluence)
     let usersPullRequests = getIdenticalAndUnIndenticalUsers(infoUsersJira.users, infoBitBucket.infoPullRequests);
 
     let usersCommentsOfCommits = getIdenticalAndUnIndenticalUsers(infoUsersJira.users, infoBitBucket.infoCommentsOfcommits);
+
+    let usersCommentsOfPullRequests = getIdenticalAndUnIndenticalUsers(infoUsersJira.users, infoBitBucket.infCommentsPullRequests);
 
     let usersEditPage =  getIdenticalAndUnIndenticalUsers(infoUsersJira.users, infoConfluence.infoPages.edits);
     
@@ -103,6 +104,14 @@ function initializeMacketForRender(infoUsersJira, infoBitBucket, infoConfluence)
                 userMacket.numCommentsOfCommits = countActionsbyUser(currentUser, 'commentsOfCommits');
             }
 
+        });
+
+        usersCommentsOfPullRequests.existingUsers.map(currentUser => {
+            
+            if(user.user.accountId === currentUser.user.accountId){
+
+                userMacket.numCommentsOfPullRequests = countActionsbyUser(currentUser, 'commentsOfPullRequests');
+            }
         });
 
         usersEditPage.existingUsers.map(currentUser => {

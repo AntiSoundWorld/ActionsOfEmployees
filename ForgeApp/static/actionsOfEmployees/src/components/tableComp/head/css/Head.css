@@ -1,11 +1,17 @@
-th {
-    padding:5px;
-    Color:white;
-}
-
 #head{
+    position: relative;
+    top: 0;
+    left: 0;
     background-color: #3498db;
     animation: loadHead 5s;
+    width: 100%;
+    display: inline-grid;
+    grid-template-columns:3% 5% 15% repeat(9, 1fr) 3%;
+    height: 40px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    color: white;
+    font-weight: 600;
 }
 
 @keyframes loadHead{
@@ -29,7 +35,7 @@ th text{
 }
 
 .name {
-    text-align: center;
+    text-align: left;
 }
 
 .jira_comments {
@@ -41,6 +47,10 @@ th text{
 }
 
 .bitBucket_PullRequests{
+    text-align: center;
+}
+
+.bitBucket_comments_of_pullRequests{
     text-align: center;
 }
 

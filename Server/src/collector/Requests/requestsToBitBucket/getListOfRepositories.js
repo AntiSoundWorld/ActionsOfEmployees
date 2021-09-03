@@ -20,7 +20,6 @@ export default async function getListOfRepositories(listOfWorkspacesName, access
 
 async function getListOfNamesRepositories(workspace, accessToken) {
 
-
     let listOfNamesRepositories = [];
 
     let repositoryNames = [];
@@ -34,7 +33,6 @@ async function getListOfNamesRepositories(workspace, accessToken) {
     });
 
     const data = await res.json();
-    console.log(data);
 
     data.values.map(currentElement => {
 

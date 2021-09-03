@@ -1,0 +1,40 @@
+.arrow {
+    position: relative;
+    border: solid rgb(207, 207, 207);
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 5px;
+    border-radius: 3px;
+}
+
+#arrow-label{
+    cursor: pointer;
+    display: block;
+    text-align: center;
+}
+.arrow:hover{
+    box-shadow: 0px 0px 2px 0px;
+}
+.arrow-btn{
+    display: none;
+}
+
+.right {
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+}
+
+.left {
+    transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+}
+
+.up {
+    transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+}
+
+.down {
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+}

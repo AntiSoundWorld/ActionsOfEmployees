@@ -1,31 +1,8 @@
 table{
     position: relative;
-    width: 100%;
-    margin-top: 0;
-    margin-left: auto;
-    margin-right: auto;
+    top: 0;
+    margin:0;
     border-collapse: separate; /* allow spacing between cell borders */
     border-spacing: 0 10px;
-}
-
-table th:first-child{
-    border-top-left-radius : 5px;
-    border-bottom-left-radius: 5px;
-    width: 5%;
-}
-
-
-table th:last-child{
-    border-top-right-radius : 5px;
-    border-bottom-right-radius: 5px;
-}
-
-table td:first-child{
-    border-top-left-radius : 5px;
-    border-bottom-left-radius: 5px;
-}
-
-table td:last-child{
-    border-top-right-radius : 5px;
-    border-bottom-right-radius: 5px;
+    width: 50%;
 }
