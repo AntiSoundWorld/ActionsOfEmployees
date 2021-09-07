@@ -9,7 +9,17 @@ export default async function getCreatemeta(accessToken, accessId){
         }
     });
 
-    const data = await res.json();  
-    
-    return data;
+    const data = await res.json();
+
+    const datas = data.projects.map( data => {
+
+        return {
+            id: data.id,
+            key: data.key,
+            name: data.name,
+            avatarUrl: data.avatarUrls['32x32']
+        }
+    });
+
+    return datas;
 }

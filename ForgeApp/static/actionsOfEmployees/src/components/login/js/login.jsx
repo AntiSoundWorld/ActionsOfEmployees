@@ -30,7 +30,7 @@ function LoginForm(props){
         <div class="main-form">
 
             <div class="label">
-            <h1>Action Of Emplyees</h1>
+                <h1>Team Activity</h1>
                 <text>Login</text>
             </div>
             

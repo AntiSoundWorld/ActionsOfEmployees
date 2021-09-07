@@ -18,10 +18,10 @@ app.get(/.*/, (req, res) => {
     res.sendFile(__dirname + "/dist/index.html");
 });
 
-// app.listen(port, () => {
-//     console.log("server running on " + port);
-// });
+app.listen(port, () => {
+    console.log("server running on " + port);
+});
 
-const server = http.createServer(app).listen(port, () => {
-    console.log('server running at http://' + host + ':' + port);
-}) ;
+// const server = http.createServer(app).listen(port, () => {
+//     console.log('server running at http://' + host + ':' + port);
+// }) ;

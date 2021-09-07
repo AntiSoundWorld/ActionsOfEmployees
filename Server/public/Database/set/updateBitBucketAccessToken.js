@@ -11,8 +11,6 @@ export default async function updateBitBucketAccessToken(datas, state){
 
     const status = await isStateExist(state);
     
-    console.log('status', status);
-
     if(status === 401){
         return status;
     }

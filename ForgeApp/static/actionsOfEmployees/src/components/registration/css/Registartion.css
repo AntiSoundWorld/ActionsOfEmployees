@@ -1,7 +1,7 @@
-body{
-    overflow: hidden;
+.main-form{
+    display: block;
+    height: 470px;
 }
-
 .box{
     position: absolute;
     width: 300px;
@@ -26,8 +26,8 @@ body{
 }
 
 .label h1{
+    position: relative;
     width: 100%;
-    margin: 5px;
     color: #025388;
 }
 

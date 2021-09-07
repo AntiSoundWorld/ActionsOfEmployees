@@ -27,5 +27,5 @@ export default async function updateJiraAccessToken(datas, state){
         WHERE state='${state}'`
     }
     
-    console.log("refresh token",await connect.query(update));
+    await connect.query(update);
 }

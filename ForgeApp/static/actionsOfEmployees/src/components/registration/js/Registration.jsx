@@ -72,7 +72,7 @@ export default function Registration(props){
         <div class="main-form">
 
             <div class="label">
-            <h1>Actions Of Emplyees</h1>
+            <h1>Team Activity</h1>
                 <text>registration</text>
             </div>
             

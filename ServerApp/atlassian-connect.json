@@ -1,0 +1,33 @@
+{
+    "key": "ActionsOfEmployees",
+    "name": "My app",
+    "description": "My very first app",
+    "baseUrl": "https://314a-178-66-156-158.ngrok.io",
+    "authentication": {
+        "type": "jwt"
+    },
+    "lifecycle": {
+        "installed": "/installed"
+    },
+    "scopes": [
+        "READ"
+    ],
+    "apiMigrations":{
+        "signed-install": true
+    },
+    "modules": {
+        "generalPages": [
+            {
+                "key": "hello-world-page-jira",
+                "location": "system.top.navigation.bar",
+                "name": {
+                    "value": "ActionsPfEmployees"
+                },
+                "url": "/public/index.html",
+                "conditions": [{
+                    "condition": "user_is_logged_in"
+                }]
+            }
+        ]
+    }
+}

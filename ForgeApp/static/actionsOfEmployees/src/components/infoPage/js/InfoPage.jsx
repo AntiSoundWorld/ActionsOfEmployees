@@ -12,30 +12,35 @@ import '../css/InfoPage.css';
 
 import Arrow from '../../arrow/js/Arrow';
 import NumOfEmployees from '../../numOfEployees/js/NumOfEmployees';
+import Contest from '../../contest/js/Contest';
 
 
-export default function InfoPage(props){
+export default function  InfoPage(props){
+
     const[isArrowChecked, setIsArrowChecked] = useState(false)
 
-    const[rangePosition, setRangePosition] = useState({display: '', height: '150px'})
+    const[rangePosition, setRangePosition] = useState({display: '', height: '150px'});
 
-    useEffect(() => {
+    const[display, setDisplay] = useState(null);
 
-    },[rangePosition]);
     return (
         <div className="infoPage">
-                <div id="marker">
-                    <div class="container-logout">
-                        <Domen domen={props.domen}/>
-                        <Logout class="container-logout" setIsLogout={props.setIsLogout} />
-                    </div>
+            <div id="marker">
+                <div class="container-logout">
+                    <Domen domen={props.domen}/>
+                    <Logout class="container-logout" setIsLogout={props.setIsLogout} />
+                </div>
                     <div className="ranges" style={{height: rangePosition.height}}>
                         <Search actionsOfEmployees={props.actionsOfEmployees} setNewList={props.setNewList} />
                         <RangeDates rangePosition={rangePosition} dates={props.dates} setDates={props.setDates} setIsTrigerExist={props.setIsTrigerExist} />
                     </div>
-                        <Arrow setRangePosition={setRangePosition} setIsArrowChecked={setIsArrowChecked} isArrowChecked={isArrowChecked} />
-                    </div>
-                <Table actionsOfEmployees={props.newList} isArrowChecked={isArrowChecked}  numOfEmployees={props.actionsOfEmployees.length} setIsTrigerExist={props.setIsTrigerExist} dates={props.dates}/>
+                <div id="display">
+                    {display}
+                </div>
+                <Arrow setRangePosition={setRangePosition} setIsArrowChecked={setIsArrowChecked} isArrowChecked={isArrowChecked} />
+            </div>
+            <Contest actionsOfEmployees={props.actionsOfEmployees} setNewList={props.setNewList}/>
+            <Table setDisplay={setDisplay} actionsOfEmployees={props.newList} isArrowChecked={isArrowChecked}  numOfEmployees={props.actionsOfEmployees.length} setIsTrigerExist={props.setIsTrigerExist} dates={props.dates}/>
         </div>
 )
 } 

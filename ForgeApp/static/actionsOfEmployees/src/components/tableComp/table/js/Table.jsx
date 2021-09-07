@@ -10,13 +10,13 @@ import "../css/Table.css"
 
 export default function Table(props){
     
-    const[style , setStyle] = useState({position: 'relative', height: '', overflow: 'auto', top: ''});
+    const[style , setStyle] = useState({position: 'relative',width: '100%', height: '', overflow: 'auto', top: ''});
 
     useEffect(() => {
 
         setTimeout(() => {
 
-            const  size =  window.screen.height;
+            const size =  window.screen.height;
             const markerSize = document.getElementById('marker').clientHeight;
             
             setStyle(prev => ({
@@ -31,9 +31,9 @@ export default function Table(props){
         <div className="table">
                 <Head numOfEmployees={props.numOfEmployees} setIsTrigerExist={props.setIsTrigerExist} dates={props.dates}/>
                 <div id="table-scroll" style={style}>
-                    {props.actionsOfEmployees.map((user, index) => (
+                    {props.actionsOfEmployees.map((actionsOfEmployee, index) => (
                         
-                    <Body user={user} index={index}/>
+                    <Body setDisplay={props.setDisplay} actionsOfEmployee={actionsOfEmployee} index={index}/>
                 ))}
                 </div>
             </div>

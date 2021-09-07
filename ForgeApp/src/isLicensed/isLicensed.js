@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 dotenv.config();
 
-export function isLicenseActive(context) {
+export function isLicensed(context) {
     // Check for an environment variable that overrides the license state
     const override = process.env.LICENSE_OVERRIDE;
     if (typeof override !== 'undefined') {

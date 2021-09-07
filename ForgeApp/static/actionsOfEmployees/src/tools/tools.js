@@ -27,7 +27,7 @@ export default function defaultDates(){
     return dates;
 }
 
-export function correctFilter(listOfUsers, search){
+export function correctFilter(actionsOfEmployees, search){
 
     let searchLowCase = removeSpace(search.toLowerCase());
 
@@ -35,16 +35,15 @@ export function correctFilter(listOfUsers, search){
 
     let isfullNameExist = false;
     
-    listOfUsers.map(user => {
-
-        let userLowCase = removeSpace(user.accountName.toLowerCase());
+    actionsOfEmployees.map(actionsOfEmployee => {
+        let userLowCase = removeSpace(actionsOfEmployee.user.accountName.toLowerCase());
 
         if(isfullNameExist === true){
             return null;
         }
 
-        if(user.accountName === search && isfullNameExist === false){
-            exactNames.push(user);
+        if(actionsOfEmployee.user.accountName === search && isfullNameExist === false){
+            exactNames.push(actionsOfEmployee);
             isfullNameExist = true;
             return null;
         }
@@ -53,7 +52,7 @@ export function correctFilter(listOfUsers, search){
         let aboutContainer = '';
         let i = 0;
 
-        while(i !== user.accountName.length){
+        while(i !== actionsOfEmployee.user.accountName.length){
 
             let j = 0;
 
@@ -76,7 +75,7 @@ export function correctFilter(listOfUsers, search){
         }
 
         if(exactContainer.length === search.length){
-            exactNames.push(user);
+            exactNames.push(actionsOfEmployee);
         }
      
     });

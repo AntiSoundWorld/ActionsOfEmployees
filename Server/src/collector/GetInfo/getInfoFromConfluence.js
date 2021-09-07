@@ -16,7 +16,7 @@ export default async function GetInfoFromConfluence(jiraAccessId, accessToken, r
     return infoConfluence;
 }
 
-function getInfoFromResponse(contentInfo, rangeDates, countVar){
+export function getInfoFromResponse(contentInfo, rangeDates, countVar){
 
     const users = contentInfo.map(content => {
 
@@ -40,7 +40,7 @@ function getInfoFromResponse(contentInfo, rangeDates, countVar){
 }
 
 
-function getUserMacket(users, contentInfo, action ,countVar){
+export function getUserMacket(users, contentInfo, action ,countVar){
     
     const macketOfUsers = [];
 

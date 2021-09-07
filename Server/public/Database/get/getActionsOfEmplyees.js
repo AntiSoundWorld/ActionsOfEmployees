@@ -32,8 +32,7 @@ export default async function getActionsOfEmplyees(basicToken){
 
     datas.status == 200;
     datas.actions = res[0].actionsOfEmployees;
-
-    updateActionsOfEmployees(null, basicToken);
+    
 
     return datas;
 }

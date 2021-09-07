@@ -1,0 +1,37 @@
+.contest-btn{
+    position:relative;
+    width: 9%;
+    height: 20%;
+    border: none;
+    cursor: pointer;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    top: 1px;
+    left:1px;
+}
+
+.contest-btn:hover{
+    border-bottom: 1px;
+    box-shadow: 0px 0px 2px 0px;
+    z-index: 1;
+}
+
+.clicked{
+    box-shadow: 0px 0px 2px 0px;
+    z-index: 1;
+}
+.notClicked{
+
+}
+
+#btn-all{
+    background-color: greenyellow;
+}
+
+#btn-top{
+    background-color: yellow;
+}
+
+#btn-lazy{
+    background-color: brown;
+}

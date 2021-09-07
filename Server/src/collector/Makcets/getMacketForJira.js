@@ -23,7 +23,7 @@ export function jiraMacketProjectNameInfo(){
     return jiraInfoProject
 }
 
-export function jiraMacketProjectKeyInfo(){
+export function jiraMacketProjectKeyInfo(){z
     let prijectKeyInfo = []
 
     return prijectKeyInfo;

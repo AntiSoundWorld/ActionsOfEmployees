@@ -21,7 +21,7 @@ export function isAccountIdExistInList(listOfUsers, user){
 export function getUsers(macketOfUsers){
 
     let users = [];
-
+    
     macketOfUsers.map(macketOfUser => {
          if(isAccountIdExistInList(users, macketOfUser) === false){
 
@@ -131,11 +131,21 @@ function initializeMacketForRender(){
 function countActionJiraComments(user){
 
     let num = 0;
+    
+        user.projects.map(project => {
+            project.issues.map(issue => {
 
-    user.commentInfo.map(comment => {
-        num = num + comment.numOfComments;
-    });
+                let numOfCommentsIssue = 0;
 
+                issue.actions.map(action =>{
+                    
+                    num = num + action.numOfComments;
+                    numOfCommentsIssue++;
+                })
+                issue.numOfComments = numOfCommentsIssue;
+            })
+        });
+    
     return num;
 }
 
@@ -197,9 +207,8 @@ export function countActionsCommitsOrPullRequests(user, determinate){
                     typeOfAction = action.numCommentsOfCommits;
                 }
 
-                console.log(determinate)
                 if (determinate == 'commentsOfPullRequests') {
-                    
+                
                     typeOfAction = action.numCommentsOfPullRequests;
                 }
 

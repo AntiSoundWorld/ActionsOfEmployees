@@ -6,7 +6,6 @@ export default async function isBasicTokenExist(basicToken){
 
     const connect = connectDatebase();
 
-    console.log(basicToken);
     const queryString = `SELECT basicToken FROM users WHERE basicToken='${basicToken}'`;
     
     try{

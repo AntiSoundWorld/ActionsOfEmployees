@@ -13,38 +13,33 @@ import { getIdenticalAndUnIndenticalUsers, countActionsbyUser } from './Tools/to
 
 async function collectInformation(dates, basicToken){
 
-    try{
-             
-        const bitbcuketAccess = await getBitBucketAccessToken(basicToken);
+    updateActionsOfEmployees(null, basicToken);
+
+    const bitbcuketAccess = await getBitBucketAccessToken(basicToken);
+
+    const jiraAccess = await getJiraAccessToken(basicToken);
     
-        const jiraAccess = await getJiraAccessToken(basicToken);
-        
-        const jiraUrl = await getJiraUrl(basicToken);
+    const jiraUrl = await getJiraUrl(basicToken);
 
-        const accessId = await accessResourse(jiraAccess);
+    const accessId = await accessResourse(jiraAccess);
 
-        const confluenceAccess = await getConfluenceAccessToken(basicToken);
+    const confluenceAccess = await getConfluenceAccessToken(basicToken);
 
-        const infoBitBucket = await getInfoFromBitBucket(dates, bitbcuketAccess);
-        
-        const infoUsersJira = await getInfoFromJira(dates, jiraAccess, jiraUrl, accessId);
-        
-        const infoConfluence = await GetInfoFromConfluence(accessId, confluenceAccess, dates)
+    const infoBitBucket = await getInfoFromBitBucket(dates, bitbcuketAccess);
+    
+    const infoUsersJira = await getInfoFromJira(dates, jiraAccess, jiraUrl, accessId);
+    
+    const infoConfluence = await GetInfoFromConfluence(accessId, confluenceAccess, dates)
 
-        const actionsOfEmployees = initializeMacketForRender(infoUsersJira, infoBitBucket, infoConfluence);
-        
-        updateActionsOfEmployees(actionsOfEmployees, basicToken);
-    }
-    catch(err){
-        console.log(err);
-    }
-
+    const actionsOfEmployees = initializeMacketForRender(infoUsersJira, infoBitBucket, infoConfluence);
+    
+    updateActionsOfEmployees(actionsOfEmployees, basicToken);
 }
 
 function initializeMacketForRender(infoUsersJira, infoBitBucket, infoConfluence){
 
-    let usersComments = getIdenticalAndUnIndenticalUsers(infoUsersJira.users, infoUsersJira.comments);
-
+    let usersComments = getIdenticalAndUnIndenticalUsers(infoUsersJira.users, infoUsersJira.projects);
+  
     let usersCommits = getIdenticalAndUnIndenticalUsers(infoUsersJira.users, infoBitBucket.infoCommits);
 
     let usersPullRequests = getIdenticalAndUnIndenticalUsers(infoUsersJira.users, infoBitBucket.infoPullRequests);
@@ -66,25 +61,35 @@ function initializeMacketForRender(infoUsersJira, infoBitBucket, infoConfluence)
     
     infoUsersJira.users.map(user => {
 
-        let userMacket = getMacketForRender();
-        
-        userMacket.accountAvatar = user.user.accountAvatar;
-        userMacket.accountId = user.user.accountId;
-        userMacket.accountName = user.user.accountName;
+        user.datas = [];
 
+        let userMacket = getMacketForRender();
+      
         usersComments.existingUsers.map(currentUser => {
 
             if(user.user.accountId == currentUser.user.accountId){
 
-                userMacket.numOfComments = countActionsbyUser(currentUser, 'commentsJira');
+                const numOfComments = countActionsbyUser(currentUser, 'commentsJira');
+
+                userMacket.comments.numOfComments = numOfComments;
+                userMacket.comments.projects = currentUser.projects
+
+                userMacket.numOfActions = userMacket.numOfActions + numOfComments;
+                user.datas = userMacket;
             }
         });
 
         usersCommits.existingUsers.map(currentUser => {
 
             if(user.user.accountId === currentUser.user.accountId){
+                
+                const numOfCommits =  countActionsbyUser(currentUser, 'commits')
 
-                userMacket.numOfCommits = countActionsbyUser(currentUser, 'commits');
+                userMacket.commits.numOfCommits = numOfCommits;
+
+                userMacket.commits.workspaces = currentUser.workspaces
+
+                userMacket.numOfActions = userMacket.numOfActions + numOfCommits;
             }
         });
 
@@ -92,16 +97,30 @@ function initializeMacketForRender(infoUsersJira, infoBitBucket, infoConfluence)
 
             if(user.user.accountId === currentUser.user.accountId){
 
-                userMacket.numOfpullRequests = countActionsbyUser(currentUser, 'pullRequests');
-            }
+                const numOfpullRequests =  countActionsbyUser(currentUser, 'pullRequests');
 
+                userMacket.pullRequests.numOfpullRequests =numOfpullRequests
+
+                userMacket.pullRequests.workspaces = currentUser.workspaces;
+                
+                userMacket.numOfActions = userMacket.numOfActions + numOfpullRequests;
+
+                user.datas = userMacket;
+
+            }
         });
 
         usersCommentsOfCommits.existingUsers.map(currentUser => {
 
             if(user.user.accountId === currentUser.user.accountId){
 
-                userMacket.numCommentsOfCommits = countActionsbyUser(currentUser, 'commentsOfCommits');
+                const numCommentsOfCommits = countActionsbyUser(currentUser, 'commentsOfCommits');
+
+                userMacket.commentsOfCommits.numCommentsOfCommits = numCommentsOfCommits;
+
+                userMacket.commentsOfCommits.workspaces = currentUser.workspaces;
+
+                userMacket.numOfActions = userMacket.numOfActions + numCommentsOfCommits;
             }
 
         });
@@ -109,16 +128,30 @@ function initializeMacketForRender(infoUsersJira, infoBitBucket, infoConfluence)
         usersCommentsOfPullRequests.existingUsers.map(currentUser => {
             
             if(user.user.accountId === currentUser.user.accountId){
+                
+                const numCommentsOfPullRequests = countActionsbyUser(currentUser, 'commentsOfPullRequests');
 
-                userMacket.numCommentsOfPullRequests = countActionsbyUser(currentUser, 'commentsOfPullRequests');
+                userMacket.commentsOfPullRequests.numCommentsOfPullRequests = numCommentsOfPullRequests;
+
+                userMacket.commentsOfPullRequests.workspaces = currentUser.workspaces;
+
+                userMacket.numOfActions = userMacket.numOfActions + numCommentsOfPullRequests;
+
             }
         });
 
         usersEditPage.existingUsers.map(currentUser => {
             
             if(user.user.accountId === currentUser.user.accountId){
+                
+                const numOfEditsPages = countActionsbyUser(currentUser, 'editsPages');
 
-                userMacket.numOfEditsPages = countActionsbyUser(currentUser, 'editsPages');
+                userMacket.editsPages.numOfEditsPages =  numOfEditsPages;
+
+                userMacket.editsPages.spaces = currentUser.spaces;
+
+                userMacket.numOfActions = userMacket.numOfActions + numOfEditsPages;
+
             }
         });
 
@@ -126,15 +159,28 @@ function initializeMacketForRender(infoUsersJira, infoBitBucket, infoConfluence)
             
             if(user.user.accountId === currentUser.user.accountId){
 
-                userMacket.numOfCommentsPages = countActionsbyUser(currentUser, 'commentsPages');
+                const numOfCommentsPages = countActionsbyUser(currentUser, 'commentsPages');
+
+                userMacket.commentsPages.numOfCommentsPages = numOfCommentsPages;
+
+                userMacket.commentsPages.spaces = currentUser.spaces;
+
+                userMacket.numOfActions = userMacket.numOfActions + numOfCommentsPages;
             }
         });
 
         usersEditsBlogs.existingUsers.map(currentUser => {
             
             if(user.user.accountId === currentUser.user.accountId){
-            
-                userMacket.numOfEditsBlogPosts = countActionsbyUser(currentUser, 'editsBlogs');
+
+                const numOfEditsBlogPosts = countActionsbyUser(currentUser, 'editsBlogs');
+                
+                userMacket.editsBlogPosts.numOfEditsBlogPosts = numOfEditsBlogPosts;
+
+                userMacket.editsBlogPosts.spaces = currentUser.spaces;
+
+                userMacket.numOfActions = userMacket.numOfActions + numOfEditsBlogPosts;
+
             }
         });
                 
@@ -142,12 +188,18 @@ function initializeMacketForRender(infoUsersJira, infoBitBucket, infoConfluence)
 
             if(user.user.accountId === currentUser.user.accountId){
 
-                userMacket.numOfCommentsBlogPosts = countActionsbyUser(currentUser, 'commentsBlogs');
-            }
+                const numOfCommentsBlogPosts = countActionsbyUser(currentUser, 'commentsBlogs');
 
+                userMacket.commentsBlogPosts.numOfCommentsBlogPosts = numOfCommentsBlogPosts;
+
+                userMacket.commentsBlogPosts.spaces = currentUser.spaces;
+
+                userMacket.numOfActions = userMacket.numOfActions + numOfCommentsBlogPosts;
+            }
         });
 
-        macketForRender.push(JSON.parse(JSON.stringify(userMacket)));
+        user.datas = userMacket;
+        macketForRender.push(JSON.parse(JSON.stringify(user)));
     });
 
     return macketForRender;

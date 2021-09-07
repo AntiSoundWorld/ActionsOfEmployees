@@ -9,8 +9,11 @@ export default function Arrow(props){
         props.setRangePosition(prev =>{
             
             if(props.isArrowChecked === false){
+
                 props.setIsArrowChecked(true)
-                setArrowClass("arrow down")
+                
+                setArrowClass("arrow down");
+
                 return {
                     display: 'inline-flex',
                     height: '30px'
@@ -18,6 +21,7 @@ export default function Arrow(props){
             }
             else{
                 props.setIsArrowChecked(false)
+
                 setArrowClass("arrow up")
 
                 return {
@@ -27,7 +31,7 @@ export default function Arrow(props){
             }
         })
 
-        console.log(document.getElementById('table-scroll').clientHeight)
+        // console.log(document.getElementById('table-scroll').clientHeight)
     }
     return (
             <label id="arrow-label"><i class={arrowClass}></i>

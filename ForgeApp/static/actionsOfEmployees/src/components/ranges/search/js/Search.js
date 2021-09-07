@@ -8,6 +8,7 @@ export default function Search(props){
     function onChange(event){
         
         let newList = correctFilter(props.actionsOfEmployees, event.target.value);
+        console.log(newList)
         props.setNewList(newList);
     }
 

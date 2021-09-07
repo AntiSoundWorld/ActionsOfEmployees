@@ -25,8 +25,6 @@ export default function UpdateDatas(props){
     }
     
     return (
-
-          
         <button id='updateDatas' onClick={Update}><img id="update-image" src={updateImage}/></button>
     )
 }

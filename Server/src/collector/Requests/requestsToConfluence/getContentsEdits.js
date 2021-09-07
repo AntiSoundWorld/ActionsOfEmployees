@@ -5,7 +5,6 @@ export async function getContentsEdits(accessId, accessToken, type){
     if(type.id === "trashed"){
        return [];
     }
-// console.log('==========================================================',id,'==========================================================')
     let url = `https://api.atlassian.com/ex/confluence/${accessId}/rest/api/content/${type.id}/version?status=any`;
 
     const res = await fetch(url, {

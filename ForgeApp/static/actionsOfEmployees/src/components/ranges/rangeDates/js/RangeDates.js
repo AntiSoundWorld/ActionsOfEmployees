@@ -22,7 +22,7 @@ export default function RangeDates(props){
     }
 
     return (
-        <form id='RangeDates' style={props.rangePosition}onSubmit={OnSubmitRange}>
+        <form id='RangeDates' style={props.rangePosition} onSubmit={OnSubmitRange}>
             <input id="start" type='date' name="start" label="Start Date" defaultValue={props.dates.start}/>
             <p></p>
             <input id="end" type='date' name="end" label="End Date" defaultValue={props.dates.end} />
@@ -30,14 +30,4 @@ export default function RangeDates(props){
             <button id='range-button'>range</button>
         </form>
     )
-}
-
-function HideBodyTable(){
-
-    let bodyTable = document.querySelectorAll('.body');
-
-    bodyTable[0].classList.add("hide");
-    bodyTable[1].classList.add("hide");
-    bodyTable[2].classList.add("hide");
-    bodyTable[3].classList.add("hide");
 }

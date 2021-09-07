@@ -4,10 +4,7 @@ export default async function getDatasComments(accessToken, key, accessId){
 
     let status = 404;
 
-    let projectInfo = {
-        projectName: key,
-        datas: []
-    }
+    let issues = []
     
     let i = 1;
 
@@ -22,22 +19,19 @@ export default async function getDatasComments(accessToken, key, accessId){
         });
 
         const data = await res.json();
-
-
-        if(res.status == status) {
+        if(res.status === status) {
             break;
         }
 
-        let info = {
+        let issue = {
             projectKey: key + '-' + i,
-            datas: data
+            comments: data.comments
         }
         
-        projectInfo.datas.push(info);
+        issues.push(issue);
         
         i++;
-
     }
 
-    return projectInfo;
+    return issues;
 }

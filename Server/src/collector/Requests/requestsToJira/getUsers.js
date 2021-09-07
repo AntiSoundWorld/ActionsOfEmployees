@@ -16,7 +16,6 @@ export default async function getUsers(accessToken, key, accessId){
     });
 
     const data = await res.json();
-
     usersInfo.datas = data;
 
     return usersInfo;

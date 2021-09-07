@@ -7,19 +7,30 @@
   height: 40px;
   top: 0;
   display: grid;
-  grid-template-columns:3% 5% 15% repeat(9, 1fr) 3%;
+  grid-template-columns:3% 5% 15% repeat(9, 1fr) calc(3% - 17px);
   text-align: center;
   vertical-align: middle;
   justify-content: center;
   border-radius: 5px;
   margin-bottom: 10px;
-  
+}
+
+.body-btn{
+  display:none
 }
 
 .wrapper{
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.numComments:hover, .numCommits:hover, .numCommentsOfCommits:hover,
+.numpullRequests:hover, 
+.numCommentsOfPullRequests:hover, .numEditsOfPage:hover, .numCommentsOfPages:hover, .numEditsOfBlogs:hover,
+.numCommentsOfBlogs:hover{
+  box-shadow: 0px 0px 2px 0px;
+  /* cursor: pointer; */
 }
 
 @keyframes move{

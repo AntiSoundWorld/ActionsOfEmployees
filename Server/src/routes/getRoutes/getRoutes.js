@@ -11,9 +11,7 @@ import authorizationOnBitbucket from "../../authorizationsAtlassian/authorizatio
 import authorizationOnJira from "../../authorizationsAtlassian/authorizationOnJira.js";
 
 import isBasicTokenExist from "../../../public/Database/isExist/isAccountExist.js";
-import collectInformation from "../../collector/GetInfo/collectInformation.js";
 import dotenv from 'dotenv';
-import updateActionsOfEmployees from '../../../public/Database/set/updateActionsOfEmployees.js'
 import getActionsOfEmplyees from "../../../public/Database/get/getActionsOfEmplyees.js";
 import getDomen from "../../../public/Database/get/getDomen.js";
 import isContentExist from "../../../public/Database/isExist/isActionsOfEmployeesExist.js";
@@ -161,6 +159,7 @@ export default function getRoutes(app){
         }
 
         response.json(data.actions);
+
     })
     
     app.get('/is_content_exist', async ({headers: {authorization}}, response) => {

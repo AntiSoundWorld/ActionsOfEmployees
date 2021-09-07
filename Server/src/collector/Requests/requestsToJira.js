@@ -5,19 +5,20 @@ import getDatasComments from './requestsToJira/getDatasComments.js';
 
 export async function requestsToJira(accessToken, jiraUrl, accessId) {
 
-    let createmeta = await getCreatemeta(accessToken, accessId); // createmeta.projects
+    let projects = await getCreatemeta(accessToken, accessId); // createmeta.projects
 
+
+    await Promise.all(projects.map(async project => {
+
+        project.issues = await getDatasComments(accessToken, project.key, accessId);
+    }))
     const jiraResponses = {
-
-        users: await Promise.all(createmeta.projects.map(project => {
-
+        
+        users: await Promise.all(projects.map(project => {
             return getUsers(accessToken, project.key, accessId);
         })),
 
-        comments: await Promise.all(createmeta.projects.map(project => {
-
-            return getDatasComments(accessToken, project.key, accessId);
-        }))
+        projects
     }
     
     return jiraResponses;

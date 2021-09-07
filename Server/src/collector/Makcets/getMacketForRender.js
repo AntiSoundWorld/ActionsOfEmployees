@@ -2,20 +2,44 @@
 export default function getMacketForRender() {
 
     let info = {
-        accountAvatar: null,
-        accountName: null,
-        numOfComments: 0,
-        numOfCommits: 0,
-        numOfpullRequests: 0,
-        numCommentsOfPullRequests: 0,
-        numCommentsOfCommits: 0,
-        numOfCommentsPages: 0,
-        numOfCommentsBlogPosts: 0,
-        numOfEditsBlogPosts: 0,
-        numOfEditsPages: 0
+        numOfActions: 0,
+        comments:{
+            numOfComments: 0,
+            projects: []
+        },
+        commits: {
+            numOfCommits: 0,
+            workspaces: []
+        },
+        pullRequests: {
+            numOfPullRequests: 0,
+            workspaces: []
+        },
+        commentsOfPullRequests: {
+            numCommentsOfPullRequests: 0,
+            workspaces: []
+        },
+        commentsOfCommits: {
+            numCommentsOfCommits: 0,
+            workspaces: []
+        },
+        commentsPages:{
+            numOfCommentsPages: 0,
+            spaces: []
+        }  ,
+        commentsBlogPosts:{
+            numOfCommentsBlogPosts: 0,
+            spaces: []
+        },
+        editsBlogPosts: {
+            numOfEditsBlogPosts: 0,
+            spaces: []
+        },
+        editsPages: {
+            numOfEditsPages: 0,
+            spaces: []
+        }
     }
 
     return info;
 }
-
-
